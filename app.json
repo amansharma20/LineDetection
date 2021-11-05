@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "LineDetection",
+    "slug": "LineDetection",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "LineDetection"
+}
