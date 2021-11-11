@@ -7,7 +7,6 @@ import { icons } from '../Constants/Index';
 
 export default function DummyImageScreen(props) {
     const navigation = useNavigation();
-    //   console.log(props.route.params.base64)
     console.log(props)
 
     const imageData = props.route.params.base64;
@@ -15,8 +14,7 @@ export default function DummyImageScreen(props) {
     return (
         <View style={styles.container}>
             <Image style={{ width: 300, height: 300, resizeMode: 'contain' }}
-                source={{uri: `data:image/jpeg;base64,${imageData}`}}
-            />
+                source={{ uri: `data:image/jpeg;base64,${imageData}` }} />
         </View>
     );
 }

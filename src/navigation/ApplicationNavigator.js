@@ -6,7 +6,6 @@ import React, { useEffect, useMemo, useReducer, useState } from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { applicationProperties } from '../application.properties';
 
-import * as Keychain from 'react-native-keychain';
 import * as SecureStore from 'expo-secure-store';
 
 import AuthNavigator from './AuthNavigator';

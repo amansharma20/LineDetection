@@ -5,6 +5,7 @@ import images from '../Constants/Images';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { icons } from '../Constants/Index';
 import { FONTS, } from '../Constants/Theme';
+
 const AddPopup = ({ visible, children }) => {
     const [showModal, setShowModal] = React.useState(visible);
     const scalevalue = React.useRef(new Animated.Value(0)).current;
@@ -29,33 +30,45 @@ const AddPopup = ({ visible, children }) => {
 };
 const screenHeight = Dimensions.get('window').height;
 
-export default function ResultSymptoms() {
+export default function ResultSymptoms(props) {
 
     const [visible, setVisible] = React.useState(false);
 
     const navigation = useNavigation();
 
+    const imageData = props.route.params.resultData.base64.base64;
+    const result = props.route.params.resultData.result;
+
+    console.log(imageData);
 
     return (
         <View style={styles.MainContainer}>
 
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
-                   
-                    <Image source={images.headerlogo} style={{ width: 95, height: 53, justifyContent:'center', alignItems:'center' }} />
-                   
+
+                    <Image source={images.headerlogo} style={{ width: 95, height: 53, justifyContent: 'center', alignItems: 'center' }} />
+
                 </View>
 
-                <View style={{ backgroundColor: 'white', margin: 20, elevation: 5, padding: 20, flex: 1, paddingTop:40 }}>
+                <View style={{ backgroundColor: 'white', margin: 20, elevation: 5, padding: 20, flex: 1, paddingTop: 40 }}>
 
 
                     <View style={styles.inputs}>
 
-                        <Text style={{ fontSize: 25, textAlign: 'center', justifyContent: 'center', paddingTop: 70, fontFamily: FONTS.AvenirBlack, fontWeight: 'normal', }}>Result</Text>
+                        <Text style={{ fontSize: 25, textAlign: 'center', justifyContent: 'center', paddingTop: 2, fontFamily: FONTS.AvenirBlack, fontWeight: 'normal', }}>Result</Text>
 
                         <Text style={{ fontSize: 30, textAlign: 'center', justifyContent: 'center', color: '#CF0A2C', fontWeight: 'bold', fontFamily: FONTS.AvenirBlack }}>Sickle Cell Trait</Text>
 
-                        <Text style={{ fontSize: 10, padding: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'normal', fontFamily: FONTS.AvenirBlack, paddingTop: 200 }}>Is the result displayed on the test same as displayed on the screen? If No, then</Text>
+                        <Image style={{ width: '100%', height: 300, resizeMode: 'contain', alignSelf: 'center', paddingVertical: 20 }}
+                            source={{ uri: `data:image/jpeg;base64,${imageData}` }} />
+
+
+                        <Text style={{ fontSize: 24, padding: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'normal', fontFamily: FONTS.AvenirBlack, paddingTop: 20 }}>{result}</Text>
+
+                        <Text style={{ fontSize: 10, padding: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'normal', fontFamily: FONTS.AvenirBlack, paddingTop: 20 }}>Is the result displayed on the test same as displayed on the screen? If No, then</Text>
+
+
 
                         <AddPopup visible={visible}>
                             <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
@@ -116,7 +129,7 @@ export default function ResultSymptoms() {
                                             textDecorationLine: "none", fontSize: 14, fontFamily: FONTS.AvenirBlack
                                         }}
                                     />
-                                     <BouncyCheckbox
+                                    <BouncyCheckbox
                                         size={20}
                                         style={styles.checkboxStyle}
                                         fillColor="#101E8E"
@@ -128,7 +141,7 @@ export default function ResultSymptoms() {
                                         }}
                                         onPress={() => navigation.navigate('Home')}
                                     />
-                                    </View>
+                                </View>
                                 <TouchableOpacity
                                     onPress={() => setVisible(false)}
                                     style={{ flex: 1 }}>
@@ -150,10 +163,10 @@ export default function ResultSymptoms() {
                             </View>
                         </AddPopup>
 
-                        <TouchableOpacity onPress={() => setVisible(true)}>
+                        <TouchableOpacity onPress={() => navigation.navigate('ManualResultScreen')}>
                             <Text style={{ fontSize: 14, padding: 10, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#222D81', fontFamily: FONTS.AvenirBlack }}>ADD MANUALLY</Text>
                         </TouchableOpacity>
-                        
+
 
 
 
@@ -182,7 +195,7 @@ export default function ResultSymptoms() {
 }
 const styles = StyleSheet.create({
     header: {
-        flex: 1, flexDirection: 'row', justifyContent: 'center', padding: 5, paddingBottom:60
+        flex: 1, flexDirection: 'row', justifyContent: 'center', padding: 5, paddingVertical: 20
     },
     checkboxStyle: {
         paddingVertical: 5

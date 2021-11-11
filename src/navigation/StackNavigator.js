@@ -2,10 +2,6 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
-import RegisterScreen from '../screens/RegisterScreen';
-import RegistrationScreen from '../screens/RegistrationScreen';
-import LoginScreen from '../screens/LoginScreen';
-import WelcomeScreen from '../screens/WelcomeScreen';
 import PatientDetails from '../screens/patientdetails/PatientDetails';
 import AddressDetails from '../screens/patientdetails/AddressDetails';
 import CriteriaScreen from '../screens/CriteriaScreen';
@@ -32,6 +28,7 @@ import ResetPassword from '../screens/ResetPassword';
 import NewPassword from '../screens/NewPassword';
 import OTPScreen from '../screens/OTPScreen';
 import DummyImageScreen from '../screens/DummyImageScreen';
+import ManualResultScreen from '../screens/ManualResultScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,8 +40,8 @@ export default function StackNavigator() {
       }}>
 
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="ResultInstruction" component={ResultInstruction} />
       <Stack.Screen name="Cassette" component={CassetteScan} />
+      <Stack.Screen name="ResultInstruction" component={ResultInstruction} />
       <Stack.Screen name="DummyImageScreen" component={DummyImageScreen} />
       <Stack.Screen name="Reset" component={ResetPassword} />
       <Stack.Screen name="Criteria" component={CriteriaScreen} />
@@ -62,6 +59,7 @@ export default function StackNavigator() {
       <Stack.Screen name="Help" component={HelpScreen} />
       <Stack.Screen name="SearchPatient" component={SearchPatient} />
       <Stack.Screen name="SearchResult" component={SearchResult} />
+      <Stack.Screen name="ManualResultScreen" component={ManualResultScreen} />
       <Stack.Screen name="Report" component={PatientReport} />
       <Stack.Screen name="Summary" component={TestSummary} />
       <Stack.Screen name="Profile" component={Profile} />

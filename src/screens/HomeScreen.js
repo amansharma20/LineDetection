@@ -202,7 +202,7 @@ export default function HomeScreen() {
                     style={{
                         alignItems: 'center',
                         justifyContent: 'center',
-                        marginTop: 80,
+                        marginTop: 40,
                     }}>
                     <View style={styles.inputView}>
                         <Image source={icons.newtesticon} style={{ width: 36, height: 36 }} />

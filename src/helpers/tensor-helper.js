@@ -43,7 +43,7 @@ export const convertBase64ToTensor = async (base64) => {
       TENSORFLOW_CHANNEL,
     ]);
   } catch (error) {
-    console.log('Could not convert base64 string to tesor', error);
+    console.log('Could not convert base64 string to tensor', error);
   }
 };
 

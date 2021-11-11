@@ -80,7 +80,10 @@ export default function CassetteScan() {
         console.log(highestPrediction);
         console.log('highestPrediction');
         setPresentedShape(RESULT_MAPPING[highestPrediction]);
-        navigation.navigate('DummyImageScreen', croppedData)
+        // navigation.navigate('Result', (RESULT_MAPPING[highestPrediction] || croppedData) )
+        navigation.navigate('Result', {
+            resultData: {base64: croppedData, result: RESULT_MAPPING[highestPrediction]}
+        } )
     };
 
     return (

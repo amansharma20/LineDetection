@@ -48,8 +48,8 @@ export default function LoginScreen() {
           <Text style={{ fontSize: 14, paddingVertical: 50, paddingBottom: 0, fontWeight: '400', fontFamily: FONTS.AvenirRoman }}>Username</Text>
           <Formik
             initialValues={{
-              Username: '',
-              Password: '',
+              Username: 'teena@webority.com',
+              Password: '1234567',
             }}
             onSubmit={values => login(values)}>
             {({ handleSubmit, handleBlur, handleChange, values }) => (
