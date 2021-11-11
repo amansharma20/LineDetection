@@ -3,7 +3,7 @@ import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-react-native';
 import {bundleResourceIO, decodeJpeg} from '@tensorflow/tfjs-react-native';
 
-import {Base64Binary} from '../utils/utils';
+import {Base64Binary} from '../utils';
 const BITMAP_DIMENSION = 224;
 
 const modelJson = require('../model/model.json');
