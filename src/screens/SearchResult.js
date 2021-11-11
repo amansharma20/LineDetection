@@ -1,14 +1,46 @@
+import { useQuery } from '@apollo/client';
 import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView } from 'react-native';
 import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
+import { GQLQuery } from '../persistance/query/GQLQuery';
 const screenHeight = Dimensions.get('window').height;
 
-export default function SearchResult() {
+export default function SearchResult(props) {
 
+    const Record = props.route.params.PatientRecord
+
+    console.log(Record)
     const navigation = useNavigation();
+
+
+    // const [loading, error, data] = useQuery(GQLQuery.SEARCH_SICKLE_TEST_RECORD, {
+    //     variables: {
+    //         PatientId: Record.Id,
+    //     }
+    // });
+
+ 
+
+    const { loading, data, error } = useQuery(GQLQuery.SEARCH_SICKLE_TEST_RECORD, {
+        variables: {
+            PatientId: Record.UniqueId
+        },
+      });
+    
+
+         console.log('data')
+         console.log(data)
+         console.log('data')
+    console.log(error)
+
+    // const PatientRecord = data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch;
+    // if (data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch) {
+    //     navigation.navigate('SearchResult', {
+    //         PatientRecord: PatientRecord
+    //     })
 
 
     return (
@@ -33,29 +65,25 @@ export default function SearchResult() {
                     <Image source={images.profile} style={{ width: 55, height: 55, borderRadius: 100, borderColor: '#CF0A2C', }} />
                 </View>
                 <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 20, fontFamily: FONTS.AvenirBlack }}>
-                     Details
+                    Details
                 </Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom: 0 }}>
+                    <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>Full Name</Text>
+                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record.FullName}</Text></View>
 
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom:0 }}>
-                        <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>Full Name</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>Raj Kumar</Text></View>
-
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom:0 }}>
-                        <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>Date of Birth</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>12/12/1990</Text></View>
-
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom:0 }}>
-                        <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>ID (Guardian Aadhaar)</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>12345662366</Text></View>
-
-        
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom: 0 }}>
+                    <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>Date of Birth</Text>
+                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record.DateOfBirth}</Text></View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom: 0 }}>
+                    <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>ID (Guardian Aadhaar)</Text>
+                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record.UniqueId}</Text></View>
                 <View style={{
                     backgroundColor: 'white', marginHorizontal: 40, marginVertical: 30, elevation: 5, padding: 40, borderBottomColor: '#CF0A2C',
                     borderRightColor: 'transparent',
                     borderTopColor: 'transparent',
                     borderLeftColor: 'transparent',
                     borderWidth: 5,
-                    
+
                 }}>
 
                     <TouchableOpacity
@@ -81,7 +109,7 @@ export default function SearchResult() {
                 </View>
 
                 <View style={{
-                    backgroundColor: 'white', marginHorizontal: 40,marginVertical: 30, elevation: 5, padding: 40, borderBottomColor: '#CF0A2C',
+                    backgroundColor: 'white', marginHorizontal: 40, marginVertical: 30, elevation: 5, padding: 40, borderBottomColor: '#CF0A2C',
                     borderRightColor: 'transparent',
                     borderTopColor: 'transparent',
                     borderLeftColor: 'transparent',

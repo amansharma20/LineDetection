@@ -2,7 +2,7 @@
 import { gql } from '@apollo/client';
 
 export const GQLQuery = {
-    GET_PROFILE: gql`
+  GET_PROFILE: gql`
     query MyQuery {
         HealthWorkerUserQuery {
         GetHealthWorkerUserDetails {
@@ -26,7 +26,26 @@ export const GQLQuery = {
         }
         }
         }
-  `
+  `,
+  SEARCH_PATIENT_RECORD: gql`
+      query MyQuery ($AadharNumber: String!, $UniqueId: String!){
+          SearchPatientQuery {
+            GetPatientBySearch(AadharNumber: $AadharNumber, UniqueId: $UniqueId) {
+              Id
+              FullName
+              DateOfBirth
+              UniqueId
+            }
+          }
+        }`,
+  SEARCH_SICKLE_TEST_RECORD: gql`
+  query MyQuery($PatientId: Long!) {
+      PatientTestReportQuery {
+        GetPatientTestStatus(PatientId: $PatientId){
+          Id
+        }
+      }
+    }`
 };
 
 

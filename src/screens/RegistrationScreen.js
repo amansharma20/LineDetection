@@ -308,7 +308,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   body: {
-    flex: 1, justifyContent: 'center', alignItems: 'center', paddingBottom: 20
+    flex: 1,
+     justifyContent: 'center', 
+     alignItems: 'center', 
+     paddingBottom: 20
   },
   focus: {
     borderColor: '#101E8E'

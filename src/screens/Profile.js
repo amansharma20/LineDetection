@@ -15,9 +15,10 @@ export default function Profile() {
     const { signOut } = useContext(AuthContext);
     const navigation = useNavigation();
 
-    const { data } = useQuery(GQLQuery.GET_PROFILE);
+    const { data ,error} = useQuery(GQLQuery.GET_PROFILE);
     const HealthWorkerProfileData = data && data.HealthWorkerUserQuery && data.HealthWorkerUserQuery.GetHealthWorkerUserDetails;
 
+ 
     return (
         <View style={styles.MainContainer}>
 
@@ -42,7 +43,7 @@ export default function Profile() {
                         <Image source={images.profile} style={{ width: 100, height: 100, borderRadius: 100, borderColor: '#CF0A2C', alignItems: 'center', justifyContent: 'center', resizeMode: 'center' }} />
                     </View>
                     <Text style={{ fontSize: 24, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingTop: 50 }}>
-                        {HealthWorkerProfileData && HealthWorkerProfileData.ApplicationUser.Email}
+                    {HealthWorkerProfileData && HealthWorkerProfileData.FirstName} {HealthWorkerProfileData && HealthWorkerProfileData.LastName}
                     </Text>
                     <Text style={{ fontSize: 14, opacity: 0.5, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#474747', fontFamily: FONTS.AvenirBlack }}>
                         {HealthWorkerProfileData && HealthWorkerProfileData.ApplicationUser.Email}
