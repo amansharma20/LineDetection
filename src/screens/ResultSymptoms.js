@@ -5,6 +5,7 @@ import images from '../Constants/Images';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { icons } from '../Constants/Index';
 import { FONTS, } from '../Constants/Theme';
+import CommonBottomButton from '../CommonBottomButton';
 
 const AddPopup = ({ visible, children }) => {
     const [showModal, setShowModal] = React.useState(visible);
@@ -164,7 +165,7 @@ export default function ResultSymptoms(props) {
                         </AddPopup>
 
                         <TouchableOpacity onPress={() => navigation.navigate('ManualResultScreen')}>
-                            <Text style={{ fontSize: 14, padding: 10, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#222D81', fontFamily: FONTS.AvenirBlack }}>ADD MANUALLY</Text>
+                            <Text style={{ fontSize: 18, padding: 10, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#222D81', fontFamily: FONTS.AvenirBlack }}>SELECT RESULT</Text>
                         </TouchableOpacity>
 
 
@@ -173,9 +174,10 @@ export default function ResultSymptoms(props) {
                     </View>
 
                 </View>
-                <View>
+                {/* <View>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Summary')}>
+                        onPress={() => navigation.navigate('Summary')}
+                    >
                         <View style={styles.buttonContainer}>
                             <Text
                                 style={{
@@ -188,8 +190,11 @@ export default function ResultSymptoms(props) {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                </View>
+                </View> */}
             </ScrollView>
+            <CommonBottomButton
+                onPress={() => navigation.navigate('Summary')}
+                children={'FINISH TEST'} />
         </View>
     );
 }
@@ -226,7 +231,6 @@ const styles = StyleSheet.create({
     },
     MainContainer: {
         justifyContent: 'center',
-        padding: 20,
         flex: 1,
         backgroundColor: 'white'
     }

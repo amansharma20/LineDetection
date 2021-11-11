@@ -11,6 +11,8 @@ import { SIZES, FONTS } from '../../Constants/Theme';
 import BouncyCheckboxGroup, {
     ICheckboxButton,
 } from 'react-native-bouncy-checkbox-group';
+import * as yup from 'yup';
+import { Formik } from 'formik';
 import CommonBottomButton from '../../CommonBottomButton';
 const screenHeight = Dimensions.get('window').height;
 
@@ -97,6 +99,31 @@ export default function PatientDetails() {
     const [date, setDate] = useState(new Date());
     const [showModal, setShowModal] = useState(false);
 
+
+    const patientSchema = yup.object().shape({
+        firstName: yup
+            .string()
+            .required('First name is required'),
+        lastName: yup
+            .string()
+            .required('Last name is required'),
+        mobile: yup
+            .string()
+
+            .required('Mobile number is required'),
+        email: yup
+            .string()
+
+            .required('Email is required'),
+        password: yup
+            .string()
+
+            .required('Password is required'),
+        confirmPassword: yup
+            .string()
+            .required('Confirm Password is required'),
+    });
+
     const IDPopup = ({ visible, children }) => {
         const [showModal, setShowModal] = React.useState(visible);
         const scalevalue = React.useRef(new Animated.Value(0)).current;
@@ -126,12 +153,17 @@ export default function PatientDetails() {
     //     // console.log(formattedDate);
     //     return formattedDate;
     // };
-    return (
-        <View style={styles.mainContainer}>
 
-            <ScrollView contentContainerStyle={{
-                paddingHorizontal: 20
-            }} showsVerticalScrollIndicator={false}>
+
+    const submitDetails = (value) => {
+        console.log(value);
+    }
+
+
+    return (
+        <View style={styles.MainContainer}>
+
+            <ScrollView style={{paddingHorizontal: 20}} showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
                     <TouchableOpacity
                         onPress={() => navigation.goBack()}
@@ -141,205 +173,203 @@ export default function PatientDetails() {
                         }}>
                         <View
                             style={styles.header}>
-
-                            <Image source={icons.backarrow} style={{ width: 25, height: 25, resizeMode: 'contain' }} />
+                            <Image source={icons.backarrow} style={{ width: 25, height: 25, }} />
                         </View></TouchableOpacity>
                     <Image source={images.headerlogo} style={{ width: 95, height: 53, }} />
-                    <View>
 
-                    </View>
                 </View>
 
                 <View style={{ backgroundColor: 'white', margin: 5, elevation: 5, padding: 10, paddingBottom: 80, flex: 1 }}>
-
-
                     <Text style={{
                         fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', paddingTop: 20
                         // fontFamily: FONTS.AvenirBlack
                     }}>
                         Enter Details(1/2)
                     </Text>
-                    <View style={styles.inputs}>
-                        <Text style={styles.textFieldLabel}>Full Name</Text>
-                        <TextInput
-                            style={styles.textInput}
-                            keyboardType='default'
-                            placeholderTextColor='#B4B4B4'
-                            placeholder='Enter full name'
-                            maxLength={20} />
-                        <Text style={styles.textFieldLabel}>Date of Birth</Text>
-                        <View >
-                            <TouchableOpacity onPress={() => setShowModal(true)}>
+                    <Formik
+                        validationSchema={patientSchema}
+                        initialValues={{
+                            firstName: '',
 
-                                <DatePicker
-                                    date={date}
-                                    onDateChange={setDate}
-                                    mode="date"
-                                    style={styles.datePicker}
-                                />
-                                {/* <Text style={styles.dobText}>{formatedDate(date)}</Text> */}
-
-                            </TouchableOpacity></View>
-                        <Text style={styles.textFieldLabel}>Mobile Number </Text>
-                        <TextInput
-                            style={styles.textInput}
-                            keyboardType='default'
-                            placeholderTextColor='#B4B4B4'
-                            placeholder='Enter mobile number'
-                            maxLength={20} />
-
-                        <Text style={styles.textFieldLabel}>Email ID </Text>
-                        <TextInput
-                            style={styles.textInput}
-                            keyboardType='default'
-                            placeholderTextColor='#B4B4B4'
-                            placeholder='Enter Email ID'
-                            maxLength={20} />
-                        <Text style={styles.textFieldLabel}>Gender</Text>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <BouncyCheckboxGroup
-                                data={staticData}
-                                // onPress={() => setVisible(true)}
-                                onChange={(selectedItem: ICheckboxButton,) => {
-                                    console.log('SelectedItem: ', JSON.stringify(selectedItem));
-
-                                }}
-
-                            />
-                        </View>
-                        <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Aadhaar ID Available</Text>
-                        <View style={{ flexDirection: 'row' }}>
-                            <BouncyCheckboxGroup
-                                data={aadhaarcheckboxData}
-                                // onPress={() => setVisible(true)}
-                                onChange={(selectedItem: ICheckboxButton,) => {
-                                    console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                                    if (selectedItem.id === 0) {
-                                        setShowAadharOptions(false)
-                                    }
-                                    else {
-                                        setShowAadharOptions(!showAadharOptions)
-                                    }
-
-
-                                }}
-
-                            />
-                            {/* <BouncyCheckbox
-                                size={18}
-                                fillColor="#101E8E"
-                                unfillColor="#FFFFFF"
-                                text="Yes"
-                                iconStyle={{ borderColor: "#101E8E" }}
-                                textStyle={{
-                                    textDecorationLine: "none",
-                                    // fontFamily: FONTS.AvenirRoman
-                                }}
-                                onPress={() => setShowAadharOptions(false)}
-                            /> */}
-                            {/* <BouncyCheckbox
-                                size={18}
-                                fillColor="#101E8E"
-                                unfillColor="#FFFFFF"
-                                text="No"
-                                onPress={() => setShowAadharOptions(!showAadharOptions)}
-                                iconStyle={{ borderColor: "#101E8E" }}
-                                textStyle={{
-                                    textDecorationLine: "none",
-                                    // fontFamily: FONTS.AvenirRoman
-                                }}
-                                style={{ marginLeft: 30 }}
-                            /> */}
-                        </View>
-
-                        {
-                            showAadharOptions === false ?
-                                <>
-                                    <View>
-
-                                        <Text style={styles.textFieldLabel}>Aadhaar  Number </Text>
-                                        <TextInput
-                                            style={styles.textInput}
-                                            keyboardType='default'
-                                            placeholderTextColor='#B4B4B4'
-                                            placeholder='Enter  adhaar number'
-                                            maxLength={20} />
-                                    </View>
-
-                                </>
-                                :
-                                <>
-                                    <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Guardian's Aadhaar Available?</Text>
-                                    <View style={{ flexDirection: 'row' }}>
-
-                                        <BouncyCheckboxGroup
-                                            data={IDPopupData}
-                                            // onPress={() => setVisible(true)}
-                                            onChange={(selectedItem: ICheckboxButton,) => {
-                                                console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                                                if (selectedItem.id === 1) {
-                                                    setVisible(true)
-                                                }
-                                            }}
-
-                                        />
-                                    </View>
-
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <Text style={styles.textFieldLabel}>Guardian Aadhaar No.</Text>
-                                    </View>
+                        }}
+                        onSubmit={values => submitDetails(values)}>
+                        {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
+                            <>
+                                <View style={styles.inputs}>
+                                    <Text style={styles.textFieldLabel}>Full Name</Text>
                                     <TextInput
                                         style={styles.textInput}
                                         keyboardType='default'
                                         placeholderTextColor='#B4B4B4'
-                                        placeholder='1234 5678 4321'
-                                        maxLength={12} />
-                                    <View>
+                                        placeholder='Enter full name'
+                                        maxLength={20} />
+                                    <Text style={styles.textFieldLabel}>Date of Birth</Text>
+                                    <View >
+                                        <TouchableOpacity onPress={() => setShowModal(true)}>
 
+                                            <DatePicker
+                                                date={date}
+                                                onDateChange={setDate}
+                                                mode="date"
+                                                style={styles.datePicker}
+                                            />
+                                            {/* <Text style={styles.dobText}>{formatedDate(date)}</Text> */}
 
+                                        </TouchableOpacity></View>
+                                    <Text style={styles.textFieldLabel}>Mobile Number </Text>
+                                    <TextInput
+                                        style={styles.textInput}
+                                        keyboardType='default'
+                                        placeholderTextColor='#B4B4B4'
+                                        placeholder='Enter mobile number'
+                                        maxLength={20} />
 
-                                        <Text style={styles.textFieldLabel}>Name of Guardian </Text>
-                                        <TextInput
-                                            style={styles.textInput}
-                                            keyboardType='default'
-                                            placeholderTextColor='#B4B4B4'
-                                            placeholder='Full Name'
-                                            maxLength={20} />
-                                        <Text style={styles.textFieldLabel}>Select Relationship </Text>
-                                        <DropDownPicker
-                                            open={openSelectRelationship}
-                                            value={relationshipValue}
-                                            items={relationshipType}
-                                            setOpen={setOpenSelectRelationship}
-                                            setValue={setRelationshipValue}
-                                            setItems={setRelationshipType}
-                                            zIndex={10000}
-                                            zIndexInverse={1000}
-                                            placeholder="Select Relationship"
-                                            style={styles.pickerContainer}
+                                    <Text style={styles.textFieldLabel}>Email ID </Text>
+                                    <TextInput
+                                        style={styles.textInput}
+                                        keyboardType='default'
+                                        placeholderTextColor='#B4B4B4'
+                                        placeholder='Enter Email ID'
+                                        maxLength={20} />
+                                    <Text style={styles.textFieldLabel}>Gender</Text>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                        <BouncyCheckboxGroup
+                                            data={staticData}
+                                            // onPress={() => setVisible(true)}
+                                            onChange={(selectedItem: ICheckboxButton,) => {
+                                                console.log('SelectedItem: ', JSON.stringify(selectedItem));
 
-                                            listMode="FLATLIST"
-                                            dropDownContainerStyle={styles.dropDownContainerStyle}
-                                            closeAfterSelecting={true}
-                                            textStyle={{
-                                                fontFamily: Platform.select({
-                                                    ios: ' FONTS.AvenirRoman',
-                                                    android: ' FONTS.AvenirRoman',
-                                                }),
+                                            }}
+
+                                        />
+                                    </View>
+                                    <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Aadhaar ID Available</Text>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <BouncyCheckboxGroup
+                                            data={aadhaarcheckboxData}
+                                            // onPress={() => setVisible(true)}
+                                            onChange={(selectedItem: ICheckboxButton,) => {
+                                                console.log('SelectedItem: ', JSON.stringify(selectedItem));
+                                                if (selectedItem.id === 0) {
+                                                    setShowAadharOptions(false)
+                                                }
+                                                else {
+                                                    setShowAadharOptions(!showAadharOptions)
+                                                }
                                             }}
                                         />
-
-
                                     </View>
 
-                                </>
+                                    {
+                                        showAadharOptions === false ?
+                                            <>
+                                                <View>
 
-                        }
+                                                    <Text style={styles.textFieldLabel}>Aadhaar  Number </Text>
+                                                    <TextInput
+                                                        style={styles.textInput}
+                                                        keyboardType='default'
+                                                        placeholderTextColor='#B4B4B4'
+                                                        placeholder='Enter  adhaar number'
+                                                        maxLength={20} />
+                                                </View>
 
-                    </View>
+                                            </>
+                                            :
+                                            <>
+                                                <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Guardian's Aadhaar Available?</Text>
+                                                <View style={{ flexDirection: 'row' }}>
+
+                                                    <BouncyCheckboxGroup
+                                                        data={IDPopupData}
+                                                        // onPress={() => setVisible(true)}
+                                                        onChange={(selectedItem: ICheckboxButton,) => {
+                                                            console.log('SelectedItem: ', JSON.stringify(selectedItem));
+                                                            if (selectedItem.id === 1) {
+                                                                setVisible(true)
+                                                            }
+                                                        }}
+
+                                                    />
+                                                </View>
+
+                                                <View style={{ flexDirection: 'row' }}>
+                                                    <Text style={styles.textFieldLabel}>Guardian Aadhaar No.</Text>
+                                                </View>
+                                                <TextInput
+                                                    style={styles.textInput}
+                                                    keyboardType='default'
+                                                    placeholderTextColor='#B4B4B4'
+                                                    placeholder='1234 5678 4321'
+                                                    maxLength={12} />
+                                                <View>
+                                                    <Text style={styles.textFieldLabel}>Name of Guardian </Text>
+                                                    <TextInput
+                                                        style={styles.textInput}
+                                                        keyboardType='default'
+                                                        placeholderTextColor='#B4B4B4'
+                                                        placeholder='Full Name'
+                                                        maxLength={20} />
+                                                    <Text style={styles.textFieldLabel}>Select Relationship </Text>
+                                                    <DropDownPicker
+                                                        open={openSelectRelationship}
+                                                        value={relationshipValue}
+                                                        items={relationshipType}
+                                                        setOpen={setOpenSelectRelationship}
+                                                        setValue={setRelationshipValue}
+                                                        setItems={setRelationshipType}
+                                                        zIndex={10000}
+                                                        zIndexInverse={1000}
+                                                        placeholder="Select Relationship"
+                                                        style={styles.pickerContainer}
+
+                                                        listMode="FLATLIST"
+                                                        dropDownContainerStyle={styles.dropDownContainerStyle}
+                                                        closeAfterSelecting={true}
+                                                        textStyle={{
+                                                            fontFamily: Platform.select({
+                                                                ios: ' FONTS.AvenirRoman',
+                                                                android: ' FONTS.AvenirRoman',
+                                                            }),
+                                                        }}
+                                                    />
+
+
+                                                </View>
+
+                                            </>
+
+                                    }
+
+                                </View>
+                            </>
+                        )}
+                    </Formik>
+
                 </View>
 
+                {/* <View style={{ justifyContent: 'center', paddingVertical: 20 }}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('AddressPage')}
+                        style={{
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}>
+                        <View style={styles.buttonContainer}>
+                            <Text
+                                style={{
+                                    color: 'white',
+                                    fontSize: 18,
+                                    fontWeight: 'bold',
+                                    //  fontFamily: FONTS.AvenirBlack
 
+                                }}>
+                                Continue
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+
+                </View> */}
 
                 <IDPopup visible={visible}>
                     <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 270, padding: 30 }}>
@@ -371,46 +401,15 @@ export default function PatientDetails() {
                 </IDPopup>
 
             </ScrollView>
-            {/* <View style={{ paddingBottom: 20, elevation: 8, backgroundColor: 'white', paddingHorizontal: 20 }}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('AddressPage')}
-                    style={{
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        elevation: 8
-                    }}>
-                    <View style={styles.buttonContainer}>
-                        <Text
-                            style={{
-                                color: 'white',
-                                fontSize: 18,
-                                fontWeight: 'bold',
-                                //  fontFamily: FONTS.AvenirBlack
-
-                            }}>
-                            Continue
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-
-            </View> */}
-            <CommonBottomButton onPress={() => navigation.navigate('AddressPage')} children={'CONTINUE'} />
+            <CommonBottomButton
+                onPress={() => navigation.navigate('AddressPage')}
+                children={'CONTINUE'} />
         </View>
     );
 }
 const styles = StyleSheet.create({
-    mainContainer: {
-        justifyContent: 'center',
-        flex: 1,
-        paddingTop: Platform.select({
-            ios: 30,
-            android: 0
-        }),
-        // paddingHorizontal: 20,
-        backgroundColor: 'white',
-    },
     header: {
-        flex: 1, flexDirection: 'row', paddingBottom: 20, padding: 5, justifyContent: 'center', paddingRight: 0, justifyContent: 'space-between'
+        flex: 1, flexDirection: 'row', paddingBottom: 40, padding: 5, justifyContent: 'center', paddingRight: 100
     },
     buttonContainer: {
         width: '100%',
@@ -420,7 +419,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#222D81',
-        elevation: 8
     },
     modalBackground: {
         flex: 1,
@@ -471,8 +469,20 @@ const styles = StyleSheet.create({
     dropDownContainerStyle: {
         backgroundColor: 'white',
     },
+    MainContainer: {
+        justifyContent: 'center',
+        flex: 1,
+        backgroundColor: 'white',
+        paddingTop: Platform.select({
+            ios: 30,
+            android: 0
+        }),
+    },
     textFieldLabel: {
         fontSize: 14,
         padding: 10,
+        paddingBottom: 0,
+        paddingLeft: 0,
+        // fontFamily: FONTS.AvenirRoman
     },
 });
