@@ -83,7 +83,7 @@ export default function HomeScreen() {
                             fontWeight: 'bold',
                             fontFamily: FONTS.AvenirBlack,
                         }}>
-                        Welcome,
+                        Welcome
                     </Text>
                     <Text
                         style={{
