@@ -25,6 +25,7 @@ export const GQLQuery = {
         }
         }
   `,
+
   SEARCH_PATIENT_RECORD: gql`
       query MyQuery ($AadharNumber: String!, $UniqueId: String!){
           SearchPatientQuery {
@@ -39,8 +40,26 @@ export const GQLQuery = {
   SEARCH_SICKLE_TEST_RECORD: gql`
   query MyQuery($PatientId: Long!) {
       PatientTestReportQuery {
-        GetPatientTestStatus(PatientId: $PatientId){
-          Id
+        GetTestReportByPatientId(PatientId: $PatientId){
+          Patient {
+            FullName
+            DateOfBirth
+            GuardianIdNumber
+            MobileNumber
+            City
+            Country
+            District
+            HouseNumber
+            Pincode
+            State
+            StreetRoadLane
+            }
+            SickleScanTestResult
+            HealthWorkerUser {
+            FirstName
+            LastName
+            }
+            CreatedDateTimeUtc
         }
       }
     }`

@@ -1,47 +1,31 @@
 import { useQuery } from '@apollo/client';
 import { useNavigation } from '@react-navigation/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView } from 'react-native';
 import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
 import { GQLQuery } from '../persistance/query/GQLQuery';
-const screenHeight = Dimensions.get('window').height;
 
 export default function SearchResult(props) {
 
     const Record = props.route.params.PatientRecord
-
-    console.log(Record)
     const navigation = useNavigation();
 
+    const [isTestAvailable, setIsTestAvailable] = useState(false)
 
-    // const [loading, error, data] = useQuery(GQLQuery.SEARCH_SICKLE_TEST_RECORD, {
-    //     variables: {
-    //         PatientId: Record.Id,
-    //     }
-    // });
-
- 
-
-    const { loading, data, error } = useQuery(GQLQuery.SEARCH_SICKLE_TEST_RECORD, {
+    const { data, error } = useQuery(GQLQuery.SEARCH_SICKLE_TEST_RECORD, {
         variables: {
-            PatientId: Record.UniqueId
+            PatientId: Record.Id
         },
-      });
-    
+    });
 
-         console.log('data')
-         console.log(data)
-         console.log('data')
-    console.log(error)
-
-    // const PatientRecord = data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch;
-    // if (data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch) {
-    //     navigation.navigate('SearchResult', {
-    //         PatientRecord: PatientRecord
-    //     })
-
+    const Test = data && data.PatientTestReportQuery && data.PatientTestReportQuery.GetTestReportByPatientId
+    useEffect(() => {
+        if (data && data.PatientTestReportQuery && data.PatientTestReportQuery.GetTestReportByPatientId) {
+            setIsTestAvailable(true);
+        }
+    })
 
     return (
         <View style={styles.MainContainer}>
@@ -87,7 +71,7 @@ export default function SearchResult(props) {
                 }}>
 
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Instruction')}
+                        onPress={() => isTestAvailable ? alert('Please View Report') : navigation.navigate('Instruction')}
                         style={{
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -117,7 +101,12 @@ export default function SearchResult(props) {
                 }}>
 
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Report')}
+                        onPress={() => {
+                            isTestAvailable ? navigation.navigate('Report', {
+                                report: Test
+                            }) : 
+                            alert('Please Conduct test.')
+                        }}
                         style={{
                             alignItems: 'center',
                             justifyContent: 'center',
