@@ -5,7 +5,13 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "package": "com.sicklescan.mypackage"
+    },
+    "splash": {
+      "image": "./assests/splash.png"
+    }
   },
   "name": "LineDetection"
 }

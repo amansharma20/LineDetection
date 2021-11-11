@@ -42,9 +42,9 @@ export default function StackNavigator() {
         headerShown: false,
       }}>
 
+      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Cassette" component={CassetteScan} />
       <Stack.Screen name="DummyImageScreen" component={DummyImageScreen} />
-      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="ResultInstruction" component={ResultInstruction} />
       <Stack.Screen name="Reset" component={ResetPassword} />
       <Stack.Screen name="Criteria" component={CriteriaScreen} />
