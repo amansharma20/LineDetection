@@ -101,27 +101,15 @@ export default function PatientDetails() {
 
 
     const patientSchema = yup.object().shape({
-        firstName: yup
+        fullName: yup
             .string()
             .required('First name is required'),
-        lastName: yup
-            .string()
-            .required('Last name is required'),
         mobile: yup
             .string()
-
             .required('Mobile number is required'),
         email: yup
             .string()
-
-            .required('Email is required'),
-        password: yup
-            .string()
-
-            .required('Password is required'),
-        confirmPassword: yup
-            .string()
-            .required('Confirm Password is required'),
+            .required('Mobile number is required')
     });
 
     const IDPopup = ({ visible, children }) => {
@@ -219,7 +207,9 @@ export default function PatientDetails() {
                     <Formik
                         validationSchema={patientSchema}
                         initialValues={{
-                            firstName: '',
+                            fullName: '',
+                            mobile: '',
+                            email: ''
 
                         }}
                         onSubmit={values => submitDetails(values)}>
@@ -228,12 +218,20 @@ export default function PatientDetails() {
                                 <View style={styles.inputs}>
                                     <Text style={styles.textFieldLabel}>Full Name</Text>
                                     <TextInput
+                                        name="fullName"
+                                        onChangeText={handleChange('fullName')}
+                                        onBlur={handleBlur('fullName')}
+                                        value={values.fullName}
                                         style={styles.textInput}
                                         keyboardType='default'
                                         placeholderTextColor='#B4B4B4'
                                         placeholder='Enter full name'
                                         maxLength={20} />
                                     <Text style={styles.textFieldLabel}>Date of Birth</Text>
+
+                                    {errors.fullName && touched.fullName && (
+                                        <Text style={styles.error}>{errors.fullName}</Text>
+                                    )}
                                     <View >
                                         <TouchableOpacity onPress={() => setShowModal(true)}>
 
@@ -248,19 +246,34 @@ export default function PatientDetails() {
                                         </TouchableOpacity></View>
                                     <Text style={styles.textFieldLabel}>Mobile Number </Text>
                                     <TextInput
+                                        name="mobile"
+                                        onChangeText={handleChange('mobile')}
+                                        onBlur={handleBlur('mobile')}
+                                        value={values.mobile}
                                         style={styles.textInput}
                                         keyboardType='default'
                                         placeholderTextColor='#B4B4B4'
                                         placeholder='Enter mobile number'
                                         maxLength={20} />
 
+                                    {errors.mobile && touched.mobile && (
+                                        <Text style={styles.error}>{errors.mobile}</Text>
+                                    )}
+
                                     <Text style={styles.textFieldLabel}>Email ID </Text>
                                     <TextInput
+                                        name="email"
+                                        onChangeText={handleChange('email')}
+                                        onBlur={handleBlur('email')}
+                                        value={values.email}
                                         style={styles.textInput}
                                         keyboardType='default'
                                         placeholderTextColor='#B4B4B4'
                                         placeholder='Enter Email ID'
                                         maxLength={20} />
+                                    {errors.email && touched.email && (
+                                        <Text style={styles.error}>{errors.email}</Text>
+                                    )}
                                     <Text style={styles.textFieldLabel}>Gender</Text>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                         <BouncyCheckboxGroup
@@ -508,5 +521,8 @@ const styles = StyleSheet.create({
         paddingBottom: 0,
         paddingLeft: 0,
         // fontFamily: FONTS.AvenirRoman
-    },
+    }, error: {
+        padding: 4,
+        color: '#cc0000',
+    }
 });
