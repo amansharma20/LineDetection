@@ -5,6 +5,7 @@ import images from '../../Constants/Images';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { icons } from '../../Constants/Index';
 import { SIZES, FONTS } from '../../Constants/Theme';
+import CommonBottomButton from '../../CommonBottomButton';
 
 
 const screenHeight = Dimensions.get('window').height;
@@ -30,7 +31,7 @@ export default function AddressDetails() {
     return (
         <View style={styles.MainContainer}>
 
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView contentContainerStyle={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
                     <TouchableOpacity
                         onPress={() => navigation.goBack()}
@@ -89,52 +90,52 @@ export default function AddressDetails() {
                             placeholder=''
                             maxLength={20} />
 
-<Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>P.O.</Text>
+                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>P.O.</Text>
                         <TextInput
                             style={styles.textInput}
                             placeholder=''
                             maxLength={20} />
 
-<Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>District</Text>
+                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>District</Text>
                         <TextInput
                             style={styles.textInput}
                             placeholder=''
                             maxLength={20} />
 
-                    <View style={{ padding: 0 }}>
-                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>State</Text>
-                        <DropDownPicker
-                            open={openState}
-                            value={stateValue}
-                            items={stateType}
-                            setOpen={setOpenState}
-                            setValue={setStateValue}
-                            setItems={setStateType}
-                            zIndex={10000}
-                            zIndexInverse={1000}
-                            placeholder="Select State"
-                            style={styles.pickerContainer}
+                        <View style={{ padding: 0 }}>
+                            <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>State</Text>
+                            <DropDownPicker
+                                open={openState}
+                                value={stateValue}
+                                items={stateType}
+                                setOpen={setOpenState}
+                                setValue={setStateValue}
+                                setItems={setStateType}
+                                zIndex={10000}
+                                zIndexInverse={1000}
+                                placeholder="Select State"
+                                style={styles.pickerContainer}
 
-                            listMode="FLATLIST"
-                            dropDownContainerStyle={styles.dropDownContainerStyle}
-                            closeAfterSelecting={true}
-                            textStyle={{
-                                fontFamily: Platform.select({
-                                    ios: 'FONTS.AvenirRoman',
-                                    android: 'FONTS.AvenirRoman',
-                                }),
-                            }}
-                        />
-                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>PinCode</Text>
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder=''
-                            maxLength={20} />
+                                listMode="FLATLIST"
+                                dropDownContainerStyle={styles.dropDownContainerStyle}
+                                closeAfterSelecting={true}
+                                textStyle={{
+                                    fontFamily: Platform.select({
+                                        ios: 'FONTS.AvenirRoman',
+                                        android: 'FONTS.AvenirRoman',
+                                    }),
+                                }}
+                            />
+                            <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>PinCode</Text>
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder=''
+                                maxLength={20} />
+                        </View>
                     </View>
-</View>
                 </View>
 
-                <View style={{ justifyContent: 'center', paddingVertical: 20 }}>
+                {/* <View style={{ justifyContent: 'center', paddingVertical: 20 }}>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Criteria')}
                         style={{
@@ -153,10 +154,12 @@ export default function AddressDetails() {
                                 Continue
                             </Text>
                         </View>
-
                     </TouchableOpacity>
-                </View>
+                </View> */}
             </ScrollView>
+            <CommonBottomButton
+                onPress={() => navigation.navigate('Criteria')}
+                children={'CONTINUE'} />
 
 
         </View>
@@ -217,7 +220,6 @@ const styles = StyleSheet.create({
     },
     MainContainer: {
         justifyContent: 'center',
-        padding: 20,
         flex: 1,
         backgroundColor: 'white'
     },

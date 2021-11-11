@@ -12,7 +12,7 @@ import BouncyCheckboxGroup, {
 
 const stylesCheckbox = {
     textStyle: { textDecorationLine: 'none', color: '#101E8E', marginRight: 40 },
-  };
+};
 
 const staticData = [
     {
@@ -20,7 +20,7 @@ const staticData = [
         fillColor: '#101E8E',
         text: 'Yes',
         textStyle: stylesCheckbox.textStyle,
-        
+
     },
     {
         id: 1,
@@ -88,11 +88,11 @@ export default function CriteriaScreen() {
     return (
         <View style={styles.MainContainer}>
 
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView contentContainerStyle={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
-                  
+
                     <Image source={images.headerlogo} style={{ width: 95, height: 53 }} />
-                   
+
                 </View>
 
                 <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 30, elevation: 5, padding: 20, paddingBottom: 280, flex: 1 }}>
@@ -109,13 +109,13 @@ export default function CriteriaScreen() {
                         <BouncyCheckboxGroup
                             data={staticData}
                             // onPress={() => setVisible(true)}
-                            onChange={(selectedItem: ICheckboxButton, ) => {
+                            onChange={(selectedItem: ICheckboxButton,) => {
                                 console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                                if (selectedItem.id===0) {
+                                if (selectedItem.id === 0) {
                                     setnoTestPopup(true)
                                 }
                             }}
-                           
+
                         />
                     </View>
                     <Text style={{ fontSize: 16, padding: 10, fontFamily: FONTS.AvenirRoman, color: '#000000', fontWeight: '400' }}>Do you have the consent from the person/guardian to conduct the test?</Text>
@@ -125,7 +125,7 @@ export default function CriteriaScreen() {
                             data={staticData}
                             onChange={(selectedItem: ICheckboxButton) => {
                                 console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                                if (selectedItem.id===1) {
+                                if (selectedItem.id === 1) {
                                     setnoConsentPopup(true)
                                 }
                             }}
@@ -190,25 +190,24 @@ export default function CriteriaScreen() {
                     </NoConsentPopup>
 
                 </View>
-                <View style={{
-                    alignItems: 'center',
-                    flexDirection: 'row', flex: 1, justifyContent: 'space-between', padding: 20,
-                }}>
+            </ScrollView>
+            <View style={{ backgroundColor: 'white', elevation: 8, flexDirection: 'row', paddingVertical: 20 }}>
+                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-around' }}>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Home')}
                         style={{
-                            flex: 1,
+                            width: 150, height: 50
                         }}>
                         <View style={{
-                            backgroundColor: '#ffffff', width: '90%', height: 50, borderRadius: 50, alignItems: 'center',
+                            backgroundColor: '#ffffff', width: '100%', height: 50, borderRadius: 50, alignItems: 'center',
                             justifyContent: 'center', borderColor: '#222D81', borderWidth: 1, flex: 1,
                         }}>
                             <Text
                                 style={{
                                     color: '#222D81',
                                     fontSize: 18,
-                                    fontWeight: 'bold', fontFamily: FONTS.AvenirBlack,
-
+                                    fontWeight: 'bold',
+                                    fontFamily: FONTS.AvenirBlack,
                                 }}>
                                 TEST LATER
                             </Text>
@@ -216,9 +215,11 @@ export default function CriteriaScreen() {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Instruction')}
-                        style={{ flex: 1 }}>
+                        style={{
+                            width: 150, height: 50
+                        }}>
                         <View style={{
-                            backgroundColor: '#222D81', width: '90%', height: 50, borderRadius: 50, alignItems: 'center',
+                            backgroundColor: '#222D81', width: '100%', height: 50, borderRadius: 50, alignItems: 'center',
                             justifyContent: 'center', flex: 1,
                         }}>
                             <Text
@@ -233,7 +234,8 @@ export default function CriteriaScreen() {
                         </View>
                     </TouchableOpacity>
                 </View>
-            </ScrollView>
+
+            </View>
         </View>
     );
 }
@@ -255,7 +257,6 @@ const styles = StyleSheet.create({
     },
     MainContainer: {
         justifyContent: 'center',
-        padding: 20,
         backgroundColor: 'white',
         flex: 1,
     },

@@ -76,7 +76,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="Yes"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -87,7 +87,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="No"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -105,7 +105,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="Yes"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -116,7 +116,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="No"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -133,7 +133,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="Yes"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -144,7 +144,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="No"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -161,7 +161,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="Yes"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -172,7 +172,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="No"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -189,7 +189,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="Yes"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -200,7 +200,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="No"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -217,7 +217,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="Yes"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -228,7 +228,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="No"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -236,7 +236,7 @@ export default function ClinicalInformation() {
                                 />
 
                             </View>
-                            </View>
+                        </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
                             <Text style={{ fontSize: 14, padding: 10, fontFamily: FONTS.AvenirBlack }}>Splenomegaly</Text>
@@ -246,7 +246,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="Yes"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -257,7 +257,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="No"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -267,14 +267,14 @@ export default function ClinicalInformation() {
                             </View></View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
-                            <Text style={{ fontSize: 14, padding: 10, fontFamily: FONTS.AvenirBlack, flexWrap:'wrap' }}>Any systematic {"\n"}abnormalities</Text>
+                            <Text style={{ fontSize: 14, padding: 10, fontFamily: FONTS.AvenirBlack, flexWrap: 'wrap' }}>Any systematic {"\n"}abnormalities</Text>
                             <View style={{ flexDirection: 'row' }}>
                                 <BouncyCheckbox
                                     size={18}
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="Yes"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -285,7 +285,7 @@ export default function ClinicalInformation() {
                                     fillColor="#101E8E"
                                     unfillColor="#FFFFFF"
                                     text="No"
-                                    style={{padding:5}}
+                                    style={{ padding: 5 }}
                                     iconStyle={{ borderColor: "#101E8E" }}
                                     textStyle={{
                                         textDecorationLine: "none", fontFamily: FONTS.AvenirBlack
@@ -301,32 +301,28 @@ export default function ClinicalInformation() {
                             maxLength={20} />
                     </View>
                 </View>
-
-                <View style={{ justifyContent: 'center', paddingVertical: 20 }}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('AddressPage')}
-                        style={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                        <View style={styles.buttonContainer}>
-                            <Text
-                                style={{
-                                    color: 'white',
-                                    fontSize: 18,
-                                    fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
-
-                                }}>
-                                SUBMIT
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-
-                </View>
-
-
-                {/* </View> */}
             </ScrollView>
+            <View style={{ justifyContent: 'center', paddingVertical: 20 }}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('AddressPage')}
+                    style={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                    <View style={styles.buttonContainer}>
+                        <Text
+                            style={{
+                                color: 'white',
+                                fontSize: 18,
+                                fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
+
+                            }}>
+                            SUBMIT
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+
+            </View>
         </View>
     );
 }
@@ -365,6 +361,6 @@ const styles = StyleSheet.create({
     MainContainer: {
         justifyContent: 'center',
         padding: 20,
-        backgroundColor: 'white'
+        backgroundColor: 'red',
     }
 });
