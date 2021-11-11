@@ -70,9 +70,10 @@ export default function ApplicationNavigator() {
       let userToken;
 
       try {
-        userToken = await SecureStore.getItemAsync();
-        setNewAuthToken(userToken.password);
+        userToken = await SecureStore.getItemAsync('email');
+        setNewAuthToken(userToken);
       } catch (e) {
+        console.log(e)
         // Restoring token failed
       }
       userToken === false
@@ -119,11 +120,11 @@ export default function ApplicationNavigator() {
 
           }}
         >
-
+{console.log(state)}
           {state.userToken == null ? (
             <>
-              {/* <Stack.Screen name="AuthNavigator" component={AuthNavigator} /> */}
-              <Stack.Screen name="StackNavigator" component={StackNavigator} />
+              <Stack.Screen name="AuthNavigator" component={AuthNavigator} />
+              {/* <Stack.Screen name="StackNavigator" component={StackNavigator} /> */}
             </>
           ) : (
             <>
