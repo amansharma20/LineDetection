@@ -15,77 +15,20 @@ import {
 import images from '../Constants/Images';
 import { icons, SIZES, FONTS } from '../Constants/Index';
 import YoutubePlayer from 'react-native-youtube-iframe';
+import { useQuery } from '@apollo/client';
+import { GQLQuery } from '../persistance/query/GQLQuery';
 
 const screenHeight = Dimensions.get('window').height;
 
 export default function HomeScreen() {
     const navigation = useNavigation();
 
-    // const videoPlayer = useRef(null);
-    // const [currentTime, setCurrentTime] = useState(0);
-    // const [duration, setDuration] = useState(0);
-    // const [isFullScreen, setIsFullScreen] = useState(false);
-    // const [isLoading, setIsLoading] = useState(true);
-    // const [paused, setPaused] = useState(false);
-    // const [
-    //   playerState, setPlayerState
-    // ] = useState(PLAYER_STATES.PLAYING);
-    // const [screenType, setScreenType] = useState('content');
+    const { data, error } = useQuery(GQLQuery.GET_PROFILE);
+    const HealthWorkerProfileData = data && data.HealthWorkerUserQuery && data.HealthWorkerUserQuery.GetHealthWorkerUserDetails;
 
-    // const onSeek = (seek) => {
-    //   //Handler for change in seekbar
-    //   videoPlayer.current.seek(seek);
-    // };
+    console.log(HealthWorkerProfileData)
 
-    // const onPaused = (playerState) => {
-    //   //Handler for Video Pause
-    //   setPaused(!paused);
-    //   setPlayerState(playerState);
-    // };
 
-    // const onReplay = () => {
-    //   //Handler for Replay
-    //   setPlayerState(PLAYER_STATES.PLAYING);
-    //   videoPlayer.current.seek(0);
-    // };
-
-    // const onProgress = (data) => {
-    //   // Video Player will progress continue even if it ends
-    //   if (!isLoading && playerState !== PLAYER_STATES.ENDED) {
-    //     setCurrentTime(data.currentTime);
-    //   }
-    // };
-
-    // const onLoad = (data) => {
-    //   setDuration(data.duration);
-    //   setIsLoading(false);
-    // };
-
-    // const onLoadStart = (data) => setIsLoading(true);
-
-    // const onEnd = () => setPlayerState(PLAYER_STATES.ENDED);
-
-    // const onError = () => alert('Oh! ', error);
-
-    // const exitFullScreen = () => {
-    //   alert('Exit full screen');
-    // };
-
-    // const enterFullScreen = () => {};
-
-    // const onFullScreen = () => {
-    //   setIsFullScreen(isFullScreen);
-    //   if (screenType == 'content') setScreenType('cover');
-    //   else setScreenType('content');
-    // };
-
-    // const renderToolbar = () => (
-    //   <View>
-    //     <Text style={styles.toolbar}> toolbar </Text>
-    //   </View>
-    // );
-
-    // const onSeeking = (currentTime) => setCurrentTime(currentTime);
     return (
         <ScrollView style={styles.MainContainer}>
             <View style={styles.header}>
@@ -107,44 +50,10 @@ export default function HomeScreen() {
                     <YoutubePlayer
                         height={375}
                         videoId={'3fQeWGPpIVw'}
-                        webViewStyle={{ height: 100, justifyContent: 'flex-end', width: '100%'}}
+                        webViewStyle={{ height: 100, justifyContent: 'flex-end', width: '100%' }}
                     />
                 </View>
-
-
                 <View style={{ backgroundColor: '#CF0A2C', width: '100%', height: 40, marginTop: -180 }}>
-                    {/* <Video
-        onEnd={onEnd}
-        onLoad={onLoad}
-        onLoadStart={onLoadStart}
-        onProgress={onProgress}
-        paused={paused}
-        ref={videoPlayer}
-        resizeMode={screenType}
-        onFullScreen={isFullScreen}
-        source={{
-          uri:
-            'https://www.youtube.com/watch?v=v9ZLawfo9hE',
-        }}
-        style={styles.mediaPlayer}
-        volume={10}
-      />
-      <MediaControls
-        duration={duration}
-        isLoading={isLoading}
-        mainColor="#333"
-        onFullScreen={onFullScreen}
-        onPaused={onPaused}
-        onReplay={onReplay}
-        onSeek={onSeek}
-        onSeeking={onSeeking}
-        playerState={playerState}
-        progress={currentTime}
-        toolbar={renderToolbar()}
-      /> */}
-
-
-
                     <Text
                         style={{
                             fontSize: 14,
@@ -173,7 +82,7 @@ export default function HomeScreen() {
                             fontWeight: 'bold',
                             fontFamily: FONTS.AvenirBlack,
                         }}>
-                        Welcome
+                        Welcome,
                     </Text>
                     <Text
                         style={{
@@ -184,8 +93,7 @@ export default function HomeScreen() {
                             color: '#CF0A2C',
                             fontFamily: FONTS.AvenirBlack,
                         }}>
-                        {' '}
-                        Prema Kumari
+                        {HealthWorkerProfileData && HealthWorkerProfileData.FirstName} {HealthWorkerProfileData && HealthWorkerProfileData.LastName}
                     </Text>
                 </View>
             </View>
@@ -218,26 +126,6 @@ export default function HomeScreen() {
                     </View>
                 </TouchableOpacity>
             </View>
-            {/* <TouchableOpacity
-                    onPress={() => navigation.navigate('Search')}
-                    style={{
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        marginTop: 80,
-                    }}>
-                    <View style={styles.inputView}>
-                        <Image source={icons.searchicon} style={{ width: 36, height: 36 }} />
-                        <Text
-                            style={{
-                                color: '#101E8E',
-                                fontSize: 14, fontFamily: FONTS.AvenirRoman, paddingTop:20, flexWrap:'wrap'
-
-                            }}>
-                            Search Database
-                        </Text>
-                    </View>
-                </TouchableOpacity> */}
-
             <View
                 style={{
                     flexDirection: 'row',

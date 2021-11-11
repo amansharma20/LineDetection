@@ -2,10 +2,6 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
-import RegisterScreen from '../screens/RegisterScreen';
-import RegistrationScreen from '../screens/RegistrationScreen';
-import LoginScreen from '../screens/LoginScreen';
-import WelcomeScreen from '../screens/WelcomeScreen';
 import PatientDetails from '../screens/patientdetails/PatientDetails';
 import AddressDetails from '../screens/patientdetails/AddressDetails';
 import CriteriaScreen from '../screens/CriteriaScreen';

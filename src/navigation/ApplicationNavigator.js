@@ -5,10 +5,7 @@ import {
 import React, { useEffect, useMemo, useReducer, useState } from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { applicationProperties } from '../application.properties';
-
-import * as Keychain from 'react-native-keychain';
 import * as SecureStore from 'expo-secure-store';
-
 import AuthNavigator from './AuthNavigator';
 import StackNavigator from './StackNavigator';
 import Splash from '../screens/loader/Splash';
@@ -71,7 +68,7 @@ export default function ApplicationNavigator() {
 
       try {
         userToken = await SecureStore.getItemAsync('email');
-        setNewAuthToken(userToken.userToken);
+        setNewAuthToken(userToken);
       } catch (e) {
         // Restoring token failed
       }
