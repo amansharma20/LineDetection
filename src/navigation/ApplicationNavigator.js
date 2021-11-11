@@ -87,7 +87,7 @@ export default function ApplicationNavigator() {
         dispatch({ type: 'SIGN_IN', token: data });
       },
       signOut: async () => {
-        await SecureStore.setItemAsync();
+        await SecureStore.deleteItemAsync('email')
         setNewAuthToken('null');
         dispatch({ type: 'SIGN_OUT' });
       },
