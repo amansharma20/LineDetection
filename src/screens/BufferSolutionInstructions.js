@@ -14,17 +14,16 @@ export default function InstructionsScreen() {
     return (
         <View style={styles.MainContainer}>
 
-            <ScrollView contentContainerStyle={{ paddingBottom: 80 }} showsVerticalScrollIndicator={false}>
-            <View style={styles.header}>
+            <ScrollView contentContainerStyle={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
+                <View style={styles.header}>
                     <TouchableOpacity
                         onPress={() => navigation.goBack()}
                         style={{
                             alignItems: 'center',
                             justifyContent: 'center',
-
                         }}>
                         <View>
-                            <Image source={icons.backarrow} style={{ width: 25, height: 25 }} />
+                            <Image source={icons.backarrow} style={{ width: 25, height: 25, resizeMode: 'contain' }} />
                         </View>
                     </TouchableOpacity>
 
@@ -32,9 +31,7 @@ export default function InstructionsScreen() {
                     <View></View>
                 </View>
 
-                <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 30, elevation: 5, padding: 20, flex: 1 }}>
-
-
+                <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 0, elevation: 5, padding: 20, flex: 1 }}>
                     <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>
                         Step by Step Instructions
                     </Text>
@@ -49,9 +46,10 @@ export default function InstructionsScreen() {
                     </View>
 
                 </View>
-                <View>
+                {/* <View>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('PreTreatment')}>
+                        onPress={() => navigation.navigate('PreTreatment')}
+                        >
                         <View style={styles.buttonContainer}>
                             <Text
                                 style={{
@@ -65,10 +63,42 @@ export default function InstructionsScreen() {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingTop:10 }}>
-                        Skip
-                    </Text>
+                <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingTop: 10 }}>
+                    Skip
+                </Text> */}
             </ScrollView>
+            <View style={{ backgroundColor: 'white' }}>
+                <View style={{ paddingBottom: 20, elevation: 8, backgroundColor: 'white', paddingHorizontal: 20 }}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('PreTreatment')}
+                        activeOpacity={0.9}
+                        style={{
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            elevation: 8
+                        }}>
+                        <View style={styles.buttonContainer}>
+                            <Text
+                                style={{
+                                    color: 'white',
+                                    fontSize: 18,
+                                    fontWeight: 'bold',
+                                    //  fontFamily: FONTS.AvenirBlack
+
+                                }}>
+                                CONTINUE
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('StopWatch')}>
+                        <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingTop: 10 }}>
+                            Skip
+                        </Text>
+                    </TouchableOpacity>
+
+                </View>
+            </View>
         </View>
     );
 }
@@ -79,18 +109,18 @@ const styles = StyleSheet.create({
     buttonContainer: {
         width: '100%',
         borderRadius: 100,
-        marginTop: 30,
         height: 55,
+        marginTop: 30,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#222D81',
+        elevation: 8
     },
     inputs: {
         height: '47%',
     },
     MainContainer: {
         justifyContent: 'center',
-        padding: 20,
         flex: 1,
         backgroundColor: 'white'
     }

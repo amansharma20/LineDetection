@@ -11,11 +11,12 @@ import { SIZES, FONTS } from '../../Constants/Theme';
 import BouncyCheckboxGroup, {
     ICheckboxButton,
 } from 'react-native-bouncy-checkbox-group';
+import CommonBottomButton from '../../CommonBottomButton';
 const screenHeight = Dimensions.get('window').height;
 
 const stylesCheckbox = {
     textStyle: { textDecorationLine: 'none', color: '#101E8E', marginRight: 10 },
-  };
+};
 
 const staticData = [
     {
@@ -23,7 +24,7 @@ const staticData = [
         fillColor: '#101E8E',
         text: 'Male',
         textStyle: stylesCheckbox.textStyle,
-        
+
     },
     {
         id: 1,
@@ -45,7 +46,7 @@ const aadhaarcheckboxData = [
         fillColor: '#101E8E',
         text: 'Yes',
         textStyle: stylesCheckbox.textStyle,
-        
+
     },
     {
         id: 1,
@@ -53,7 +54,7 @@ const aadhaarcheckboxData = [
         text: 'No',
         textStyle: stylesCheckbox.textStyle,
     },
-    
+
 ];
 
 const IDPopupData = [
@@ -62,7 +63,7 @@ const IDPopupData = [
         fillColor: '#101E8E',
         text: 'Yes',
         textStyle: stylesCheckbox.textStyle,
-        
+
     },
     {
         id: 1,
@@ -70,7 +71,7 @@ const IDPopupData = [
         text: 'No',
         textStyle: stylesCheckbox.textStyle,
     },
-    
+
 ];
 
 export default function PatientDetails() {
@@ -97,27 +98,27 @@ export default function PatientDetails() {
     const [showModal, setShowModal] = useState(false);
 
     const IDPopup = ({ visible, children }) => {
-    const [showModal, setShowModal] = React.useState(visible);
-    const scalevalue = React.useRef(new Animated.Value(0)).current;
-    React.useEffect(() => {
-        toggleModal();
-    }, [visible]);
-    const toggleModal = () => {
-        if (visible) {
-            setShowModal(true)
-            Animated.spring(scalevalue, { toValue: 1, duration: 300, useNativeDriver: true, }).start();
-        } else {
-            setTimeout(() => setShowModal(false), 200);
-            Animated.timing(scalevalue, { toValue: 0, duration: 300, useNativeDriver: true, }).start();
+        const [showModal, setShowModal] = React.useState(visible);
+        const scalevalue = React.useRef(new Animated.Value(0)).current;
+        React.useEffect(() => {
+            toggleModal();
+        }, [visible]);
+        const toggleModal = () => {
+            if (visible) {
+                setShowModal(true)
+                Animated.spring(scalevalue, { toValue: 1, duration: 300, useNativeDriver: true, }).start();
+            } else {
+                setTimeout(() => setShowModal(false), 200);
+                Animated.timing(scalevalue, { toValue: 0, duration: 300, useNativeDriver: true, }).start();
+            }
         }
-    }
-    return <Modal transparent visible={showModal}>
-        <View style={styles.modalBackground}>
-            <Animated.View style={styles.modalContainer, { transform: [{ scale: scalevalue }] }}>{children}</Animated.View>
-        </View>
+        return <Modal transparent visible={showModal}>
+            <View style={styles.modalBackground}>
+                <Animated.View style={styles.modalContainer, { transform: [{ scale: scalevalue }] }}>{children}</Animated.View>
+            </View>
 
-    </Modal>
-};
+        </Modal>
+    };
 
     // const formatedDate = (date) => {
     //     var formattedDate = format(date, 'MMMM do, yyyy');
@@ -126,32 +127,36 @@ export default function PatientDetails() {
     //     return formattedDate;
     // };
     return (
-        <View style={styles.MainContainer}>
+        <View style={styles.mainContainer}>
 
-            <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.header}>
+            <ScrollView contentContainerStyle={{
+                paddingHorizontal: 20
+            }} showsVerticalScrollIndicator={false}>
+                <View style={styles.header}>
                     <TouchableOpacity
                         onPress={() => navigation.goBack()}
                         style={{
                             alignItems: 'center',
                             justifyContent: 'center',
-
                         }}>
                         <View
                             style={styles.header}>
 
-                            <Image source={icons.backarrow} style={{ width: 25, height: 25,  }} />
+                            <Image source={icons.backarrow} style={{ width: 25, height: 25, resizeMode: 'contain' }} />
                         </View></TouchableOpacity>
-                    <Image source={images.headerlogo} style={{ width: 95, height: 53,  }} />
+                    <Image source={images.headerlogo} style={{ width: 95, height: 53, }} />
+                    <View>
 
+                    </View>
                 </View>
 
                 <View style={{ backgroundColor: 'white', margin: 5, elevation: 5, padding: 10, paddingBottom: 80, flex: 1 }}>
 
 
-                    <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', paddingTop:20
-                    // fontFamily: FONTS.AvenirBlack
-                     }}>
+                    <Text style={{
+                        fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', paddingTop: 20
+                        // fontFamily: FONTS.AvenirBlack
+                    }}>
                         Enter Details(1/2)
                     </Text>
                     <View style={styles.inputs}>
@@ -175,51 +180,51 @@ export default function PatientDetails() {
                                 {/* <Text style={styles.dobText}>{formatedDate(date)}</Text> */}
 
                             </TouchableOpacity></View>
-                            <Text style={styles.textFieldLabel}>Mobile Number </Text>
-                                        <TextInput
-                                            style={styles.textInput}
-                                            keyboardType='default'
-                                            placeholderTextColor='#B4B4B4'
-                                            placeholder='Enter mobile number'
-                                            maxLength={20} />
+                        <Text style={styles.textFieldLabel}>Mobile Number </Text>
+                        <TextInput
+                            style={styles.textInput}
+                            keyboardType='default'
+                            placeholderTextColor='#B4B4B4'
+                            placeholder='Enter mobile number'
+                            maxLength={20} />
 
-<Text style={styles.textFieldLabel}>Email ID </Text>
-                                        <TextInput
-                                            style={styles.textInput}
-                                            keyboardType='default'
-                                            placeholderTextColor='#B4B4B4'
-                                            placeholder='Enter Email ID'
-                                            maxLength={20} />
+                        <Text style={styles.textFieldLabel}>Email ID </Text>
+                        <TextInput
+                            style={styles.textInput}
+                            keyboardType='default'
+                            placeholderTextColor='#B4B4B4'
+                            placeholder='Enter Email ID'
+                            maxLength={20} />
                         <Text style={styles.textFieldLabel}>Gender</Text>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <BouncyCheckboxGroup
-                            data={staticData}
-                            // onPress={() => setVisible(true)}
-                            onChange={(selectedItem: ICheckboxButton, ) => {
-                                console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                               
-                            }}
-                           
-                        />
-                            </View>
+                            <BouncyCheckboxGroup
+                                data={staticData}
+                                // onPress={() => setVisible(true)}
+                                onChange={(selectedItem: ICheckboxButton,) => {
+                                    console.log('SelectedItem: ', JSON.stringify(selectedItem));
+
+                                }}
+
+                            />
+                        </View>
                         <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Aadhaar ID Available</Text>
                         <View style={{ flexDirection: 'row' }}>
-                        <BouncyCheckboxGroup
-                            data={aadhaarcheckboxData}
-                            // onPress={() => setVisible(true)}
-                            onChange={(selectedItem: ICheckboxButton, ) => {
-                                console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                                if (selectedItem.id===0) {
-                                    setShowAadharOptions(false)
-                                }
-                                else{
-                                    setShowAadharOptions(!showAadharOptions)
-                                }
-                                
+                            <BouncyCheckboxGroup
+                                data={aadhaarcheckboxData}
+                                // onPress={() => setVisible(true)}
+                                onChange={(selectedItem: ICheckboxButton,) => {
+                                    console.log('SelectedItem: ', JSON.stringify(selectedItem));
+                                    if (selectedItem.id === 0) {
+                                        setShowAadharOptions(false)
+                                    }
+                                    else {
+                                        setShowAadharOptions(!showAadharOptions)
+                                    }
 
-                            }}
-                           
-                        />
+
+                                }}
+
+                            />
                             {/* <BouncyCheckbox
                                 size={18}
                                 fillColor="#101E8E"
@@ -264,21 +269,21 @@ export default function PatientDetails() {
                                 </>
                                 :
                                 <>
-<Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Guardian's Aadhaar Available?</Text>
-                        <View style={{ flexDirection: 'row' }}>
-                           
-                        <BouncyCheckboxGroup
-                            data={IDPopupData}
-                            // onPress={() => setVisible(true)}
-                            onChange={(selectedItem: ICheckboxButton, ) => {
-                                console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                                if (selectedItem.id===1) {
-                                    setVisible(true)
-                                }
-                            }}
-                           
-                        />
-                        </View>
+                                    <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Guardian's Aadhaar Available?</Text>
+                                    <View style={{ flexDirection: 'row' }}>
+
+                                        <BouncyCheckboxGroup
+                                            data={IDPopupData}
+                                            // onPress={() => setVisible(true)}
+                                            onChange={(selectedItem: ICheckboxButton,) => {
+                                                console.log('SelectedItem: ', JSON.stringify(selectedItem));
+                                                if (selectedItem.id === 1) {
+                                                    setVisible(true)
+                                                }
+                                            }}
+
+                                        />
+                                    </View>
 
                                     <View style={{ flexDirection: 'row' }}>
                                         <Text style={styles.textFieldLabel}>Guardian Aadhaar No.</Text>
@@ -323,7 +328,7 @@ export default function PatientDetails() {
                                                 }),
                                             }}
                                         />
-                                       
+
 
                                     </View>
 
@@ -334,65 +339,78 @@ export default function PatientDetails() {
                     </View>
                 </View>
 
-                <View style={{ justifyContent: 'center', paddingVertical: 20 }}>
-                    <TouchableOpacity
-                       onPress={() => navigation.navigate('AddressPage')}
-                        style={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                        <View style={styles.buttonContainer}>
-                            <Text
-                                style={{
-                                    color: 'white',
-                                    fontSize: 18,
-                                    fontWeight: 'bold',
-                                    //  fontFamily: FONTS.AvenirBlack
 
-                                }}>
-                                Continue
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-
-                </View>
 
                 <IDPopup visible={visible}>
-                <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 270, padding: 30 }}>
-                <Image source={icons.greenicon} style={{ width: 40, height: 40, }} />
-                    <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#989898', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Your System ID is</Text>
-                    <Text style={{ fontSize: 16, padding: 10, fontWeight: 'bold', textAlign: 'center', color: '#222D81', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>766789893738</Text>
-                    <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Please note down the ID {'\n'}for future reference</Text>
+                    <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 270, padding: 30 }}>
+                        <Image source={icons.greenicon} style={{ width: 40, height: 40, }} />
+                        <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#989898', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Your System ID is</Text>
+                        <Text style={{ fontSize: 16, padding: 10, fontWeight: 'bold', textAlign: 'center', color: '#222D81', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>766789893738</Text>
+                        <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Please note down the ID {'\n'}for future reference</Text>
 
 
-                    <TouchableOpacity
-                        onPress={() => setVisible(false)}
-                        style={{ flex: 1 }}>
-                        <View style={{
-                            backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
-                            justifyContent: 'center', marginTop: 20
-                        }}>
-                            <Text
-                                style={{
-                                    color: '#ffffff',
-                                    fontSize: 14,
-                                    fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
+                        <TouchableOpacity
+                            onPress={() => setVisible(false)}
+                            style={{ flex: 1 }}>
+                            <View style={{
+                                backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
+                                justifyContent: 'center', marginTop: 20
+                            }}>
+                                <Text
+                                    style={{
+                                        color: '#ffffff',
+                                        fontSize: 14,
+                                        fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
 
-                                }}>
-                                CONTINUE
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            </IDPopup>
+                                    }}>
+                                    CONTINUE
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </IDPopup>
 
             </ScrollView>
+            {/* <View style={{ paddingBottom: 20, elevation: 8, backgroundColor: 'white', paddingHorizontal: 20 }}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('AddressPage')}
+                    style={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        elevation: 8
+                    }}>
+                    <View style={styles.buttonContainer}>
+                        <Text
+                            style={{
+                                color: 'white',
+                                fontSize: 18,
+                                fontWeight: 'bold',
+                                //  fontFamily: FONTS.AvenirBlack
+
+                            }}>
+                            Continue
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+
+            </View> */}
+            <CommonBottomButton onPress={() => navigation.navigate('AddressPage')} children={'CONTINUE'} />
         </View>
     );
 }
 const styles = StyleSheet.create({
+    mainContainer: {
+        justifyContent: 'center',
+        flex: 1,
+        paddingTop: Platform.select({
+            ios: 30,
+            android: 0
+        }),
+        // paddingHorizontal: 20,
+        backgroundColor: 'white',
+    },
     header: {
-        flex: 1, flexDirection: 'row', paddingBottom: 40, padding: 5,justifyContent:'center', paddingRight:100
+        flex: 1, flexDirection: 'row', paddingBottom: 20, padding: 5, justifyContent: 'center', paddingRight: 0, justifyContent: 'space-between'
     },
     buttonContainer: {
         width: '100%',
@@ -402,6 +420,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#222D81',
+        elevation: 8
     },
     modalBackground: {
         flex: 1,
@@ -452,20 +471,8 @@ const styles = StyleSheet.create({
     dropDownContainerStyle: {
         backgroundColor: 'white',
     },
-    MainContainer: {
-        justifyContent: 'center',
-        flex: 1,
-        backgroundColor: 'white',
-        paddingTop: Platform.select({
-            ios: 30,
-            android: 0
-        }),
-        paddingHorizontal: 20
-    }, textFieldLabel: {
+    textFieldLabel: {
         fontSize: 14,
         padding: 10,
-        paddingBottom: 0,
-        paddingLeft: 0,
-        // fontFamily: FONTS.AvenirRoman
     },
 });

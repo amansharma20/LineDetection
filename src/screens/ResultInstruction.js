@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-import {useNavigation} from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import {
   Text,
@@ -11,9 +11,10 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
+import CommonBottomButton from '../CommonBottomButton';
 import images from '../Constants/Images';
-import {icons} from '../Constants/Index';
-import {FONTS} from '../Constants/Theme';
+import { icons } from '../Constants/Index';
+import { FONTS } from '../Constants/Theme';
 const screenHeight = Dimensions.get('window').height;
 
 export default function ResultInstruction() {
@@ -21,23 +22,23 @@ export default function ResultInstruction() {
 
   return (
     <View style={styles.MainContainer}>
-      <ScrollView contentContainerStyle showsVerticalScrollIndicator={false}>
-      <View style={styles.header}>
-                    <TouchableOpacity
-                        onPress={() => navigation.goBack()}
-                        style={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
+      <ScrollView contentContainerStyle={{ paddingHorizontal: 10 }} showsVerticalScrollIndicator={false}>
+        <View style={styles.header}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
 
-                        }}>
-                        <View>
-                            <Image source={icons.backarrow} style={{ width: 25, height: 25 }} />
-                        </View>
-                    </TouchableOpacity>
+            }}>
+            <View>
+              <Image source={icons.backarrow} style={{ width: 25, height: 25, resizeMode: 'contain' }} />
+            </View>
+          </TouchableOpacity>
 
-                    <Image source={images.headerlogo} style={{ width: 95, height: 53, alignItems: 'center', justifyContent: 'center' }} />
-                    <View></View>
-                </View>
+          <Image source={images.headerlogo} style={{ width: 95, height: 53, alignItems: 'center', justifyContent: 'center' }} />
+          <View></View>
+        </View>
 
         <View
           style={{
@@ -69,15 +70,15 @@ export default function ResultInstruction() {
                 color: '#474747',
                 fontFamily: FONTS.AvenirRoman,
                 paddingTop: 90,
-                paddingBottom:20,
+                paddingBottom: 20,
                 fontWeight: 'bold',
               }}>
               Please scan the lines on cassette{'\n'}for full detail report
             </Text>
-            <View style={{alignItems: 'center'}}>
+            <View style={{ alignItems: 'center' }}>
               <Image
                 source={images.SampleResult}
-                style={{width: 240, height: 178, resizeMode: 'stretch'}}
+                style={{ width: 240, height: 178, resizeMode: 'stretch' }}
               />
             </View>
             <Text
@@ -96,7 +97,7 @@ export default function ResultInstruction() {
             <Text
               style={{
                 fontSize: 12,
-                
+
                 justifyContent: 'center',
                 textAlign: 'center',
                 color: '#000000',
@@ -107,8 +108,9 @@ export default function ResultInstruction() {
             </Text>
           </View>
         </View>
-        <View>
-          <TouchableOpacity onPress={() => navigation.navigate('Cassette')}>
+        {/* <View>
+          <TouchableOpacity onPress={() => navigation.navigate('Cassette')}
+          >
             <View style={styles.buttonContainer}>
               <Text
                 style={{
@@ -121,8 +123,11 @@ export default function ResultInstruction() {
               </Text>
             </View>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </ScrollView>
+      <CommonBottomButton
+        onPress={() => navigation.navigate('Cassette')}
+        children={"Scan Cassette"} />
     </View>
   );
 }
@@ -131,9 +136,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 20,
-    paddingLeft: 0,
-    paddingRight: 0,
+    padding: 10,
   },
   buttonContainer: {
     width: '100%',
@@ -156,7 +159,6 @@ const styles = StyleSheet.create({
   },
   MainContainer: {
     justifyContent: 'center',
-    padding: 20,
     flex: 1,
     backgroundColor: 'white',
   },

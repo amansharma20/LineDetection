@@ -15,7 +15,7 @@ export default function ModuleInstructions() {
         <View style={styles.MainContainer}>
 
             <ScrollView contentContainerStyle={{ paddingBottom: 80 }} showsVerticalScrollIndicator={false}>
-            <View style={styles.header}>
+                <View style={styles.header}>
                     <TouchableOpacity
                         onPress={() => navigation.goBack()}
                         style={{
@@ -66,10 +66,11 @@ export default function ModuleInstructions() {
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity
-                        onPress={() => navigation.navigate('StopWatch')}>
-                <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingTop:10 }}>
+                    onPress={() => navigation.navigate('StopWatch')}>
+                    <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingTop: 10 }}>
                         Skip
-                    </Text></TouchableOpacity>
+                    </Text>
+                </TouchableOpacity>
             </ScrollView>
         </View>
     );
