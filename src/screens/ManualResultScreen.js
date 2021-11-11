@@ -15,6 +15,7 @@ import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import CommonBottomButton from '../CommonBottomButton';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -23,7 +24,7 @@ export default function ManualResultScreen() {
 
     return (
         <View style={styles.MainContainer}>
-            <ScrollView contentContainerStyle showsVerticalScrollIndicator={false}>
+            <ScrollView contentContainerStyle={{paddingHorizontal: 20}} showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
                     <TouchableOpacity
                         onPress={() => navigation.goBack()}
@@ -170,8 +171,10 @@ export default function ManualResultScreen() {
                         </View>
                     </View>
                 </View>
-                <View>
-                    <TouchableOpacity onPress={() => navigation.navigate('Summary')}>
+                {/* <View>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Summary')}
+                    >
                         <View style={styles.buttonContainer}>
                             <Text
                                 style={{
@@ -184,8 +187,11 @@ export default function ManualResultScreen() {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                </View>
+                </View> */}
             </ScrollView>
+            <CommonBottomButton
+                onPress={() => navigation.navigate('Summary')}
+                children={'ADD'} />
         </View>
     );
 }
@@ -219,7 +225,6 @@ const styles = StyleSheet.create({
     },
     MainContainer: {
         justifyContent: 'center',
-        padding: 20,
         flex: 1,
         backgroundColor: 'white',
     },

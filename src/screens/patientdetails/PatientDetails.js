@@ -163,7 +163,37 @@ export default function PatientDetails() {
     return (
         <View style={styles.MainContainer}>
 
-            <ScrollView style={{paddingHorizontal: 20}} showsVerticalScrollIndicator={false}>
+            <ScrollView style={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
+
+                <IDPopup visible={visible}>
+                    <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 270, padding: 30 }}>
+                        <Image source={icons.greenicon} style={{ width: 40, height: 40, }} />
+                        <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#989898', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Your System ID is</Text>
+                        <Text style={{ fontSize: 16, padding: 10, fontWeight: 'bold', textAlign: 'center', color: '#222D81', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>766789893738</Text>
+                        <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Please note down the ID {'\n'}for future reference</Text>
+
+
+                        <TouchableOpacity
+                            onPress={() => setVisible(false)}
+                            style={{ flex: 1 }}>
+                            <View style={{
+                                backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
+                                justifyContent: 'center', marginTop: 20
+                            }}>
+                                <Text
+                                    style={{
+                                        color: '#ffffff',
+                                        fontSize: 14,
+                                        fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
+
+                                    }}>
+                                    CONTINUE
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </IDPopup>
+
                 <View style={styles.header}>
                     <TouchableOpacity
                         onPress={() => navigation.goBack()}
@@ -340,6 +370,29 @@ export default function PatientDetails() {
                                             </>
 
                                     }
+                                    <View style={{ paddingBottom: 20, paddingHorizontal: 20, justifyContent: 'flex-end' }}>
+                                        <TouchableOpacity
+                                            activeOpacity={0.9}
+                                            style={{
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                elevation: 8
+                                            }}>
+                                            <View style={styles.buttonContainer}>
+                                                <Text
+                                                    style={{
+                                                        color: 'white',
+                                                        fontSize: 18,
+                                                        fontWeight: 'bold',
+                                                        //  fontFamily: FONTS.AvenirBlack
+
+                                                    }}>
+                                                    CONTINUE
+                                                </Text>
+                                            </View>
+                                        </TouchableOpacity>
+
+                                    </View>
 
                                 </View>
                             </>
@@ -371,39 +424,10 @@ export default function PatientDetails() {
 
                 </View> */}
 
-                <IDPopup visible={visible}>
-                    <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 270, padding: 30 }}>
-                        <Image source={icons.greenicon} style={{ width: 40, height: 40, }} />
-                        <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#989898', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Your System ID is</Text>
-                        <Text style={{ fontSize: 16, padding: 10, fontWeight: 'bold', textAlign: 'center', color: '#222D81', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>766789893738</Text>
-                        <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Please note down the ID {'\n'}for future reference</Text>
 
-
-                        <TouchableOpacity
-                            onPress={() => setVisible(false)}
-                            style={{ flex: 1 }}>
-                            <View style={{
-                                backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
-                                justifyContent: 'center', marginTop: 20
-                            }}>
-                                <Text
-                                    style={{
-                                        color: '#ffffff',
-                                        fontSize: 14,
-                                        fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
-
-                                    }}>
-                                    CONTINUE
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </IDPopup>
 
             </ScrollView>
-            <CommonBottomButton
-                onPress={() => navigation.navigate('AddressPage')}
-                children={'CONTINUE'} />
+
         </View>
     );
 }

@@ -181,7 +181,7 @@ export default function HomeScreen() {
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    padding: 40,
+                    padding: 0,
                     paddingBottom: 10,
                 }}>
                 <Text
