@@ -26,7 +26,8 @@ export default function HomeScreen() {
     const { data, error } = useQuery(GQLQuery.GET_PROFILE);
     const HealthWorkerProfileData = data && data.HealthWorkerUserQuery && data.HealthWorkerUserQuery.GetHealthWorkerUserDetails;
 
-    console.log(HealthWorkerProfileData)
+    console.log(data)
+    console.log(error)
 
 
     return (

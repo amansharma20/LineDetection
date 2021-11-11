@@ -12,8 +12,6 @@ export const GQLQuery = {
         PhoneNumber
         UserName
         }
-        ApplicationUserId
-        Code
         Country
         CreatedDateTimeUtc
         Department
