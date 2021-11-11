@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "LineDetection",
-    "slug": "LineDetection",
+    "name": "SickleScan",
+    "slug": "SickleScan",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

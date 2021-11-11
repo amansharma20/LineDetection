@@ -106,7 +106,6 @@ export default function HomeScreen() {
                 <View style={{}}>
                     <YoutubePlayer
                         height={375}
-                        play={true}
                         videoId={'3fQeWGPpIVw'}
                         webViewStyle={{ height: 100, justifyContent: 'flex-end', width: '100%'}}
                     />
