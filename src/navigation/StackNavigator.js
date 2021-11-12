@@ -39,8 +39,8 @@ export default function StackNavigator() {
         headerShown: false,
       }}>
 
-      <Stack.Screen name="PatientDetails" component={PatientDetails} />
       <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="PatientDetails" component={PatientDetails} />
       <Stack.Screen name="Cassette" component={CassetteScan} />
       <Stack.Screen name="ResultInstruction" component={ResultInstruction} />
       <Stack.Screen name="DummyImageScreen" component={DummyImageScreen} />

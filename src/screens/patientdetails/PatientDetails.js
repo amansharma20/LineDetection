@@ -203,10 +203,10 @@ export default function PatientDetails() {
                         }}>
                         <View
                             style={styles.header}>
-                            <Image source={icons.backarrow} style={{ width: 25, height: 25, }} />
-                        </View></TouchableOpacity>
+                            <Image source={icons.backarrow} style={{ width: 25, height: 25, resizeMode: 'contain' }} />
+                        </View>
+                    </TouchableOpacity>
                     <Image source={images.headerlogo} style={{ width: 95, height: 53, }} />
-
                 </View>
 
                 <View style={{ backgroundColor: 'white', margin: 5, elevation: 5, padding: 10, paddingBottom: 80, flex: 1 }}>
@@ -370,8 +370,10 @@ export default function PatientDetails() {
                                             </>
 
                                     }
-                                    <View style={{ paddingBottom: 20, paddingHorizontal: 20, justifyContent: 'flex-end' }}>
+
+                                    <View style={{ paddingBottom: 20, paddingHorizontal: 20 }}>
                                         <TouchableOpacity
+                                            onPress={() => navigation.navigate('AddressPage')}
                                             activeOpacity={0.9}
                                             style={{
                                                 alignItems: 'center',
@@ -391,8 +393,8 @@ export default function PatientDetails() {
                                                 </Text>
                                             </View>
                                         </TouchableOpacity>
-
                                     </View>
+
 
                                 </View>
                             </>
