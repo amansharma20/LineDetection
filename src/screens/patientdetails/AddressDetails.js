@@ -6,6 +6,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { icons } from '../../Constants/Index';
 import { SIZES, FONTS } from '../../Constants/Theme';
 import CommonBottomButton from '../../CommonBottomButton';
+import CommonHeader from '../../components/CommonHeader';
 
 
 const screenHeight = Dimensions.get('window').height;
@@ -30,22 +31,7 @@ export default function AddressDetails() {
         <View style={styles.MainContainer}>
 
             <ScrollView contentContainerStyle={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
-                <View style={styles.header}>
-                    <TouchableOpacity
-                        onPress={() => navigation.goBack()}
-                        style={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
-
-                        }}>
-                        <View>
-                            <Image source={icons.backarrow} style={{ width: 25, height: 25 }} />
-                        </View>
-                    </TouchableOpacity>
-
-                    <Image source={images.headerlogo} style={{ width: 95, height: 53, alignItems: 'center', justifyContent: 'center' }} />
-                    <View></View>
-                </View>
+                <CommonHeader />
 
                 <View style={{ backgroundColor: 'white', margin: 5, elevation: 5, padding: 20, flex: 1, paddingBottom: 50 }}>
 
@@ -113,7 +99,7 @@ export default function AddressDetails() {
                                 zIndexInverse={1000}
                                 placeholder="Select State"
                                 style={styles.pickerContainer}
-
+                                dropDownDirection="TOP"
                                 listMode="FLATLIST"
                                 dropDownContainerStyle={styles.dropDownContainerStyle}
                                 closeAfterSelecting={true}
@@ -196,7 +182,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FBF9F9',
         borderWidth: 1,
         borderRadius: 0,
-        marginTop: 10,
+        height: 42,
+        borderColor: '#989898'
     },
     dropDownContainerStyle: {
         backgroundColor: 'white',

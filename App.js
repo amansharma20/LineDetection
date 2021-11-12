@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, SafeAreaView } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -27,9 +27,9 @@ export default function App() {
           backgroundColor={'white'}
           barStyle={'dark-content'}
         />
-        <NavigationContainer>
-          <ApplicationNavigator />
-        </NavigationContainer>
+          <NavigationContainer>
+            <ApplicationNavigator />
+          </NavigationContainer>
         <Toast ref={ref => Toast.setRef(ref)} />
         <CommonLoading ref={ref => CommonLoading.setRef(ref)} />
       </SafeAreaProvider>

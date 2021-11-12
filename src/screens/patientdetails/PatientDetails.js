@@ -14,6 +14,7 @@ import BouncyCheckboxGroup, {
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import CommonBottomButton from '../../CommonBottomButton';
+import CommonHeader from '../../components/CommonHeader';
 const screenHeight = Dimensions.get('window').height;
 
 const stylesCheckbox = {
@@ -151,70 +152,61 @@ export default function PatientDetails() {
     return (
         <View style={styles.MainContainer}>
 
-            <ScrollView style={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
+            <Formik
+                validationSchema={patientSchema}
+                initialValues={{
+                    fullName: '',
+                    mobile: '',
+                    email: ''
 
-                <IDPopup visible={visible}>
-                    <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 270, padding: 30 }}>
-                        <Image source={icons.greenicon} style={{ width: 40, height: 40, }} />
-                        <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#989898', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Your System ID is</Text>
-                        <Text style={{ fontSize: 16, padding: 10, fontWeight: 'bold', textAlign: 'center', color: '#222D81', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>766789893738</Text>
-                        <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Please note down the ID {'\n'}for future reference</Text>
+                }}
+                onSubmit={values => submitDetails(values)}>
+                {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
+                    <>
+
+                        <ScrollView style={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
+
+                            <IDPopup visible={visible}>
+                                <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 270, padding: 30 }}>
+                                    <Image source={icons.greenicon} style={{ width: 40, height: 40, }} />
+                                    <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#989898', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Your System ID is</Text>
+                                    <Text style={{ fontSize: 16, padding: 10, fontWeight: 'bold', textAlign: 'center', color: '#222D81', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>766789893738</Text>
+                                    <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Please note down the ID {'\n'}for future reference</Text>
 
 
-                        <TouchableOpacity
-                            onPress={() => setVisible(false)}
-                            style={{ flex: 1 }}>
-                            <View style={{
-                                backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
-                                justifyContent: 'center', marginTop: 20
-                            }}>
-                                <Text
-                                    style={{
-                                        color: '#ffffff',
-                                        fontSize: 14,
-                                        fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
+                                    <TouchableOpacity
+                                        onPress={() => setVisible(false)}
+                                        style={{ flex: 1 }}>
+                                        <View style={{
+                                            backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
+                                            justifyContent: 'center', marginTop: 20
+                                        }}>
+                                            <Text
+                                                style={{
+                                                    color: '#ffffff',
+                                                    fontSize: 14,
+                                                    fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
 
-                                    }}>
-                                    CONTINUE
+                                                }}>
+                                                CONTINUE
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </IDPopup>
+
+                                <CommonHeader />
+
+
+
+                            <View style={{ backgroundColor: 'white', margin: 5, elevation: 5, padding: 10, paddingBottom: 20, flex: 1, }}>
+                                <Text style={{
+                                    fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', paddingTop: 20
+                                    // fontFamily: FONTS.AvenirBlack
+                                }}>
+                                    Enter Details (1/2)
                                 </Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </IDPopup>
 
-                <View style={styles.header}>
-                    <TouchableOpacity
-                        onPress={() => navigation.goBack()}
-                        style={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                        <View
-                            style={styles.header}>
-                            <Image source={icons.backarrow} style={{ width: 25, height: 25, resizeMode: 'contain' }} />
-                        </View>
-                    </TouchableOpacity>
-                    <Image source={images.headerlogo} style={{ width: 95, height: 53, }} />
-                </View>
-
-                <View style={{ backgroundColor: 'white', margin: 5, elevation: 5, padding: 10, paddingBottom: 80, flex: 1 }}>
-                    <Text style={{
-                        fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', paddingTop: 20
-                        // fontFamily: FONTS.AvenirBlack
-                    }}>
-                        Enter Details(1/2)
-                    </Text>
-                    <Formik
-                        validationSchema={patientSchema}
-                        initialValues={{
-                            fullName: '',
-                            mobile: '',
-                            email: ''
-
-                        }}
-                        onSubmit={values => submitDetails(values)}>
-                        {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
-                            <>
                                 <View style={styles.inputs}>
                                     <Text style={styles.textFieldLabel}>Full Name</Text>
                                     <TextInput
@@ -232,7 +224,7 @@ export default function PatientDetails() {
                                     {errors.fullName && touched.fullName && (
                                         <Text style={styles.error}>{errors.fullName}</Text>
                                     )}
-                                    <View >
+                                    <View>
                                         <TouchableOpacity onPress={() => setShowModal(true)}>
 
                                             <DatePicker
@@ -384,47 +376,44 @@ export default function PatientDetails() {
                                             </>
 
                                     }
-<<<<<<< HEAD
-
-                                    <View style={{ paddingBottom: 20, paddingHorizontal: 20 }}>
-=======
-                                    <View style={{ paddingTop: 40, paddingHorizontal: 20, justifyContent: 'flex-end' }}>
->>>>>>> refs/remotes/origin/main
-                                        <TouchableOpacity
-                                            onPress={() => navigation.navigate('AddressPage')}
-                                            activeOpacity={0.9}
-                                            style={{
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                elevation: 8
-                                            }}>
-                                            <View style={styles.buttonContainer}>
-                                                <Text
-                                                    style={{
-                                                        color: 'white',
-                                                        fontSize: 18,
-                                                        fontWeight: 'bold',
-                                                        //  fontFamily: FONTS.AvenirBlack
-
-                                                    }}>
-                                                    CONTINUE
-                                                </Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                    </View>
-<<<<<<< HEAD
 
 
-=======
->>>>>>> refs/remotes/origin/main
+
+
                                 </View>
 
-                            </>
-                        )}
-                    </Formik>
-                </View>
 
-            </ScrollView>
+                            </View>
+
+                        </ScrollView>
+
+                        <View style={{ paddingBottom: 20, paddingHorizontal: 20 }}>
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('AddressPage')}
+                                activeOpacity={0.9}
+                                style={{
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    elevation: 8
+                                }}>
+                                <View style={styles.buttonContainer}>
+                                    <Text
+                                        style={{
+                                            color: 'white',
+                                            fontSize: 18,
+                                            fontWeight: 'bold',
+                                            //  fontFamily: FONTS.AvenirBlack
+
+                                        }}>
+                                        CONTINUE
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                    </>
+                )}
+            </Formik>
 
         </View>
     );
@@ -487,6 +476,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#FBF9F9',
         borderWidth: 0,
         marginTop: 10,
+        borderWidth: 1,
+        borderColor: '#BDBDBD',
+        borderRadius: 0,
+        height: 40
     },
     dropDownContainerStyle: {
         backgroundColor: 'white',

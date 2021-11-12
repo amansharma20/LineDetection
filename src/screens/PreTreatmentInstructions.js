@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView } from 'react-native';
+import CommonHeader from '../components/CommonHeader';
 import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
@@ -14,64 +15,43 @@ export default function PreTreatmentInstructions() {
     return (
         <View style={styles.MainContainer}>
 
-            <ScrollView contentContainerStyle={{ paddingHorizontal: 0 }} showsVerticalScrollIndicator={false}>
-                <View style={styles.header}>
-                    <TouchableOpacity
-                        onPress={() => navigation.goBack()}
-                        style={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
+            {/* <View style={{ paddingHorizontal: 20 }}> */}
+                <CommonHeader />
+            {/* </View> */}
 
-                        }}>
-                        <View>
-                            <Image source={icons.backarrow} style={{ width: 25, height: 25, resizeMode: 'contain' }} />
+            <View style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+
+
+
+                <View style={{ backgroundColor: 'white', flex: 1, paddingHorizontal: 20, paddingTop: 40, paddingBottom: 20 }}>
+                    <View style={{
+                        backgroundColor: 'white', alignSelf: 'center', flex: 1, width: '100%', elevation: 5,
+                        alignItems: 'center', paddingTop: 20
+                    }}>
+
+                        <Text style={{ alignSelf: 'center', fontSize: 20, color: '#101E8E', fontWeight: '700' }}>
+                            Step By Step Instructions
+                        </Text>
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <Image source={images.pretreatment} style={{ width: 200, height: 200, resizeMode: 'contain' }} />
+                                <Text style={{
+                                    textAlign: 'center', alignSelf: 'center', paddingHorizontal: 80, paddingTop: 24,
+                                    color: '#474747', fontSize: 16
+                                }}>
+                                    Place the sample into
+                                    the PreTreatment Module
+                                    loaded with buffer
+                                    solution
+                                </Text>
+                            </View>
                         </View>
-                    </TouchableOpacity>
 
-                    <Image source={images.headerlogo} style={{ width: 95, height: 53, alignItems: 'center', justifyContent: 'center' }} />
-                    <View></View>
-                </View>
-
-                <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 10, elevation: 5, padding: 20, flex: 1 }}>
-
-
-                    <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>
-                        Step by Step Instructions
-                    </Text>
-                    <View style={styles.inputs}>
-
-
-                        <View style={{ alignItems: 'center', padding: 130, justifyContent:'center' }}>
-                            <Image source={images.pretreatment} style={{ width: 200, height: 200, resizeMode: 'stretch' }} />
-                        </View>
-                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Close the Pretreatment{'\n'} Module with both the{'\n'} colored and white cap.{'\n'} Invert module three times</Text>
 
                     </View>
-
                 </View>
-                {/* <View>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('Module')}>
-                        <View style={styles.buttonContainer}>
-                            <Text
-                                style={{
-                                    color: 'white',
-                                    fontSize: 18,
-                                    fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
 
-                                }}>
-                                CONTINUE
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('StopWatch')}>
-                    <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingTop: 10 }}>
-                        Skip
-                    </Text>
-                </TouchableOpacity> */}
-            </ScrollView>
+            </View>
             <View style={{ backgroundColor: 'white' }}>
                 <View style={{ paddingBottom: 20, elevation: 8, backgroundColor: 'white', paddingHorizontal: 20 }}>
                     <TouchableOpacity
@@ -124,7 +104,6 @@ const styles = StyleSheet.create({
         height: '47%',
     },
     MainContainer: {
-        justifyContent: 'center',
         flex: 1,
         backgroundColor: 'white'
     }

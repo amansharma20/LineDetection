@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView } from 'react-native';
+import CommonHeader from '../components/CommonHeader';
 import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
@@ -10,84 +11,98 @@ export default function InstructionsScreen() {
 
     const navigation = useNavigation();
 
-
     return (
         <View style={styles.MainContainer}>
 
-            <ScrollView contentContainerStyle={{ paddingBottom: 80 }} showsVerticalScrollIndicator={false}>
-            <View style={styles.header}>
+            {/* <View style={{ paddingHorizontal: 20 }}> */}
+                <CommonHeader />
+            {/* </View> */}
+
+            <View style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+
+
+
+                <View style={{ backgroundColor: 'white', flex: 1, paddingHorizontal: 20, paddingTop: 40, paddingBottom: 20 }}>
+                    <View style={{
+                        backgroundColor: 'white', alignSelf: 'center', flex: 1, width: '100%', elevation: 5,
+                        alignItems: 'center', paddingTop: 20
+                    }}>
+
+                        <Text style={{ alignSelf: 'center', fontSize: 20, color: '#101E8E', fontWeight: '700' }}>
+                            Step By Step Instructions
+                        </Text>
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <Image source={images.sample1} style={{ width: 200, height: 200, resizeMode: 'contain' }} />
+                                <Text style={{
+                                    textAlign: 'center', alignSelf: 'center', paddingHorizontal: 80, paddingTop: 24,
+                                    color: '#474747', fontSize: 16
+                                }}>
+                                    Place the sample into
+                                    the PreTreatment Module
+                                    loaded with buffer
+                                    solution
+                                </Text>
+                            </View>
+                        </View>
+
+
+                    </View>
+                </View>
+
+            </View>
+            <View style={{ backgroundColor: 'white' }}>
+                <View style={{ paddingBottom: 20, elevation: 8, backgroundColor: 'white', paddingHorizontal: 20 }}>
                     <TouchableOpacity
-                        onPress={() => navigation.goBack()}
+                        onPress={() => navigation.navigate('StopWatch')}
+                        activeOpacity={0.9}
                         style={{
                             alignItems: 'center',
                             justifyContent: 'center',
-
+                            elevation: 8
                         }}>
-                        <View>
-                            <Image source={icons.backarrow} style={{ width: 25, height: 25 }} />
-                        </View>
-                    </TouchableOpacity>
-
-                    <Image source={images.headerlogo} style={{ width: 95, height: 53, alignItems: 'center', justifyContent: 'center' }} />
-                    <View></View>
-                </View>
-
-                <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 30, elevation: 5, padding: 20, flex: 1 }}>
-
-
-                    <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>
-                        Step by Step Instructions
-                    </Text>
-                    <View style={styles.inputs}>
-
-                        <View style={{ alignItems: 'center', padding: 100 }}>
-                            <Image source={images.sample3} style={{ width: 200, height: 200, resizeMode: 'stretch' }} />
-                        </View>
-                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Dispense 5 drops of the{'\n'} treated sample into the{'\n'} Test Cartridge sample well</Text>
-                    </View>
-
-                </View>
-                <View>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('StopWatch')}>
                         <View style={styles.buttonContainer}>
                             <Text
                                 style={{
                                     color: 'white',
                                     fontSize: 18,
-                                    fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
+                                    fontWeight: 'bold',
+                                    //  fontFamily: FONTS.AvenirBlack
 
                                 }}>
-                                START TIMER
+                                CONTINUE
                             </Text>
                         </View>
                     </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('StopWatch')}>
+                        <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingTop: 10 }}>
+                            Skip
+                        </Text>
+                    </TouchableOpacity>
                 </View>
-                
-            </ScrollView>
-            
+            </View>
         </View>
     );
 }
 const styles = StyleSheet.create({
     header: {
-        flex: 1, flexDirection: 'row', justifyContent: 'space-between', padding: 20, paddingLeft: 0, paddingRight: 0,
+        flex: 1, flexDirection: 'row', justifyContent: 'space-between', padding: 20
     },
     buttonContainer: {
         width: '100%',
         borderRadius: 100,
-        marginTop: 30,
         height: 55,
+        marginTop: 30,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#222D81',
+        elevation: 8
     },
     inputs: {
         height: '47%',
     },
     MainContainer: {
-        justifyContent: 'center',
-        padding: 20,
         flex: 1,
         backgroundColor: 'white'
     }

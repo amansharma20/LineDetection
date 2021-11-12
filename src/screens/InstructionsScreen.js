@@ -30,7 +30,7 @@ export default function InstructionsScreen() {
                     </Text>
                     <View style={styles.inputs}>
 
-                        <View style={{ alignItems: 'center', padding: 100 }}>
+                        <View style={{ alignItems: 'center', padding: 40 }}>
                             <Image source={images.sample1} style={{ width: 200, height: 200, resizeMode: 'stretch' }} />
                         </View>
                         <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Clean the finger (or heal of {'\n'} newborn) using an alcohol{'\n'} swab, prick using a lancet{'\n'} and use the included{'\n'} Capillary Sampler to{'\n'} obtain 5µL whole blood</Text>
@@ -101,6 +101,8 @@ export default function InstructionsScreen() {
 const styles = StyleSheet.create({
     header: {
         flex: 1, flexDirection: 'row', justifyContent: 'center', padding: 20, paddingLeft: 0, paddingTop: 0, paddingRight: 0,
+        paddingBottom: 54, paddingTop: 10
+
     },
     buttonContainer: {
         width: '100%',

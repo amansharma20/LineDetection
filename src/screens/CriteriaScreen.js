@@ -167,8 +167,6 @@ export default function CriteriaScreen() {
                         <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
                             <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
                             <Text style={{ fontSize: 16, padding: 20, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>It is mandatory to get {'\n'}consent of the person {'\n'}getting tested</Text>
-
-
                             <TouchableOpacity
                                 onPress={() => setnoConsentPopup(false)}
                                 style={{ flex: 1 }}>
