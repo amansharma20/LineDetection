@@ -20,7 +20,7 @@ const CommonBottomButton = ({ children, ...rest }) => {
                 style={{
                     alignItems: 'center',
                     justifyContent: 'center',
-                    elevation: 8
+                    elevation: 8,
                 }}>
                 <View style={styles.buttonContainer}>
                     <Text

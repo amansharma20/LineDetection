@@ -102,22 +102,6 @@ export default function CriteriaScreen() {
                         Qualifying Criteria
                     </Text>
 
-
-
-                    <Text style={{ fontSize: 16, padding: 10, paddingTop: 30, fontFamily: FONTS.AvenirRoman, color: '#000000', fontWeight: '400' }}>Has the person getting tested undergone blood transfusion in past 6 months?</Text>
-                    <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                        <BouncyCheckboxGroup
-                            data={staticData}
-                            // onPress={() => setVisible(true)}
-                            onChange={(selectedItem: ICheckboxButton,) => {
-                                console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                                if (selectedItem.id === 0) {
-                                    setnoTestPopup(true)
-                                }
-                            }}
-
-                        />
-                    </View>
                     <Text style={{ fontSize: 16, padding: 10, fontFamily: FONTS.AvenirRoman, color: '#000000', fontWeight: '400' }}>Do you have the consent from the person/guardian to conduct the test?</Text>
                     <View style={{ flexDirection: 'row', marginLeft: 10 }}>
                         <BouncyCheckboxGroup
@@ -134,11 +118,28 @@ export default function CriteriaScreen() {
                     </View>
 
 
+                    <Text style={{ fontSize: 16, padding: 10, paddingTop: 30, fontFamily: FONTS.AvenirRoman, color: '#000000', fontWeight: '400' }}>Was a blood transfusion received in the past 6 months?</Text>
+                    <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                        <BouncyCheckboxGroup
+                            data={staticData}
+                            // onPress={() => setVisible(true)}
+                            onChange={(selectedItem: ICheckboxButton,) => {
+                                console.log('SelectedItem: ', JSON.stringify(selectedItem));
+                                if (selectedItem.id === 0) {
+                                    setnoTestPopup(true)
+                                }
+                            }}
+
+                        />
+                    </View>
+
+
+
 
                     <NoTestPopup visible={noTestPopup}>
                         <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
                             <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
-                            <Text style={{ fontSize: 16, padding: 20, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Sickle SCAN test should not {'\n'}performed within 6 months {'\n'}of receiving a blood transfusion.</Text>
+                            <Text style={{ fontSize: 16, padding: 20, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Sickle SCAN test should not {'\n'}performed within 6 months {'\n'}of receiving a blood transfusion</Text>
 
 
                             <TouchableOpacity

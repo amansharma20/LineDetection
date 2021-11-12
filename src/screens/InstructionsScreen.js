@@ -33,7 +33,7 @@ export default function InstructionsScreen() {
                         <View style={{ alignItems: 'center', padding: 100 }}>
                             <Image source={images.sample1} style={{ width: 200, height: 200, resizeMode: 'stretch' }} />
                         </View>
-                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Use the included Capillary Sampler to obtain  5µL whole blood.</Text>
+                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Clean the finger (or heal of {'\n'} newborn) using an alcohol{'\n'} swab, prick using a lancet{'\n'} and use the included{'\n'} Capillary Sampler to{'\n'} obtain 5µL whole blood</Text>
 
                     </View>
 
