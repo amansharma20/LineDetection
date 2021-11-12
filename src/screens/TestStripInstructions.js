@@ -43,7 +43,7 @@ export default function InstructionsScreen() {
                         <View style={{ alignItems: 'center', padding: 100 }}>
                             <Image source={images.sample3} style={{ width: 200, height: 200, resizeMode: 'stretch' }} />
                         </View>
-                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Dispense 5 drops of the treated sample into the Test Cartridge sample well.</Text>
+                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Dispense 5 drops of the{'\n'} treated sample into the{'\n'} Test Cartridge sample well</Text>
                     </View>
 
                 </View>

@@ -1,39 +1,15 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView, Modal, Animated } from 'react-native';
+import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView, } from 'react-native';
 import images from '../Constants/Images';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { icons } from '../Constants/Index';
 import { FONTS, } from '../Constants/Theme';
 import CommonBottomButton from '../CommonBottomButton';
 
-const AddPopup = ({ visible, children }) => {
-    const [showModal, setShowModal] = React.useState(visible);
-    const scalevalue = React.useRef(new Animated.Value(0)).current;
-    React.useEffect(() => {
-        toggleModal();
-    }, [visible]);
-    const toggleModal = () => {
-        if (visible) {
-            setShowModal(true)
-            Animated.spring(scalevalue, { toValue: 1, duration: 300, useNativeDriver: true, }).start();
-        } else {
-            setTimeout(() => setShowModal(false), 200);
-            Animated.timing(scalevalue, { toValue: 0, duration: 300, useNativeDriver: true, }).start();
-        }
-    }
-    return <Modal transparent visible={showModal}>
-        <View style={styles.modalBackground}>
-            <Animated.View style={styles.modalContainer, { transform: [{ scale: scalevalue }] }}>{children}</Animated.View>
-        </View>
-
-    </Modal>
-};
 const screenHeight = Dimensions.get('window').height;
 
 export default function ResultSymptoms(props) {
-
-    const [visible, setVisible] = React.useState(false);
 
     const navigation = useNavigation();
 
@@ -67,103 +43,11 @@ export default function ResultSymptoms(props) {
 
                         <Text style={{ fontSize: 24, padding: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'normal', fontFamily: FONTS.AvenirBlack, paddingTop: 20 }}>{result}</Text>
 
-                        <Text style={{ fontSize: 10, padding: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'normal', fontFamily: FONTS.AvenirBlack, paddingTop: 20 }}>Is the result displayed on the test same as displayed on the screen? If No, then</Text>
+                        <Text style={{ fontSize: 10, padding: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'normal', fontFamily: FONTS.AvenirBlack, paddingTop: 20 }}>Is the test result different? If so, please select the result manually.</Text>
 
 
 
-                        <AddPopup visible={visible}>
-                            <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
-                                <Text style={{ fontSize: 16, paddingTop: 30, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirBlack }}>Add Result Manually</Text>
-                                <View style={{ paddingVertical: 10 }}>
-                                    <BouncyCheckbox
-                                        size={20}
-                                        style={styles.checkboxStyle}
-                                        fillColor="#101E8E"
-                                        unfillColor="#FFFFFF"
-                                        text="Normal"
-                                        iconStyle={{ borderColor: "#101E8E", }}
-                                        textStyle={{
-                                            textDecorationLine: "none", fontSize: 14, fontFamily: FONTS.AvenirBlack
-                                        }}
-                                    />
-                                    <BouncyCheckbox
-                                        size={20}
-                                        style={styles.checkboxStyle}
-                                        fillColor="#101E8E"
-                                        unfillColor="#FFFFFF"
-                                        text="Sickle Cell Trait"
-                                        iconStyle={{ borderColor: "#101E8E", }}
-                                        textStyle={{
-                                            textDecorationLine: "none", fontSize: 14, fontFamily: FONTS.AvenirBlack
-                                        }}
-                                    />
-                                    <BouncyCheckbox
-                                        size={20}
-                                        style={styles.checkboxStyle}
-                                        fillColor="#101E8E"
-                                        unfillColor="#FFFFFF"
-                                        text="Sickle Cell Disease"
-                                        iconStyle={{ borderColor: "#101E8E", }}
-                                        textStyle={{
-                                            textDecorationLine: "none", fontSize: 14, fontFamily: FONTS.AvenirBlack
-                                        }}
-                                    />
-                                    <BouncyCheckbox
-                                        size={20}
-                                        style={styles.checkboxStyle}
-                                        fillColor="#101E8E"
-                                        unfillColor="#FFFFFF"
-                                        text="AC Trait"
-                                        iconStyle={{ borderColor: "#101E8E", }}
-                                        textStyle={{
-                                            textDecorationLine: "none", fontSize: 14, fontFamily: FONTS.AvenirBlack
-                                        }}
-                                    />
-                                    <BouncyCheckbox
-                                        size={20}
-                                        style={styles.checkboxStyle}
-                                        fillColor="#101E8E"
-                                        unfillColor="#FFFFFF"
-                                        text="SC Disease"
-                                        iconStyle={{ borderColor: "#101E8E", }}
-                                        textStyle={{
-                                            textDecorationLine: "none", fontSize: 14, fontFamily: FONTS.AvenirBlack
-                                        }}
-                                    />
-                                    <BouncyCheckbox
-                                        size={20}
-                                        style={styles.checkboxStyle}
-                                        fillColor="#101E8E"
-                                        unfillColor="#FFFFFF"
-                                        text="Invalid"
-                                        iconStyle={{ borderColor: "#101E8E", }}
-                                        textStyle={{
-                                            textDecorationLine: "none", fontSize: 14, fontFamily: FONTS.AvenirBlack
-                                        }}
-                                        onPress={() => navigation.navigate('Home')}
-                                    />
-                                </View>
-                                <TouchableOpacity
-                                    onPress={() => setVisible(false)}
-                                    style={{ flex: 1 }}>
-                                    <View style={{
-                                        backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
-                                        justifyContent: 'center',
-                                    }}>
-                                        <Text
-                                            style={{
-                                                color: '#ffffff',
-                                                fontSize: 18,
-                                                fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
-
-                                            }}>
-                                            ADD
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                        </AddPopup>
-
+                        
                         <TouchableOpacity onPress={() => navigation.navigate('ManualResultScreen')}>
                             <Text style={{ fontSize: 18, padding: 10, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#222D81', fontFamily: FONTS.AvenirBlack }}>SELECT RESULT</Text>
                         </TouchableOpacity>

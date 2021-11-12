@@ -13,8 +13,6 @@ export default function AddressDetails() {
 
     const navigation = useNavigation();
 
-
-
     const [stateValue, setStateValue] = useState(null);
 
     const [openState, setOpenState] = useState(null);
@@ -57,50 +55,50 @@ export default function AddressDetails() {
                     </Text>
 
                     <View style={styles.inputs}>
-                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>C/O</Text>
+                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Care Of</Text>
                         <TextInput
                             style={styles.textInput}
                             placeholder='12/55'
-                            maxLength={20} />
+                            maxLength={50} />
 
-                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>House/Bldg/Apt</Text>
+                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>House Number</Text>
                         <TextInput
                             style={styles.textInput}
                             placeholder=''
-                            maxLength={20} />
+                            maxLength={50} />
 
-                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Street/Road/Lane</Text>
+                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Street</Text>
                         <TextInput
                             style={styles.textInput}
                             placeholder=''
-                            maxLength={20} />
+                            maxLength={100} />
 
 
 
-                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Area/Locality/Sector</Text>
+                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Area</Text>
                         <TextInput
                             style={styles.textInput}
                             keyboardType='default'
                             placeholder=''
-                            maxLength={20} />
+                            maxLength={100} />
 
-                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Village/Town/City</Text>
+                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>City</Text>
                         <TextInput
                             style={styles.textInput}
                             placeholder=''
-                            maxLength={20} />
+                            maxLength={100} />
 
                         <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>P.O.</Text>
                         <TextInput
                             style={styles.textInput}
                             placeholder=''
-                            maxLength={20} />
+                            maxLength={100} />
 
                         <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>District</Text>
                         <TextInput
                             style={styles.textInput}
                             placeholder=''
-                            maxLength={20} />
+                            maxLength={100} />
 
                         <View style={{ padding: 0 }}>
                             <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>State</Text>
@@ -126,36 +124,21 @@ export default function AddressDetails() {
                                     }),
                                 }}
                             />
-                            <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>PinCode</Text>
+                            <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Pin Code</Text>
                             <TextInput
                                 style={styles.textInput}
                                 placeholder=''
-                                maxLength={20} />
+                                maxLength={10} />
+
+                            <Text style={styles.textFieldLabel}>Country</Text>
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder=''
+                                maxLength={100} />
                         </View>
                     </View>
                 </View>
 
-                {/* <View style={{ justifyContent: 'center', paddingVertical: 20 }}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('Criteria')}
-                        style={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                        <View style={styles.buttonContainer}>
-                            <Text
-                                style={{
-                                    color: 'white',
-                                    fontSize: 18,
-                                    fontWeight: 'bold',
-                                    // fontFamily: FONTS.AvenirBlack
-
-                                }}>
-                                Continue
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                </View> */}
             </ScrollView>
             <CommonBottomButton
                 onPress={() => navigation.navigate('Criteria')}
@@ -211,11 +194,13 @@ const styles = StyleSheet.create({
     },
     pickerContainer: {
         backgroundColor: '#FBF9F9',
-        borderWidth: 0,
+        borderWidth: 1,
+        borderRadius: 0,
         marginTop: 10,
     },
     dropDownContainerStyle: {
         backgroundColor: 'white',
+        borderColor: '#989898',
         borderWidth: 1,
     },
     MainContainer: {

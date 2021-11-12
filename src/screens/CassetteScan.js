@@ -131,6 +131,18 @@ export default function CassetteScan() {
             <View
                 style={{ flex: 1 }}
             >
+                <Text
+              style={{
+                fontSize: 16,
+                textAlign:'right',
+                justifyContent:'flex-end',
+                fontWeight: 'bold',
+                color: '#474747',
+                paddingRight:40,
+                paddingBottom:10,
+              }}>
+              06:41
+            </Text>
                 <Camera
                     ref={cameraRef}
                     type={Camera.Constants.Type.back}
@@ -141,16 +153,18 @@ export default function CassetteScan() {
             </View>
 
 
-            <View style={{ alignItems: 'center', height: '20%', marginVertical: 20, justifyContent: 'space-between' }}>
-                <Text style={{ fontSize: 16, color: '#474747', alignSelf: 'center', textAlign: 'center', paddingHorizontal: 20, fontWeight: 'bold' }}>
-                    Please align the cartridge in the
-                    frame above to scan it
-                </Text>
+            <View style={{ alignItems: 'center', height: '20%', marginVertical: 40, justifyContent: 'space-between' }}>
+               
                 <Pressable
                     onPress={() => handleImageCapture()}
                     style={styles.captureButton}
                 />
-                <TouchableOpacity>
+                 <Text style={{ fontSize: 16, color: '#474747', alignSelf: 'center', paddingTop:15, textAlign: 'center', paddingHorizontal: 20, fontWeight: 'bold' }}>
+                    Please align the cartridge in the{'\n'}frame above to scan it
+                    
+                </Text>
+                <TouchableOpacity
+                        onPress={() => navigation.navigate('ManualResultScreen')}>
                     <Text style={{ fontSize: 30, color: '#101E8E', fontWeight: 'bold' }}>
                         Skip
                     </Text>
@@ -189,7 +203,7 @@ const styles = StyleSheet.create({
         width: 60,
         // zIndex: 100,
         height: 60,
-        backgroundColor: 'black',
+        backgroundColor: '#CF0A2C',
         borderRadius: 50,
         // marginBottom: 40
     },

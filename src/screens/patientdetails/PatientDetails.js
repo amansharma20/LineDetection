@@ -17,7 +17,7 @@ import CommonBottomButton from '../../CommonBottomButton';
 const screenHeight = Dimensions.get('window').height;
 
 const stylesCheckbox = {
-    textStyle: { textDecorationLine: 'none', color: '#101E8E', marginRight: 10 },
+    textStyle: { textDecorationLine: 'none', color: '#000000', marginRight: 10 },
 };
 
 const staticData = [
@@ -92,7 +92,7 @@ export default function PatientDetails() {
         { label: 'Mother', value: 'mother' },
         { label: 'Father', value: 'father' },
         { label: 'Spouse', value: 'spouse' },
-        { label: 'Sibling', value: 'sibling' },
+        { label: 'Brother/Sister', value: 'brother/sister' },
         { label: 'Other', value: 'other' },
     ]);
 
@@ -226,7 +226,7 @@ export default function PatientDetails() {
                                         keyboardType='default'
                                         placeholderTextColor='#B4B4B4'
                                         placeholder='Enter full name'
-                                        maxLength={20} />
+                                        maxLength={70} />
                                     <Text style={styles.textFieldLabel}>Date of Birth</Text>
 
                                     {errors.fullName && touched.fullName && (
@@ -251,10 +251,10 @@ export default function PatientDetails() {
                                         onBlur={handleBlur('mobile')}
                                         value={values.mobile}
                                         style={styles.textInput}
-                                        keyboardType='default'
+                                        keyboardType='phone-pad'
                                         placeholderTextColor='#B4B4B4'
                                         placeholder='Enter mobile number'
-                                        maxLength={20} />
+                                        maxLength={12} />
 
                                     {errors.mobile && touched.mobile && (
                                         <Text style={styles.error}>{errors.mobile}</Text>
@@ -267,15 +267,14 @@ export default function PatientDetails() {
                                         onBlur={handleBlur('email')}
                                         value={values.email}
                                         style={styles.textInput}
-                                        keyboardType='default'
+                                        keyboardType='email-address'
                                         placeholderTextColor='#B4B4B4'
-                                        placeholder='Enter Email ID'
-                                        maxLength={20} />
+                                        placeholder='Enter Email ID' />
                                     {errors.email && touched.email && (
                                         <Text style={styles.error}>{errors.email}</Text>
                                     )}
                                     <Text style={styles.textFieldLabel}>Gender</Text>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 10 }}>
                                         <BouncyCheckboxGroup
                                             data={staticData}
                                             // onPress={() => setVisible(true)}
@@ -287,7 +286,7 @@ export default function PatientDetails() {
                                         />
                                     </View>
                                     <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Aadhaar ID Available</Text>
-                                    <View style={{ flexDirection: 'row' }}>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                         <BouncyCheckboxGroup
                                             data={aadhaarcheckboxData}
                                             // onPress={() => setVisible(true)}
@@ -308,43 +307,19 @@ export default function PatientDetails() {
                                             <>
                                                 <View>
 
-                                                    <Text style={styles.textFieldLabel}>Aadhaar  Number </Text>
+                                                    <Text style={styles.textFieldLabel}>Aadhaar Number </Text>
                                                     <TextInput
                                                         style={styles.textInput}
                                                         keyboardType='default'
                                                         placeholderTextColor='#B4B4B4'
-                                                        placeholder='Enter  adhaar number'
-                                                        maxLength={20} />
+                                                        placeholder='Enter adhaar number'
+                                                        maxLength={50} />
                                                 </View>
 
                                             </>
                                             :
                                             <>
-                                                <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Guardian's Aadhaar Available?</Text>
-                                                <View style={{ flexDirection: 'row' }}>
 
-                                                    <BouncyCheckboxGroup
-                                                        data={IDPopupData}
-                                                        // onPress={() => setVisible(true)}
-                                                        onChange={(selectedItem: ICheckboxButton,) => {
-                                                            console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                                                            if (selectedItem.id === 1) {
-                                                                setVisible(true)
-                                                            }
-                                                        }}
-
-                                                    />
-                                                </View>
-
-                                                <View style={{ flexDirection: 'row' }}>
-                                                    <Text style={styles.textFieldLabel}>Guardian Aadhaar No.</Text>
-                                                </View>
-                                                <TextInput
-                                                    style={styles.textInput}
-                                                    keyboardType='default'
-                                                    placeholderTextColor='#B4B4B4'
-                                                    placeholder='1234 5678 4321'
-                                                    maxLength={12} />
                                                 <View>
                                                     <Text style={styles.textFieldLabel}>Name of Guardian </Text>
                                                     <TextInput
@@ -352,7 +327,7 @@ export default function PatientDetails() {
                                                         keyboardType='default'
                                                         placeholderTextColor='#B4B4B4'
                                                         placeholder='Full Name'
-                                                        maxLength={20} />
+                                                        maxLength={50} />
                                                     <Text style={styles.textFieldLabel}>Select Relationship </Text>
                                                     <DropDownPicker
                                                         open={openSelectRelationship}
@@ -379,12 +354,39 @@ export default function PatientDetails() {
 
 
                                                 </View>
+                                                <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Guardian's Aadhaar Available?</Text>
+                                                <View style={{ flexDirection: 'row' }}>
+
+                                                    <BouncyCheckboxGroup
+                                                        data={IDPopupData}
+                                                        // onPress={() => setVisible(true)}
+                                                        onChange={(selectedItem: ICheckboxButton,) => {
+                                                            console.log('SelectedItem: ', JSON.stringify(selectedItem));
+                                                            if (selectedItem.id === 1) {
+                                                                setVisible(true)
+                                                            }
+                                                        }}
+
+                                                    />
+                                                </View>
+
+                                                <View style={{ flexDirection: 'row' }}>
+                                                    <Text style={styles.textFieldLabel}>Guardian Aadhaar No. / Other ID</Text>
+                                                </View>
+                                                <TextInput
+                                                    style={styles.textInput}
+                                                    keyboardType='default'
+                                                    placeholderTextColor='#B4B4B4'
+                                                    placeholder='1234 5678 4321'
+                                                    maxLength={50} />
+
 
                                             </>
 
                                     }
-                                    <View style={{ paddingBottom: 20, paddingHorizontal: 20, justifyContent: 'flex-end' }}>
+                                    <View style={{ paddingTop: 40, paddingHorizontal: 20, justifyContent: 'flex-end' }}>
                                         <TouchableOpacity
+                                            onPress={() => navigation.navigate('AddressPage')}
                                             activeOpacity={0.9}
                                             style={{
                                                 alignItems: 'center',
@@ -406,38 +408,12 @@ export default function PatientDetails() {
                                         </TouchableOpacity>
 
                                     </View>
-
                                 </View>
+
                             </>
                         )}
                     </Formik>
-
                 </View>
-
-                {/* <View style={{ justifyContent: 'center', paddingVertical: 20 }}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('AddressPage')}
-                        style={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                        <View style={styles.buttonContainer}>
-                            <Text
-                                style={{
-                                    color: 'white',
-                                    fontSize: 18,
-                                    fontWeight: 'bold',
-                                    //  fontFamily: FONTS.AvenirBlack
-
-                                }}>
-                                Continue
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-
-                </View> */}
-
-
 
             </ScrollView>
 

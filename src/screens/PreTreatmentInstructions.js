@@ -41,10 +41,10 @@ export default function PreTreatmentInstructions() {
                     <View style={styles.inputs}>
 
 
-                        <View style={{ alignItems: 'center', padding: 100 }}>
+                        <View style={{ alignItems: 'center', padding: 130, justifyContent:'center' }}>
                             <Image source={images.pretreatment} style={{ width: 200, height: 200, resizeMode: 'stretch' }} />
                         </View>
-                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Close the Pretreatment Module with both the coloured and white cap Invert module three times.</Text>
+                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Close the Pretreatment{'\n'} Module with both the{'\n'} colored and white cap.{'\n'} Invert module three times</Text>
 
                     </View>
 
@@ -75,7 +75,7 @@ export default function PreTreatmentInstructions() {
             <View style={{ backgroundColor: 'white' }}>
                 <View style={{ paddingBottom: 20, elevation: 8, backgroundColor: 'white', paddingHorizontal: 20 }}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('StopWatch')}
+                        onPress={() => navigation.navigate('Module')}
                         activeOpacity={0.9}
                         style={{
                             alignItems: 'center',

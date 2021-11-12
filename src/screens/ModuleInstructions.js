@@ -41,10 +41,10 @@ export default function ModuleInstructions() {
                     <View style={styles.inputs}>
 
 
-                        <View style={{ alignItems: 'center', padding: 100 }}>
+                        <View style={{ alignItems: 'center', padding: 130, paddingBottom:30, justifyContent:'center', }}>
                             <Image source={images.module} style={{ width: 200, height: 200, resizeMode: 'stretch' }} />
                         </View>
-                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Remove coloured cap from Pretreatment Module.</Text>
+                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Remove colored{'\n'} cap from Pretreatment{'\n'} Module</Text>
 
                     </View>
 

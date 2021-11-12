@@ -15,7 +15,11 @@ export const Cassette = require('../../assests/images/Cassette.png');
 export const Poster = require('../../assests/images/poster.png');
 export const countdown = require('../../assests/images/countdown.png');
 export const pretreatment = require('../../assests/images/pretreatment.png');
-export const module = require('../../assests/images/module.png');
+export const hbaa = require('../../assests/images/hbaa.png');
+export const hbac = require('../../assests/images/hbac.png');
+export const hbas = require('../../assests/images/hbas.png');
+export const hbsc = require('../../assests/images/hbsc.png');
+export const hbss = require('../../assests/images/hbss.png');
 
 
 
@@ -42,4 +46,9 @@ export default {
     countdown,
     module,
     pretreatment,
+    hbaa,
+    hbac,
+    hbas,
+    hbsc,
+    hbss,
 };

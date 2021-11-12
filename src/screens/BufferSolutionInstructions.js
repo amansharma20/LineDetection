@@ -41,7 +41,7 @@ export default function InstructionsScreen() {
                         <View style={{ alignItems: 'center', padding: 100 }}>
                             <Image source={images.sample2} style={{ width: 200, height: 200, resizeMode: 'stretch' }} />
                         </View>
-                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Place the sample into the PreTreatment Module loaded with buffer solution.</Text>
+                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Place the sample into{'\n'} the PreTreatment Module{'\n'} loaded with buffer{'\n'} solution</Text>
 
                     </View>
 
