@@ -15,7 +15,7 @@ export default function InstructionsScreen() {
         <View style={styles.MainContainer}>
 
             {/* <View style={{ paddingHorizontal: 20 }}> */}
-                <CommonHeader />
+            <CommonHeader />
             {/* </View> */}
 
             <View style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
@@ -33,15 +33,14 @@ export default function InstructionsScreen() {
                         </Text>
                         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                             <View style={{ alignItems: 'center' }}>
-                                <Image source={images.sample1} style={{ width: 200, height: 200, resizeMode: 'contain' }} />
+                                <Image source={images.fivedrops} style={{ width: 200, height: 200, resizeMode: 'contain' }} />
                                 <Text style={{
                                     textAlign: 'center', alignSelf: 'center', paddingHorizontal: 80, paddingTop: 24,
                                     color: '#474747', fontSize: 16
                                 }}>
-                                    Place the sample into
-                                    the PreTreatment Module
-                                    loaded with buffer
-                                    solution
+                                    Dispense 5 drops of the
+                                    treated sample into the
+                                    Test Cartridge sample well
                                 </Text>
                             </View>
                         </View>

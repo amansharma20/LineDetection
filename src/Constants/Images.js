@@ -20,6 +20,9 @@ export const hbac = require('../../assests/images/hbac.png');
 export const hbas = require('../../assests/images/hbas.png');
 export const hbsc = require('../../assests/images/hbsc.png');
 export const hbss = require('../../assests/images/hbss.png');
+export const closePreTreatment = require('../../assests/images/closePreTreatment.png');
+export const remove = require('../../assests/images/remove.png');
+export const fivedrops = require('../../assests/images/fivedrops.png');
 
 
 
@@ -51,4 +54,7 @@ export default {
     hbas,
     hbsc,
     hbss,
+    closePreTreatment,
+    remove,
+    fivedrops,
 };

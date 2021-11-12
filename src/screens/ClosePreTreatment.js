@@ -7,7 +7,7 @@ import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
 const screenHeight = Dimensions.get('window').height;
 
-export default function InstructionsScreen() {
+export default function ClosePreTreatment() {
 
     const navigation = useNavigation();
 
@@ -16,7 +16,7 @@ export default function InstructionsScreen() {
         <View style={styles.MainContainer}>
 
             {/* <View style={{ paddingHorizontal: 20 }}> */}
-                <CommonHeader />
+            <CommonHeader />
             {/* </View> */}
 
             <View style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
@@ -34,12 +34,15 @@ export default function InstructionsScreen() {
                         </Text>
                         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                             <View style={{ alignItems: 'center' }}>
-                                <Image source={images.pretreatment} style={{ width: 200, height: 200, resizeMode: 'contain' }} />
+                                <Image source={images.closePreTreatment} style={{ width: 200, height: 200, resizeMode: 'contain' }} />
                                 <Text style={{
                                     textAlign: 'center', alignSelf: 'center', paddingHorizontal: 80, paddingTop: 24,
                                     color: '#474747', fontSize: 16
                                 }}>
-                                    Place the sample into the PreTreatment Module loaded with buffer solution
+                                    Close the PreTreatment
+                                    Module with both the
+                                    coloured and white cap.
+                                    Invert module three times
                                 </Text>
                             </View>
                         </View>
@@ -52,7 +55,7 @@ export default function InstructionsScreen() {
             <View style={{ backgroundColor: 'white' }}>
                 <View style={{ paddingBottom: 20, elevation: 8, backgroundColor: 'white', paddingHorizontal: 20 }}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('PreTreatment')}
+                        onPress={() => navigation.navigate('Module')}
                         activeOpacity={0.9}
                         style={{
                             alignItems: 'center',

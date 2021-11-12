@@ -42,7 +42,7 @@ export default function PreTreatmentInstructions() {
                                     Place the sample into
                                     the PreTreatment Module
                                     loaded with buffer
-                                    solution
+                                    solution 
                                 </Text>
                             </View>
                         </View>
@@ -55,7 +55,7 @@ export default function PreTreatmentInstructions() {
             <View style={{ backgroundColor: 'white' }}>
                 <View style={{ paddingBottom: 20, elevation: 8, backgroundColor: 'white', paddingHorizontal: 20 }}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Module')}
+                        onPress={() => navigation.navigate('ClosePreTreatment')}
                         activeOpacity={0.9}
                         style={{
                             alignItems: 'center',
@@ -76,7 +76,7 @@ export default function PreTreatmentInstructions() {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('StopWatch')}>
+                        onPress={() => navigation.navigate('Module')}>
                         <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingTop: 10 }}>
                             Skip
                         </Text>
