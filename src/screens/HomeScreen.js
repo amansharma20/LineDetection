@@ -26,10 +26,6 @@ export default function HomeScreen() {
     const { data, error } = useQuery(GQLQuery.GET_PROFILE);
     const HealthWorkerProfileData = data && data.HealthWorkerUserQuery && data.HealthWorkerUserQuery.GetHealthWorkerUserDetails;
 
-    console.log(data)
-    console.log(error)
-
-
     return (
         <ScrollView style={styles.MainContainer}>
             <View style={styles.header}>

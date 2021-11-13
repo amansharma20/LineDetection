@@ -18,7 +18,7 @@ export const GQLQuery = {
         FirstName
         LastName
         Organization
-        Pincode
+        PinCode
         State
         UpdatedDateTimeUtc
         }
@@ -27,13 +27,13 @@ export const GQLQuery = {
   `,
 
   SEARCH_PATIENT_RECORD: gql`
-      query MyQuery ($AadharNumber: String!, $UniqueId: String!){
+      query MyQuery ($AadharNumber: String!, $UniqueID: String!){
           SearchPatientQuery {
-            GetPatientBySearch(AadharNumber: $AadharNumber, UniqueId: $UniqueId) {
+            GetPatientBySearch(AadharNumber: $AadharNumber, UniqueID: $UniqueID) {
               Id
               FullName
               DateOfBirth
-              UniqueId
+              UniqueID
             }
           }
         }`,

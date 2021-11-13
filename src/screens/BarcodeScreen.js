@@ -9,10 +9,8 @@ export default function BarcodeScreen() {
 
     const navigation = useNavigation();
 
-
     return (
         <View style={styles.MainContainer}>
-
             <ScrollView contentContainerStyle showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
                     <TouchableOpacity

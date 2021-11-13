@@ -63,7 +63,7 @@ export default function SearchPatient() {
         getRecords({
             variables: {
                 AadharNumber: values.aadhaar,
-                UniqueId: values.systemId,
+                UniqueID: values.systemId,
             }
         });
     }
@@ -74,6 +74,8 @@ export default function SearchPatient() {
             PatientRecord: PatientRecord
         })
     }
+
+
 
     return (
         <View style={styles.MainContainer}>

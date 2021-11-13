@@ -117,7 +117,7 @@ export default function RegistrationScreen(props) {
                   onChangeText={handleChange('organization')}
                   onBlur={handleBlur('organization')}
                   placeholderTextColor='#B4B4B4'
-                  placeholder='Enter your username'
+                  placeholder=''
                   value={values.organization}
                   maxLength={20} />
 
@@ -134,7 +134,7 @@ export default function RegistrationScreen(props) {
                   onChangeText={handleChange('department')}
                   onBlur={handleBlur('department')}
                   value={values.department}
-                  placeholder='Please create your Password'
+                  placeholder=''
                   maxLength={20} />
 
                 {errors.department && touched.department && (
@@ -175,16 +175,14 @@ export default function RegistrationScreen(props) {
                   onChangeText={handleChange('address')}
                   onBlur={handleBlur('address')}
                   placeholderTextColor='#B4B4B4'
-                  placeholder='Please confirm your Password'
+                  placeholder=''
                   value={values.address}
                   maxLength={20} />
                 {errors.address && touched.address && (
                   <Text style={styles.error}>{errors.address}</Text>
                 )}
 
-                {errors.address && touched.address && (
-                  <Text style={styles.error}>{errors.address}</Text>
-                )}
+                
 
                 <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>City</Text>
                 <TextInput
@@ -194,7 +192,7 @@ export default function RegistrationScreen(props) {
                   placeholderTextColor='#B4B4B4'
                   onChangeText={handleChange('city')}
                   onBlur={handleBlur('city')}
-                  placeholder='Please confirm your Password'
+                  placeholder=''
                   value={values.city}
                   maxLength={20} />
                 {errors.city && touched.city && (
@@ -209,16 +207,13 @@ export default function RegistrationScreen(props) {
                   placeholderTextColor='#B4B4B4'
                   onChangeText={handleChange('state')}
                   onBlur={handleBlur('state')}
-                  placeholder='Please confirm your Password'
+                  placeholder=''
                   value={values.state}
                   maxLength={20} />
                 {errors.state && touched.state && (
                   <Text style={styles.error}>{errors.state}</Text>
                 )}
 
-                {errors.state && touched.state && (
-                  <Text style={styles.error}>{errors.state}</Text>
-                )}
 
                 <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Pin Code</Text>
                 <TextInput
@@ -228,7 +223,7 @@ export default function RegistrationScreen(props) {
                   placeholderTextColor='#B4B4B4'
                   onChangeText={handleChange('pinCode')}
                   onBlur={handleBlur('pinCode')}
-                  placeholder='Please confirm your Password'
+                  placeholder=''
                   value={values.pinCode}
                   maxLength={20} />
                 {errors.pinCode && touched.pinCode && (
