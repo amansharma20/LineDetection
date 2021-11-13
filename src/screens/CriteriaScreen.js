@@ -8,6 +8,8 @@ import { SIZES, FONTS } from '../Constants/Theme';
 import BouncyCheckboxGroup, {
     ICheckboxButton,
 } from 'react-native-bouncy-checkbox-group';
+import { useMutation } from '@apollo/client';
+import { GQLMutation } from '../persistance/mutation/Mutation';
 
 
 const stylesCheckbox = {
@@ -78,11 +80,31 @@ const NoConsentPopup = ({ visible, children }) => {
 const screenHeight = Dimensions.get('window').height;
 export default function CriteriaScreen() {
 
+    const navigation = useNavigation();
     const [noTestPopup, setnoTestPopup] = React.useState(false);
-
     const [noConsentPopup, setnoConsentPopup] = React.useState(false);
 
-    const navigation = useNavigation();
+
+    const [addDetailsMutation, { data: testResponse, error: testError, loading }] = useMutation(GQLMutation.ADD_TEST);
+
+    const submitUserDetails = () => {
+        addDetailsMutation({
+            variables: {
+                BloodTransfusion: noTestPopup,
+                ConsentFromPerson: noConsentPopup,
+                CountDown: "0.0",
+                Latitude: 0,
+                Longitude: 0,
+                PatientId: "2321233`",
+                SickleScanTestResult: "HBBA"
+            }
+        });
+
+    }
+
+
+    console.log(testResponse)
+    console.log(testError)
 
 
     return (
@@ -140,7 +162,6 @@ export default function CriteriaScreen() {
                         <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
                             <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
                             <Text style={{ fontSize: 16, padding: 20, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Sickle SCAN test should not {'\n'}performed within 6 months {'\n'}of receiving a blood transfusion</Text>
-
 
                             <TouchableOpacity
                                 onPress={() => setnoTestPopup(false)}
@@ -213,7 +234,11 @@ export default function CriteriaScreen() {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Instruction')}
+                        onPress={() => {
+                            submitUserDetails();
+                            navigation.navigate('Instruction');
+                        }
+                        }
                         style={{
                             width: 150, height: 50
                         }}>
