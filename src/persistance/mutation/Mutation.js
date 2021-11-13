@@ -2,19 +2,22 @@
 import { gql } from '@apollo/client';
 
 export const GQLMutation = {
-  ADD_Patient_DETAILS: gql`
-  mutation MyMutation {$VillageName: String!, $Street: String!, $PostOffice: String!, $MobileNumber: Int!, $Pincode: Int!, $LastName: String!, $IndianState: String!, $HouseNo: Int!, $GuardianRelationshipWithPatient: String!, $GuardianName: String!, $GuardianIdNumber: Int!, $GuardianIdAvailable: String!, $Gender: String!, $FirstName:String!, $District: String!, $Co: String!, $Area: String!, $AadharNumber: Int!, $AadharAvailable: String!, $DateOfBirth:  DateTime!
-    AddPatientMutation {
-      AddPatientDetail(VillageName: $VillageName, Street: $Street, PostOffice: $PostOffice, MobileNumber: $MobileNumber, Pincode: $Pincode, LastName: $LastName, IndianState: $IndianState, HouseNo:$HouseNo, GuardianRelationshipWithPatient: $GuardianRelationshipWithPatient, GuardianName: $GuardianName, GuardianIdNumber: $GuardianIdNumber, GuardianIdAvailable: $GuardianIdAvailable, Gender: $Gender, FirstName: $FirstName, District: $District, Co:$Co, Area: $Area, AadharNumber: $AadharNumber, AadharAvailable: $AadharAvailable, DateOfBirth: $DateOfBirth)
-    }
-  }
-  `,
   ADD_SickleScan_Test: gql`
-  mutation MyMutation {$PatientId:Int!, $SickleScanTestResult: String!, $TestImageStoragePath: ""
+  mutation MyMutation ($PatientId:Int!,$SickleScanTestResult: String!,$TestImageStoragePath:String!){
     AddSickleScanTestMutation {
       AddTestForPatient(PatientId: $PatientId, SickleScanTestResult: $SickleScanTestResult, TestImageStoragePath: $TestImageStoragePath)
     }
-}
-}
-`
+  }
+`, ADD_PATIENT_DETAILS: gql`
+mutation MyMutation ($FullName:String!,$DateOfBirth:DateTime!,$MobileNumber:String!,$Email:String!,$Gender:String!,$AadharAvailable:Boolean!,$AadharNumber:String!,$GuardianName:String!,$GuardianRelationship:String!,$GuardianIDAvailable:Boolean!,$GuardianIDNumber:String!,$CareOf:String!,$HouseNumber:String!,$Street:String!,$Area:String!,$PostOffice:String!,$District:String!,$State:String!,$PinCode:String!,$Country:String!,$City:String!){
+    AddPatientMutation {
+      AddPatientDetail(FullName: $FullName,DateOfBirth: $DateOfBirth,MobileNumber: $MobileNumber,Email: $Email,Gender: $Gender,AadharAvailable: $AadharAvailable,AadharNumber: $AadharNumber,GuardianName: $GuardianName,GuardianRelationship: $GuardianRelationship,GuardianIDAvailable: $GuardianIDAvailable,GuardianIDNumber: $GuardianIDNumber,CareOf: $CareOf,HouseNumber: $HouseNumber,Street: $Street,Area: $Area,PostOffice: $PostOffice,District: $District,State: $State,PinCode: $PinCode,Country: $Country,City: $City){
+        Id
+        UniqueID
+      }
+    }
+  }
+  `,
 };
+
+

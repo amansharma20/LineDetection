@@ -19,6 +19,9 @@ export default function Profile() {
     const { data, error } = useQuery(GQLQuery.GET_PROFILE);
     const HealthWorkerProfileData = data && data.HealthWorkerUserQuery && data.HealthWorkerUserQuery.GetHealthWorkerUserDetails;
 
+    console.log(data)
+    console.log(error)
+
 
     return (
         <SafeAreaView style={styles.MainContainer}>

@@ -9,7 +9,6 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import { GQLQuery } from '../persistance/query/GQLQuery';
 import CommonHeader from '../components/CommonHeader';
-import CommonBottomButton from '../CommonBottomButton';
 
 
 const NoDataPopup = ({ visible, children }) => {
@@ -81,27 +80,26 @@ export default function SearchPatient() {
         <View style={styles.MainContainer}>
             <CommonHeader />
 
-            <View style={{flex: 1}}>
-                <Formik
-                    validationSchema={searchPatientSchema}
-                    initialValues={{
-                        name: '',
-                        aadhaar: '',
-                        systemId: '',
-                    }}
-                    onSubmit={values => submitSearch(values)}>
-                    {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
-                        <>
-                            <ScrollView showsVerticalScrollIndicator={false}>
-                                <TouchableOpacity onPress={() => setVisible(true)}>
-                                    <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 30, fontFamily: FONTS.AvenirBlack }}>
-                                        Search Database
-                                    </Text></TouchableOpacity>
+            <View>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <TouchableOpacity onPress={() => setVisible(true)}>
+                        <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 30, fontFamily: FONTS.AvenirBlack }}>
+                            Search Database
+                        </Text></TouchableOpacity>
 
-
+                    <Formik
+                        validationSchema={searchPatientSchema}
+                        initialValues={{
+                            name: '',
+                            aadhaar: '',
+                            systemId: '',
+                        }}
+                        onSubmit={values => submitSearch(values)}>
+                        {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
+                            <>
                                 <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 20, elevation: 5, padding: 20, flex: 1, height: 380 }}>
                                     <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>
-                                        Search
+                                        Search Patient
                                     </Text>
                                     <View style={styles.inputs}>
                                         <Text style={styles.textFieldLabel}>Full Name</Text>
@@ -136,7 +134,7 @@ export default function SearchPatient() {
                                         )}
                                         <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, textAlign: 'center', fontWeight: '400' }}> Or </Text>
 
-                                        <Text style={styles.textFieldLabel}>Unique ID </Text>
+                                        <Text style={styles.textFieldLabel}>System ID </Text>
                                         <TextInput
                                             name="systemId"
                                             onChangeText={handleChange('systemId')}
@@ -153,7 +151,7 @@ export default function SearchPatient() {
 
                                     </View>
                                 </View>
-                                {/* <View style={{ justifyContent: 'center', padding: 20 }}>
+                                <View style={{ justifyContent: 'center', padding: 20 }}>
                                     <TouchableOpacity
                                         onPress={handleSubmit}
                                         style={{
@@ -172,15 +170,11 @@ export default function SearchPatient() {
                                             </Text>
                                         </View>
                                     </TouchableOpacity>
-                                </View> */}
-                            </ScrollView>
-                            <CommonBottomButton 
-                                        onPress={handleSubmit}
-                             children={'SEARCH'} />
-
-                        </>
-                    )}
-                </Formik>
+                                </View>
+                            </>
+                        )}
+                    </Formik>
+                </ScrollView>
             </View>
 
 
@@ -254,7 +248,9 @@ const styles = StyleSheet.create({
         height: '47%',
     },
     MainContainer: {
+        justifyContent: 'center',
         flex: 1,
+        // padding: 20,
         backgroundColor: 'white'
     },
     textFieldLabel: {

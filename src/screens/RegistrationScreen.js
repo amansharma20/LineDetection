@@ -184,7 +184,9 @@ export default function RegistrationScreen(props) {
                   <Text style={styles.error}>{errors.address}</Text>
                 )}
 
-                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, color: 'black' }}>City</Text>
+                
+
+                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>City</Text>
                 <TextInput
                   name="city"
                   style={styles.textInput}
@@ -214,7 +216,8 @@ export default function RegistrationScreen(props) {
                   <Text style={styles.error}>{errors.state}</Text>
                 )}
 
-                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, color: 'black' }}>Pin Code</Text>
+
+                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Pin Code</Text>
                 <TextInput
                   name="pinCode"
                   style={styles.textInput}
