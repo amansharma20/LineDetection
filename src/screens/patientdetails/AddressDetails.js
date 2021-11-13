@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, Platform, StyleSheet, TextInput, ScrollView, Image, TouchableOpacity, Modal, Animated } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { FONTS } from '../../Constants/Theme';
@@ -11,14 +11,16 @@ import { useMutation } from '@apollo/client';
 import { GQLMutation } from '../../persistance/mutation/Mutation';
 
 export default function AddressDetails(props) {
-    console.log(props.route.params.previousDetails)
+
+    let updateOutside;
 
     const previousDetails = props.route.params.previousDetails;
- 
+
     const navigation = useNavigation();
     const [visible, setVisible] = React.useState(false);
     const [stateValue, setStateValue] = useState(null);
     const [openState, setOpenState] = useState(null);
+
 
     const [stateType, setStateType] = useState([
         { label: 'Haryana', value: 'haryana' },
@@ -51,39 +53,11 @@ export default function AddressDetails(props) {
         </Modal>
     };
 
-    const [addDetailsMutation, { data: userSickle, error: userError }] = useMutation(GQLMutation.ADD_PATIENT_DETAILS);
+    const [addDetailsMutation, { data: userSickle, error: userError, loading }] = useMutation(GQLMutation.ADD_PATIENT_DETAILS);
 
     const submitUserDetails = (values) => {
 
-        const temp = {
-            FullName: previousDetails.basicDetails.fullName,
-                DateOfBirth: previousDetails.dob,
-                MobileNumber: previousDetails.basicDetails.mobile,
-                Email: previousDetails.basicDetails.email,
-                Gender: previousDetails.gender,
-                AadharAvailable: previousDetails.isAadhaar,
-                AadharNumber:  previousDetails.basicDetails.aadhaar,
-                GuardianName: previousDetails.basicDetails.guardianName,
-                GuardianRelationship: previousDetails.relationship,
-                GuardianIDAvailable: previousDetails.isGuardianAadhaar,
-                GuardianIDNumber: previousDetails.basicDetails.guardianAadhaar,
-                CareOf: values.careOf,
-                HouseNumber: values.hNo,
-                Street: values.street,
-                Area:values.area,
-                PostOffice: values.po,
-                District: values.district,
-                State: values.state,
-                PinCode: values.pincode,
-                Country: values.country,
-                City: values.city,
-        }
-
-        console.log('temp')
-        console.log(temp)
-        console.log('temp')
-
-
+        
         addDetailsMutation({
             variables: {
                 FullName: previousDetails.basicDetails.fullName,
@@ -92,7 +66,7 @@ export default function AddressDetails(props) {
                 Email: previousDetails.basicDetails.email,
                 Gender: previousDetails.gender,
                 AadharAvailable: previousDetails.isAadhaar,
-                AadharNumber:  previousDetails.basicDetails.aadhaar,
+                AadharNumber: previousDetails.basicDetails.aadhaar,
                 GuardianName: previousDetails.basicDetails.guardianName,
                 GuardianRelationship: previousDetails.relationship,
                 GuardianIDAvailable: previousDetails.isGuardianAadhaar,
@@ -100,31 +74,25 @@ export default function AddressDetails(props) {
                 CareOf: values.careOf,
                 HouseNumber: values.hNo,
                 Street: values.street,
-                Area:values.area,
+                Area: values.area,
                 PostOffice: values.po,
                 District: values.district,
-                State: values.state,
+                State: stateValue,
                 PinCode: values.pincode,
                 Country: values.country,
                 City: values.city,
             }
         });
+
     }
 
-
-    console.log(userSickle)
-    console.log(userError)
+    useEffect(()=>{
+        if(!loading && userSickle){
+            setVisible(true);
+        }
+    },[loading,userSickle])
 
     const Details = userSickle && userSickle.AddPatientMutation && userSickle.AddPatientMutation.AddPatientDetail
-
-    if(userSickle && userSickle.AddPatientMutation && userSickle.AddPatientMutation.AddPatientDetail){
-        console.log("SUCCESS")
-        console.log(Details.UniqueID)
-    }
-
-
-
-
 
     return (
         <View style={styles.MainContainer}>
@@ -137,7 +105,6 @@ export default function AddressDetails(props) {
                     city: '',
                     po: '',
                     district: '',
-                    state: '',
                     pincode: '',
                     country: '',
                 }}
@@ -145,14 +112,12 @@ export default function AddressDetails(props) {
                 {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
                     <>
                         <ScrollView contentContainerStyle={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
-
-                        <IDPopup visible={visible}>
+                            <IDPopup visible={visible}>
                                 <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 270, padding: 30 }}>
                                     <Image source={icons.greenicon} style={{ width: 40, height: 40, }} />
-                                    <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#989898', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Your System ID is</Text>
-                                    <Text style={{ fontSize: 16, padding: 10, fontWeight: 'bold', textAlign: 'center', color: '#222D81', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>766789893738</Text>
-                                    <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Please note down the ID {'\n'}for future reference</Text>
-
+                                    <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#989898', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Your Unique ID is</Text>
+                                    <Text style={{ fontSize: 16, padding: 10, fontWeight: 'bold', textAlign: 'center', color: '#222D81', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>{Details && Details.UniqueID}</Text>
+                                    <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Please note down the ID{'\n'}for future reference</Text>
                                     <TouchableOpacity
                                         onPress={() => setVisible(false)}
                                         style={{ flex: 1 }}>
@@ -277,7 +242,7 @@ export default function AddressDetails(props) {
                                             name="state"
                                             onChangeText={handleChange('state')}
                                             onBlur={handleBlur('state')}
-                                            value={values.state}
+                                            value={stateValue}
                                             open={openState}
                                             items={stateType}
                                             setOpen={setOpenState}
