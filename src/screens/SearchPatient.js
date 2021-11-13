@@ -8,6 +8,7 @@ import { SIZES, FONTS } from '../Constants/Theme';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import { GQLQuery } from '../persistance/query/GQLQuery';
+import CommonHeader from '../components/CommonHeader';
 
 
 const NoDataPopup = ({ visible, children }) => {
@@ -52,19 +53,18 @@ export default function SearchPatient() {
         systemId: yup.string().when("aadhaar", {
             is: value => value && value.length === 0,
             then: yup.string().required(
-                "Unique Id is required."
+                "System Id is required."
             ),
-            otherwise: yup.string()
+            otherwise: yup.string('')
         }),
     });
 
     const [getRecords, { loading, error, data }] = useLazyQuery(GQLQuery.SEARCH_PATIENT_RECORD);
     const submitSearch = (values) => {
-        console.log(values)
         getRecords({
             variables: {
                 AadharNumber: values.aadhaar,
-                UniqueID: values.systemId,
+                UniqueId: values.systemId,
             }
         });
     }
@@ -76,124 +76,112 @@ export default function SearchPatient() {
         })
     }
 
-    console.log(error)
     console.log(data)
-
-
+    console.log(error)
 
     return (
         <View style={styles.MainContainer}>
+            <CommonHeader />
 
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={styles.header}>
-                    <TouchableOpacity
-                        onPress={() => navigation.goBack()}
-                        style={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
+            <View>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <TouchableOpacity onPress={() => setVisible(true)}>
+                        <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 30, fontFamily: FONTS.AvenirBlack }}>
+                            Search Database
+                        </Text></TouchableOpacity>
 
-                        }}>
-                        <View>
-                            <Image source={icons.backarrow} style={{ width: 25, height: 25 }} />
-                        </View>
-                    </TouchableOpacity>
+                    <Formik
+                        validationSchema={searchPatientSchema}
+                        initialValues={{
+                            name: '',
+                            aadhaar: '',
+                            systemId: '',
+                        }}
+                        onSubmit={values => submitSearch(values)}>
+                        {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
+                            <>
+                                <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 20, elevation: 5, padding: 20, flex: 1, height: 380 }}>
+                                    <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>
+                                        Search Patient
+                                    </Text>
+                                    <View style={styles.inputs}>
+                                        <Text style={styles.textFieldLabel}>Full Name</Text>
+                                        <TextInput
+                                            name="name"
+                                            onChangeText={handleChange('name')}
+                                            onBlur={handleBlur('name')}
+                                            value={values.name}
+                                            style={styles.textInput}
+                                            keyboardType='default'
+                                            placeholderTextColor='#B4B4B4'
+                                            placeholder='Enter full name'
 
-                    <Image source={images.headerlogo} style={{ width: 95, height: 53, alignItems: 'center', justifyContent: 'center' }} />
-                    <View></View>
-                </View>
-                <TouchableOpacity onPress={() => setVisible(true)}>
-                    <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 30, fontFamily: FONTS.AvenirBlack }}>
-                        Search Database
-                    </Text></TouchableOpacity>
+                                        />
+                                        {errors.name && touched.name && (
+                                            <Text style={styles.error}>{errors.name}</Text>
+                                        )}
+                                        <Text style={styles.textFieldLabel}>Aadhaar Number </Text>
+                                        <TextInput
+                                            name="aadhaar"
+                                            onChangeText={handleChange('aadhaar')}
+                                            onBlur={handleBlur('aadhaar')}
+                                            value={values.aadhaar}
+                                            style={styles.textInput}
+                                            keyboardType='default'
+                                            placeholderTextColor='#B4B4B4'
+                                            placeholder='Enter Aadhaar number'
+                                            maxLength={12} />
 
-                <Formik
-                    validationSchema={searchPatientSchema}
-                    initialValues={{
-                        name: '',
-                        aadhaar: '',
-                        systemId: '',
-                    }}
-                    onSubmit={values => submitSearch(values)}>
-                    {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
-                        <>
-                            <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 20, elevation: 5, padding: 20, flex: 1, height: 380 }}>
-                                <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>
-                                    Search Patient
-                                </Text>
-                                <View style={styles.inputs}>
-                                    <Text style={styles.textFieldLabel}>Full Name</Text>
-                                    <TextInput
-                                        name="name"
-                                        onChangeText={handleChange('name')}
-                                        onBlur={handleBlur('name')}
-                                        value={values.name}
-                                        style={styles.textInput}
-                                        keyboardType='default'
-                                        placeholderTextColor='#B4B4B4'
-                                        placeholder='Enter full name'
+                                        {errors.aadhaar && touched.aadhaar && (
+                                            <Text style={styles.error}>{errors.aadhaar}</Text>
+                                        )}
+                                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, textAlign: 'center', fontWeight: '400' }}> Or </Text>
 
-                                    />
-                                    {errors.name && touched.name && (
-                                        <Text style={styles.error}>{errors.name}</Text>
-                                    )}
-                                    <Text style={styles.textFieldLabel}>Aadhaar Number </Text>
-                                    <TextInput
-                                        name="aadhaar"
-                                        onChangeText={handleChange('aadhaar')}
-                                        onBlur={handleBlur('aadhaar')}
-                                        value={values.aadhaar}
-                                        style={styles.textInput}
-                                        keyboardType='default'
-                                        placeholderTextColor='#B4B4B4'
-                                        placeholder='Enter Aadhaar number'
-                                        maxLength={12} />
+                                        <Text style={styles.textFieldLabel}>System ID </Text>
+                                        <TextInput
+                                            name="systemId"
+                                            onChangeText={handleChange('systemId')}
+                                            onBlur={handleBlur('systemId')}
+                                            value={values.systemId}
+                                            style={styles.textInput}
+                                            keyboardType='number-pad'
+                                            placeholderTextColor='#B4B4B4'
+                                            placeholder='Enter system ID'
+                                        />
+                                        {errors.systemId && touched.systemId && (
+                                            <Text style={styles.error}>{errors.systemId}</Text>
+                                        )}
 
-                                    {errors.aadhaar && touched.aadhaar && (
-                                        <Text style={styles.error}>{errors.aadhaar}</Text>
-                                    )}
-                                    <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, textAlign: 'center', fontWeight: '400' }}> Or </Text>
-
-                                    <Text style={styles.textFieldLabel}>Unique ID</Text>
-                                    <TextInput
-                                        name="systemId"
-                                        onChangeText={handleChange('systemId')}
-                                        onBlur={handleBlur('systemId')}
-                                        value={values.systemId}
-                                        style={styles.textInput}
-                                        keyboardType='number-pad'
-                                        placeholderTextColor='#B4B4B4'
-                                        placeholder='Enter unique ID'
-                                    />
-                                    {errors.systemId && touched.systemId && (
-                                        <Text style={styles.error}>{errors.systemId}</Text>
-                                    )}
-
-                                </View>
-                            </View>
-                            <View style={{ justifyContent: 'center', paddingVertical: 20 }}>
-                                <TouchableOpacity
-                                    onPress={handleSubmit}
-                                    style={{
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                    }}>
-                                    <View style={styles.buttonContainer}>
-                                        <Text
-                                            style={{
-                                                color: 'white',
-                                                fontSize: 18,
-                                                fontWeight: 'bold',
-                                                fontFamily: FONTS.AvenirBlack
-                                            }}>
-                                            SEARCH
-                                        </Text>
                                     </View>
-                                </TouchableOpacity>
-                            </View>
-                        </>
-                    )}
-                </Formik>
-            </ScrollView>
+                                </View>
+                                <View style={{ justifyContent: 'center', padding: 20 }}>
+                                    <TouchableOpacity
+                                        onPress={handleSubmit}
+                                        style={{
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                        }}>
+                                        <View style={styles.buttonContainer}>
+                                            <Text
+                                                style={{
+                                                    color: 'white',
+                                                    fontSize: 18,
+                                                    fontWeight: 'bold',
+                                                    fontFamily: FONTS.AvenirBlack
+                                                }}>
+                                                SEARCH
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </>
+                        )}
+                    </Formik>
+                </ScrollView>
+            </View>
+
+
+
             <NoDataPopup visible={visible}>
                 <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
                     <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
@@ -239,7 +227,7 @@ const styles = StyleSheet.create({
     },
     modalBackground: {
         flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'transparent',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -265,15 +253,17 @@ const styles = StyleSheet.create({
     MainContainer: {
         justifyContent: 'center',
         flex: 1,
-        padding: 20,
+        // padding: 20,
         backgroundColor: 'white'
-    }, textFieldLabel: {
+    },
+    textFieldLabel: {
         fontSize: 14,
         padding: 10,
         paddingBottom: 0,
         paddingLeft: 0,
         // fontFamily: FONTS.AvenirRoman
-    }, error: {
+    },
+    error: {
         padding: 4,
         color: '#cc0000',
     },

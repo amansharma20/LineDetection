@@ -1,10 +1,10 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView, Modal, Animated } from 'react-native';
+import React, { } from 'react';
+import { Text, View, TouchableOpacity, Image, StyleSheet, ScrollView, Modal, Animated } from 'react-native';
 import CommonBottomButton from '../CommonBottomButton';
 import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
-import { SIZES, FONTS } from '../Constants/Theme';
+import { FONTS } from '../Constants/Theme';
 import CountDown from 'react-native-countdown-component';
 
 const TimerPopup = ({ visible, children }) => {
@@ -29,7 +29,6 @@ const TimerPopup = ({ visible, children }) => {
         </View>
     </Modal>
 };
-const screenHeight = Dimensions.get('window').height;
 
 export default function TimerScreen() {
 

@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView, Modal, Animated } from 'react-native';
 import CommonBottomButton from '../CommonBottomButton';
+import CommonHeader from '../components/CommonHeader';
 import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
@@ -38,27 +39,25 @@ export default function TestSummary() {
 
 
     return (
-        <View style={styles.MainContainer}>
+        <View style={styles.mainContainer}>
 
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={styles.header}>
-
-                    <Image source={images.headerlogo} style={{ width: 95, height: 53, }} />
-
+            <View style={{backgroundColor: 'white', flex: 1}} showsVerticalScrollIndicator={false}>
+                <View style={{paddingVertical: 40}}>
+                    <CommonHeader />
                 </View>
 
 
 
-                <View style={{ backgroundColor: 'white', marginHorizontal: 20, elevation: 5, paddingTop: 20, flex: 1, paddingBottom: 120 }}>
+                <View style={{ backgroundColor: 'white', marginHorizontal: 20, elevation: 5, paddingTop: 20, flex: 1, paddingBottom: 0 }}>
 
-                    <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingBottom: 30 }}>
+                    <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingBottom: 0 }}>
                         Test Summary
                     </Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Name</Text>
                         <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>Raj Kumar</Text></View>
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Gender</Text>
                         <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>Male</Text></View>
 
@@ -76,33 +75,23 @@ export default function TestSummary() {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Address</Text>
-                        <Text style={{ fontSize: 12, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>323, Village Akoda,{'\n'}District Dhar,{'\n'}Madhya Pradesh-454001</Text></View>
+                        <Text style={{ fontSize: 12, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack, textAlign: 'right' }}>323, Village Akoda,{'\n'}District Dhar,{'\n'}Madhya Pradesh-454001</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Country</Text>
                         <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>India</Text></View>
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Conducted by</Text>
                         <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>Prema Kumari</Text></View>
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Date of Test</Text>
                         <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>02/Nov/2021</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Test Result</Text>
                         <Text style={{ fontSize: 14, padding: 10, color: '#CF0A2C', fontFamily: FONTS.AvenirBlack }}>Sickle Cell Trait</Text></View>
-
-                    
-
-                    
-
-
-
-
-
-
 
                     <SubmitPopup visible={visible}>
                         <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 280 }}>
@@ -133,7 +122,7 @@ export default function TestSummary() {
 
                 </View>
 
-            </ScrollView>
+            </View>
             <CommonBottomButton
                 onPress={() => setVisible(true)}
                 children={'SUBMIT REPORT'} />
@@ -165,9 +154,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'green',
         elevation: 20,
     },
-    MainContainer: {
+    mainContainer: {
         justifyContent: 'center',
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: 'red'
     }
 });

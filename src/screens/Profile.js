@@ -26,11 +26,13 @@ export default function Profile() {
     return (
         <SafeAreaView style={styles.MainContainer}>
 
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <CommonHeader />
 
-                <CommonHeader />
 
-                <View style={[{ alignSelf: 'center', width: '100%', marginTop: 50, marginHorizontal: 20, backgroundColor: '#fff', padding: 20, flex: 1, paddingBottom: 50, marginBottom: 5 }, CommonStyles.appShadow]}>
+            <ScrollView style={{paddingHorizontal: 20}} showsVerticalScrollIndicator={false}>
+
+
+                <View style={[{ borderBottomWidth: 5, borderColor: '#CF0A2C', alignSelf: 'center', width: '100%', marginTop: 50, marginHorizontal: 20, backgroundColor: '#fff', padding: 20, flex: 1, paddingBottom: 50, marginBottom: 5 }, CommonStyles.appShadow]}>
                     <View style={{ position: 'absolute', alignSelf: 'center', marginTop: -50 }}>
                         <Image source={images.profile} style={{ width: 100, height: 100, borderRadius: 100, borderColor: '#CF0A2C', alignItems: 'center', justifyContent: 'center', resizeMode: 'center' }} />
                     </View>
@@ -70,7 +72,7 @@ export default function Profile() {
                             {HealthWorkerProfileData && HealthWorkerProfileData.Country}
                         </Text></View>
                 </View>
-                <TouchableOpacity style={{ }} onPress={async () => {
+                <TouchableOpacity style={{}} onPress={async () => {
                     signOut();
                 }}>
                     <Text style={{ alignSelf: 'center', marginTop: 50, fontSize: 18, fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingTop: 10 }}>
@@ -93,7 +95,6 @@ const styles = StyleSheet.create({
     },
     MainContainer: {
         justifyContent: 'center',
-        paddingHorizontal: 20,
         flex: 1,
         backgroundColor: 'white',
     },

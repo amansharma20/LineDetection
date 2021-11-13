@@ -23,6 +23,7 @@ export const hbss = require('../../assests/images/hbss.png');
 export const closePreTreatment = require('../../assests/images/closePreTreatment.png');
 export const remove = require('../../assests/images/remove.png');
 export const fivedrops = require('../../assests/images/fivedrops.png');
+export const mixsample = require('../../assests/images/mixsample.png');
 
 
 
@@ -57,4 +58,5 @@ export default {
     closePreTreatment,
     remove,
     fivedrops,
+    mixsample,
 };

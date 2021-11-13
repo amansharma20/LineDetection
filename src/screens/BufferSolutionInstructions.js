@@ -34,7 +34,7 @@ export default function InstructionsScreen() {
                         </Text>
                         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                             <View style={{ alignItems: 'center' }}>
-                                <Image source={images.pretreatment} style={{ width: 200, height: 200, resizeMode: 'contain' }} />
+                                <Image source={images.mixsample} style={{ width: 200, height: 200, resizeMode: 'contain' }} />
                                 <Text style={{
                                     textAlign: 'center', alignSelf: 'center', paddingHorizontal: 80, paddingTop: 24,
                                     color: '#474747', fontSize: 16

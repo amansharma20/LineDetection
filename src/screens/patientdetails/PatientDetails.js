@@ -75,8 +75,8 @@ const IDPopupData = [
 export default function PatientDetails() {
 
     const navigation = useNavigation();
-    const [relationshipValue, setRelationshipValue] = useState(null);
-    
+    const [relationshipValue, setRelationshipValue] = useState('none');
+
     const [openSelectRelationship, setOpenSelectRelationship] = useState(null);
     const [showAadharOptions, setShowAadharOptions] = useState(false);
 
@@ -90,12 +90,13 @@ export default function PatientDetails() {
         { label: 'Spouse', value: 'spouse' },
         { label: 'Brother/Sister', value: 'brother/sister' },
         { label: 'Other', value: 'other' },
+        { label: 'None', value: 'none' },
     ]);
 
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
     const [, setShowModal] = useState(false);
 
-    
+
 
     // const formatedDate = (date) => {
     //     var formattedDate = format(date, 'MMMM do, yyyy');
@@ -119,7 +120,7 @@ export default function PatientDetails() {
 
     return (
         <View style={styles.MainContainer}>
-
+            <CommonHeader />
             <Formik
                 initialValues={{
                     fullName: '',
@@ -133,8 +134,6 @@ export default function PatientDetails() {
                 {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
                     <>
                         <ScrollView style={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
-                            
-                            <CommonHeader />
                             <View style={{ backgroundColor: 'white', margin: 5, elevation: 5, padding: 10, paddingBottom: 20, flex: 1, }}>
                                 <Text style={{
                                     fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', paddingTop: 20
@@ -289,7 +288,7 @@ export default function PatientDetails() {
                                                         }}
                                                     />
                                                 </View>
-                                                <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Guardian's Aadhaar Available?</Text>
+                                                <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Guardian's Aadhaar ID Available?</Text>
                                                 <View style={{ flexDirection: 'row' }}>
                                                     <BouncyCheckboxGroup
                                                         data={IDPopupData}

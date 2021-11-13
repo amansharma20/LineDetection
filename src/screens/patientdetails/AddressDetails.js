@@ -93,6 +93,8 @@ export default function AddressDetails(props) {
 
     return (
         <View style={styles.MainContainer}>
+            <CommonHeader />
+
             <Formik
                 initialValues={{
                     careOf: '',
@@ -138,7 +140,6 @@ export default function AddressDetails(props) {
                                 </View>
                             </IDPopup>
 
-                            <CommonHeader />
                             <View style={{ backgroundColor: 'white', margin: 5, elevation: 5, padding: 20, flex: 1, paddingBottom: 50 }}>
                                 <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>
                                     Enter Details(2/2)

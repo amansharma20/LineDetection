@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import { useNavigation } from '@react-navigation/core';
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Text,
     View,
@@ -11,7 +11,8 @@ import {
     StyleSheet,
     ScrollView,
     Modal,
-    Animated
+    Animated,
+    StatusBar
 } from 'react-native';
 import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
@@ -20,6 +21,7 @@ import BouncyCheckboxGroup, {
     ICheckboxButton,
 } from 'react-native-bouncy-checkbox-group';
 import CommonBottomButton from '../CommonBottomButton';
+import CommonHeader from '../components/CommonHeader';
 
 const ResultPopup = ({ visible, children }) => {
     const [showModal, setShowModal] = React.useState(visible);
@@ -40,12 +42,12 @@ const ResultPopup = ({ visible, children }) => {
         <View style={styles.modalBackground}>
             <Animated.View style={styles.modalContainer, { transform: [{ scale: scalevalue }] }}>{children}</Animated.View>
         </View>
-  
+
     </Modal>
-  };
+};
 
 const stylesCheckbox = {
-    textStyle: { textDecorationLine: 'none', color: '#474747', marginRight: 40, marginVertical:8 },
+    textStyle: { textDecorationLine: 'none', color: '#474747', marginRight: 40, marginVertical: 8 },
 };
 
 const staticData = [
@@ -77,40 +79,38 @@ const staticData = [
     {
         id: 4,
         fillColor: '#101E8E',
-        text: 'HbAS - Sickle Cell Trait',
+        text: 'HbSC - HbSC Disease',
         textStyle: stylesCheckbox.textStyle,
     },
     {
         id: 5,
         fillColor: '#101E8E',
-        text: 'HbSC - HbSC Disease',
-        textStyle: stylesCheckbox.textStyle,
-    },
-    {
-        id: 6,
-        fillColor: '#101E8E',
         text: 'Invalid',
         textStyle: stylesCheckbox.textStyle,
     },
-    
+
 ];
 
 const screenHeight = Dimensions.get('window').height;
 
 export default function ManualResultScreen() {
 
-    const [visible, setVisible] = React.useState(false);
+    const [visible, setVisible] = useState(false);
 
     const navigation = useNavigation();
 
     return (
         <View style={styles.MainContainer}>
-            <ScrollView contentContainerStyle={{paddingHorizontal: 20}} showsVerticalScrollIndicator={false}>
-                <View style={styles.header}>
+            <StatusBar
+                hidden={false}
+                backgroundColor={'white'}
+                barStyle={'dark-content'}
+            />
+            <View style={{ paddingVertical: 40 }}>
+                <CommonHeader />
+            </View>
 
-                    <Image source={images.headerlogo} style={{ width: 95, height: 53, alignItems: 'center', justifyContent: 'center' }} />
-                    <View></View>
-                </View>
+            <ScrollView contentContainerStyle={{ paddingHorizontal: 0 }} showsVerticalScrollIndicator={false}>
 
 
 
@@ -124,34 +124,35 @@ export default function ManualResultScreen() {
                         flex: 1,
                     }}>
                     <View style={styles.inputs}>
-                    <TouchableOpacity onPress={() => setVisible(true)}>
-                        <Text
-                            style={{
-                                fontSize: 20,
-                                textAlign: 'center',
-                                justifyContent: 'center',
-                                fontWeight: 'bold',
-                                color: '#101E8E',
-                                fontFamily: FONTS.AvenirBlack,
-                            }}>
-                            Select Result Manually
-                        </Text></TouchableOpacity>
-                        <View style={{ alignItems: 'center', flexDirection: 'row', alignSelf:'center', paddingTop:50, }}>
+                        <TouchableOpacity onPress={() => setVisible(true)}>
+                            <Text
+                                style={{
+                                    fontSize: 20,
+                                    textAlign: 'center',
+                                    justifyContent: 'center',
+                                    fontWeight: 'bold',
+                                    color: '#101E8E',
+                                    fontFamily: FONTS.AvenirBlack,
+                                }}>
+                                Select Result Manually
+                            </Text>
+                        </TouchableOpacity>
+                        <View style={{ alignItems: 'center', flexDirection: 'row', alignSelf: 'center', paddingTop: 50, }}>
                             <Image
                                 source={images.hbaa}
-                                style={{ width: 50, height: 180, resizeMode: 'stretch', marginHorizontal:6 }}
+                                style={{ width: 50, height: 180, resizeMode: 'stretch', marginHorizontal: 6 }}
                             />
                             <Image
                                 source={images.hbas}
-                                style={{ width: 50, height: 180, resizeMode: 'stretch', marginHorizontal:6 }}
+                                style={{ width: 50, height: 180, resizeMode: 'stretch', marginHorizontal: 6 }}
                             />
                             <Image
                                 source={images.hbss}
-                                style={{ width: 50, height: 180, resizeMode: 'stretch', marginHorizontal:6 }}
+                                style={{ width: 50, height: 180, resizeMode: 'stretch', marginHorizontal: 6 }}
                             />
                             <Image
                                 source={images.hbac}
-                                style={{ width: 50, height: 180, resizeMode: 'stretch', marginHorizontal:6 }}
+                                style={{ width: 50, height: 180, resizeMode: 'stretch', marginHorizontal: 6 }}
                             />
                             <Image
                                 source={images.hbsc}
@@ -172,50 +173,65 @@ export default function ManualResultScreen() {
                         </Text>
                         <View style={{ paddingVertical: 10, }}>
 
-                        <BouncyCheckboxGroup
-                            text={staticData}
-                            data={staticData}
-                            style={{ flexDirection: "column", }}
-                            onChange={(selectedItem: ICheckboxButton) => {
-                                console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                                if (selectedItem.id === 6) {
-                                    navigation.navigate('Home')
-                                }
-                               
-                            }}
+                            <BouncyCheckboxGroup
+                                text={staticData}
+                                data={staticData}
+                                style={{ flexDirection: "column", }}
+                                onChange={(selectedItem: ICheckboxButton) => {
+                                    console.log('SelectedItem: ', JSON.stringify(selectedItem));
+                                    if (selectedItem.id === 5) {
+                                        navigation.navigate('Home')
+                                    }
+                                    if (selectedItem.id === 4) {
+                                        setVisible(true)
+                                    }
+                                    if (selectedItem.id === 3) {
+                                        setVisible(true)
+                                    }
+                                    if (selectedItem.id === 2) {
+                                        setVisible(true)
+                                    }
+                                    if (selectedItem.id === 1) {
+                                        setVisible(true)
+                                    }
+                                    if (selectedItem.id === 0) {
+                                        setVisible(true)
+                                    }
 
-                        />
-                           
+                                }}
+
+                            />
+
                         </View>
                     </View>
                 </View>
 
                 <ResultPopup visible={visible}>
-                        <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
-                            <Image source={icons.warning} style={{ width: 50, height: 50, marginTop: 40 }} />
-                            <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', paddingTop: 20, fontFamily: FONTS.AvenirRoman }}>The selected test result is{'\n'}different from the one{'\n'}recorded by the app</Text>
-                            
-                           
-                            <TouchableOpacity
-                                onPress={() => setVisible(false)}
-                                style={{ flex: 1 }}>
-                                <View style={{
-                                    backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
-                                    justifyContent: 'center', marginTop: 30
-                                }}>
-                                    <Text
-                                        style={{
-                                            color: '#ffffff',
-                                            fontSize: 14,
-                                            fontWeight: '800', fontFamily: FONTS.AvenirBlack
+                    <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
+                        <Image source={icons.warning} style={{ width: 50, height: 50, marginTop: 40 }} />
+                        <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', paddingTop: 20, fontFamily: FONTS.AvenirRoman }}>The selected test result is{'\n'}different from the one{'\n'}recorded by the app</Text>
 
-                                        }}>
-                                        ACCEPT
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </ResultPopup>
+
+                        <TouchableOpacity
+                            onPress={() => setVisible(false)}
+                            style={{ flex: 1 }}>
+                            <View style={{
+                                backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
+                                justifyContent: 'center', marginTop: 30
+                            }}>
+                                <Text
+                                    style={{
+                                        color: '#ffffff',
+                                        fontSize: 14,
+                                        fontWeight: '800', fontFamily: FONTS.AvenirBlack
+
+                                    }}>
+                                    ACCEPT
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </ResultPopup>
                 {/* <View>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Summary')}

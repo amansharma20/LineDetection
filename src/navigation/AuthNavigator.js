@@ -4,6 +4,7 @@ import {
     createStackNavigator,
 } from '@react-navigation/stack';
 import React from 'react';
+import HelpScreen from '../screens/HelpScreen';
 import LoginScreen from '../screens/LoginScreen';
 import OTPScreen from '../screens/OTPScreen';
 import RegisterScreen from '../screens/RegisterScreen';
@@ -27,8 +28,8 @@ export default function AuthNavigator() {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="ResetPassword" component={ResetPassword} />
             <Stack.Screen name="OTPScreen" component={OTPScreen} />
-            
-
+            <Stack.Screen name="Help" component={HelpScreen} />
+        
             
            
         </Stack.Navigator>

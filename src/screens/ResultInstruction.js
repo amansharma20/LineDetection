@@ -67,7 +67,7 @@ export default function ResultInstruction() {
           </TouchableOpacity>
 
           <Image source={images.headerlogo} style={{ width: 95, height: 53, alignItems: 'center', justifyContent: 'center' }} />
-          <View></View>
+          
         </View>
         <CountDown
           until={60 * 4 + 60}

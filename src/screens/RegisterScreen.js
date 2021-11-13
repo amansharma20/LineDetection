@@ -10,6 +10,7 @@ import BouncyCheckboxGroup, {
 } from 'react-native-bouncy-checkbox-group';
 import { Formik } from 'formik';
 import { AuthContext } from '../navigation/ApplicationNavigator';
+import CommonBottomButton from '../CommonBottomButton';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -113,42 +114,43 @@ export default function RegisterScreen() {
   }
   return (
     <View style={styles.MainContainer}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <Image source={images.logo} style={{ width: 150, height: 90 }} />
-        </View>
-        <View style={styles.body}>
+      <Formik
+        validationSchema={registerValidationSchema}
+        initialValues={{
+          firstName: '',
+          lastName: '',
+          email: '',
+          mobile: '',
+          password: '',
+          confirmPassword: ''
+        }}
+        onSubmit={values => submitRegisterForm(values)}>
+        {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
+          <>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View style={styles.header}>
+                <Image source={images.logo} style={{ width: 150, height: 90, marginTop: 30 }} />
+              </View>
+              <View style={styles.body}>
 
-          <TouchableOpacity onPress={() => setVisible(true)}>
-            <Text style={{
-              fontSize: 24, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', fontStyle: 'normal', paddingTop: 10,
-              // fontFamily: FONTS.AvenirBlack, 
-              color: '#474747'
-            }}>Welcome</Text></TouchableOpacity>
-          <Text style={{
-            fontSize: 18, textAlign: 'center', justifyContent: 'center', opacity: 0.5, color: '#474747', paddingTop: 5, fontWeight: 'bold',
-            // fontFamily: FONTS.AvenirRoman 
-          }}>Please enter your details</Text>
-        </View>
+                <TouchableOpacity onPress={() => setVisible(true)}>
+                  <Text style={{
+                    fontSize: 24, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', paddingTop: 10,
+                    color: '#474747',
+                  }}>Welcome</Text>
+                </TouchableOpacity>
+                <Text style={{
+                  fontSize: 18, textAlign: 'center', justifyContent: 'center', opacity: 0.5, color: '#474747', paddingTop: 5, fontWeight: 'bold',
+                  // fontFamily: FONTS.AvenirRoman 
+                }}>Please enter your details</Text>
+              </View>
 
-        <View style={styles.inputs}>
-          <Formik
-            validationSchema={registerValidationSchema}
-            initialValues={{
-              firstName: '',
-              lastName: '',
-              email: '',
-              mobile: '',
-              password: '',
-              confirmPassword: ''
-            }}
-            onSubmit={values => submitRegisterForm(values)}>
-            {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
-              <>
+              <View style={styles.inputs}>
+
 
                 <View style={styles.inputs}>
 
-                  <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Are you a trained HealthWorker?</Text>
+                  <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Are you a trained Health Professional?</Text>
                   <View style={{ flexDirection: 'row', marginLeft: 10 }}>
                     <BouncyCheckboxGroup
                       data={staticData}
@@ -158,7 +160,7 @@ export default function RegisterScreen() {
                         if (selectedItem.id === 1) {
                           sethealthPopup(true)
                           setDisableButton(true)
-                        }else{
+                        } else {
                           setDisableButton(false)
                         }
                       }}
@@ -270,7 +272,7 @@ export default function RegisterScreen() {
                       paddingTop: 80,
                     }}
                     disabled={disableButton}
-                    >
+                  >
 
                     <View style={!disableButton ? styles.inputView : styles.disabledButton}>
                       <Text
@@ -284,37 +286,65 @@ export default function RegisterScreen() {
                     </View>
                   </TouchableOpacity>
                 </View>
-              </>
-            )}
-          </Formik>
-        </View>
-        <HealthPopup visible={healthPopup}>
-          <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
-            <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
-            <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Only a trained health {'\n'}professional should perform this test.{'\n'}{'\n'} Please do not conduct the {'\n'} tests, if you have not received any training</Text>
 
-
-            <TouchableOpacity
-              onPress={() => sethealthPopup(false)}
-              style={{ flex: 1 }}>
-              <View style={{
-                backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
-                justifyContent: 'center', marginTop: 20
-              }}>
-                <Text
-                  style={{
-                    color: '#ffffff',
-                    fontSize: 14,
-                    fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
-
-                  }}>
-                  OK
-                </Text>
               </View>
-            </TouchableOpacity>
-          </View>
-        </HealthPopup>
-      </ScrollView>
+              <HealthPopup visible={healthPopup}>
+                <View style={{ alignItems: 'center', justifyContent: 'space-around', backgroundColor: 'white', elevation: 5, height: 320, width: 250 }}>
+                  <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
+                  <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman, paddingHorizontal: 40 }}>Only a trained health professional should perform this test.Please do not conduct the tests, if you have not received any training</Text>
+
+
+                  <TouchableOpacity
+                    onPress={() => sethealthPopup(false)}
+                    style={{ flex: 1 }}>
+                    <View style={{
+                      backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
+                      justifyContent: 'center', marginTop: 20
+                    }}>
+                      <Text
+                        style={{
+                          color: '#ffffff',
+                          fontSize: 14,
+                          fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
+
+                        }}>
+                        OK
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </HealthPopup>
+              {/* </View> */}
+              <HealthPopup visible={healthPopup}>
+                <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
+                  <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
+                  <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Only a trained health {'\n'}professional should perform this test.{'\n'}{'\n'} Please do not conduct the {'\n'} tests, if you have not received any training</Text>
+
+
+                  <TouchableOpacity
+                    onPress={() => sethealthPopup(false)}
+                    style={{ flex: 1 }}>
+                    <View style={{
+                      backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
+                      justifyContent: 'center', marginTop: 20
+                    }}>
+                      <Text
+                        style={{
+                          color: '#ffffff',
+                          fontSize: 14,
+                          fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
+
+                        }}>
+                        OK
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </HealthPopup>
+            </ScrollView>
+          </>
+        )}
+      </Formik>
     </View>
   );
 }
@@ -354,7 +384,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#222D81',
     marginTop: 2,
   },
-  disabledButton:{
+  disabledButton: {
     width: '100%',
     borderRadius: 100,
     height: 55,
@@ -396,9 +426,9 @@ const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
     justifyContent: 'center',
-    padding: 20,
+    // padding: 20,
     backgroundColor: 'white',
-    paddingTop: 30
+    // paddingTop: 30
   },
   textFieldLabel: {
     fontSize: 14,

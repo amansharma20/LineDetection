@@ -14,8 +14,8 @@ export default function WelcomeScreen() {
                 />
             </View>
             <View style={styles.body}>
-            
-                <Text style={{ fontSize: 30, textAlign: 'center', justifyContent: 'center', fontWeight: '800', paddingTop:50, color: '#474747', fontFamily: FONTS.AvenirBlack }}>Welcome</Text>
+
+                <Text style={{ fontSize: 30, textAlign: 'center', justifyContent: 'center', fontWeight: '700', paddingTop: 50, color: '#474747', fontFamily: FONTS.AvenirBlack, }}>Welcome</Text>
 
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Register')}
@@ -29,7 +29,7 @@ export default function WelcomeScreen() {
                             style={{
                                 color: 'white',
                                 fontSize: 18,
-                                fontWeight: '800',
+                                fontWeight: '700',
                                 fontFamily: FONTS.AvenirBlack
                             }}>
                             REGISTER
@@ -64,7 +64,7 @@ export default function WelcomeScreen() {
                             style={{
                                 color: '#101E8E',
                                 fontSize: 18,
-                                fontWeight: '800',
+                                fontWeight: '700',
                                 fontFamily: FONTS.AvenirBlack
                             }}>
                             LOGIN
@@ -72,6 +72,13 @@ export default function WelcomeScreen() {
                     </View>
                 </TouchableOpacity>
 
+            </View>
+            <View style={{paddingBottom: 40}}>
+                <TouchableOpacity onPress={() => navigation.navigate('Help')} style={{alignSelf: 'center'}}>
+                    <Text style={{color: '#101E8E', fontSize: 14, fontWeight: '700'}}>
+                        Help & FAQ’s
+                    </Text>
+                </TouchableOpacity>
             </View>
             {/* <View style={styles.footer}>
                 <Text style={{ fontSize: 14, color: '#2E3E5C', marginTop: 150, fontFamily: FONTS.AvenirRoman, fontWeight: '400' }}>Privacy Policy</Text>
@@ -82,7 +89,7 @@ export default function WelcomeScreen() {
 }
 const styles = StyleSheet.create({
     header: {
-        flex: 1, alignItems: 'center', justifyContent: 'center', paddingBottom:80,
+        flex: 1, alignItems: 'center', justifyContent: 'center', paddingBottom: 80,
     },
     inputView: {
         width: '100%',
@@ -95,7 +102,7 @@ const styles = StyleSheet.create({
         marginTop: 50,
     },
     body: {
-        flex: 1, justifyContent: 'center', paddingBottom:280
+        flex: 1, justifyContent: 'center', paddingBottom: 280
     },
     MainContainer: {
         flex: 1,
