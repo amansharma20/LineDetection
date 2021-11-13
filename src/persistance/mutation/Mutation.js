@@ -29,7 +29,9 @@ mutation MyMutation ($FullName:String!,$DateOfBirth:DateTime!,$MobileNumber:Stri
           Longitude: $Longitude,
           PatientId: $PatientId,
           SickleScanTestResult: $SickleScanTestResult
-          )
+          ){
+            Id
+          }
       }
     }
   

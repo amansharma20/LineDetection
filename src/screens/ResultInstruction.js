@@ -17,27 +17,29 @@ import CommonBottomButton from '../CommonBottomButton';
 import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
+import CountDown from 'react-native-countdown-component';
+
 const screenHeight = Dimensions.get('window').height;
 
 const TimeOverPopup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
   const scalevalue = React.useRef(new Animated.Value(0)).current;
   React.useEffect(() => {
-      toggleModal();
+    toggleModal();
   }, [visible]);
   const toggleModal = () => {
-      if (visible) {
-          setShowModal(true)
-          Animated.spring(scalevalue, { toValue: 1, duration: 300, useNativeDriver: true, }).start();
-      } else {
-          setTimeout(() => setShowModal(false), 200);
-          Animated.timing(scalevalue, { toValue: 0, duration: 300, useNativeDriver: true, }).start();
-      }
+    if (visible) {
+      setShowModal(true)
+      Animated.spring(scalevalue, { toValue: 1, duration: 300, useNativeDriver: true, }).start();
+    } else {
+      setTimeout(() => setShowModal(false), 200);
+      Animated.timing(scalevalue, { toValue: 0, duration: 300, useNativeDriver: true, }).start();
+    }
   }
   return <Modal transparent visible={showModal}>
-      <View style={styles.modalBackground}>
-          <Animated.View style={styles.modalContainer, { transform: [{ scale: scalevalue }] }}>{children}</Animated.View>
-      </View>
+    <View style={styles.modalBackground}>
+      <Animated.View style={styles.modalContainer, { transform: [{ scale: scalevalue }] }}>{children}</Animated.View>
+    </View>
 
   </Modal>
 };
@@ -67,21 +69,20 @@ export default function ResultInstruction() {
           <Image source={images.headerlogo} style={{ width: 95, height: 53, alignItems: 'center', justifyContent: 'center' }} />
           <View></View>
         </View>
-
-        <Text
-              style={{
-                fontSize: 16,
-                textAlign:'right',
-                justifyContent:'flex-end',
-                fontWeight: 'bold',
-                color: '#474747',
-                paddingRight:25,
-                paddingBottom:0,
-                fontFamily: FONTS.AvenirBlack,
-              }}>
-              05:41
-            </Text>
-
+        <CountDown
+          until={60 * 4 + 60}
+          size={20}
+          onFinish={() => setVisible(true)}
+          digitStyle={{ backgroundColor: '#FFF' }}
+          digitTxtStyle={{
+            fontSize: 16,
+            fontWeight: 'bold',
+            color: '#474747',
+            fontFamily: FONTS.AvenirBlack,
+          }}
+          timeToShow={['M', 'S']}
+          timeToShow={['M', 'S']}
+        />
         <View
           style={{
             backgroundColor: 'white',
@@ -92,18 +93,18 @@ export default function ResultInstruction() {
             flex: 1,
           }}>
           <View style={styles.inputs}>
-          <TouchableOpacity onPress={() => setVisible(true)}>
-            <Text
-              style={{
-                fontSize: 20,
-                textAlign: 'center',
-                justifyContent: 'center',
-                fontWeight: 'bold',
-                color: '#101E8E',
-                fontFamily: FONTS.AvenirBlack,
-              }}>
-              How to scan test?
-            </Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => setVisible(true)}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  textAlign: 'center',
+                  justifyContent: 'center',
+                  fontWeight: 'bold',
+                  color: '#101E8E',
+                  fontFamily: FONTS.AvenirBlack,
+                }}>
+                How to scan test?
+              </Text></TouchableOpacity>
             <Text
               style={{
                 fontSize: 16,
@@ -125,20 +126,20 @@ export default function ResultInstruction() {
               />
             </View>
             <TouchableOpacity onPress={() => navigation.navigate('Result')}
-          >
-            <Text
-              style={{
-                fontSize: 16,
-                padding: 10,
-                justifyContent: 'center',
-                textAlign: 'center',
-                color: '#000000',
-                paddingVertical: 30,
-                fontFamily: FONTS.AvenirRoman,
-                fontWeight: 'bold',
-              }}>
-              Sample Image
-            </Text></TouchableOpacity>
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  padding: 10,
+                  justifyContent: 'center',
+                  textAlign: 'center',
+                  color: '#000000',
+                  paddingVertical: 30,
+                  fontFamily: FONTS.AvenirRoman,
+                  fontWeight: 'bold',
+                }}>
+                Sample Image
+              </Text></TouchableOpacity>
             <Text
               style={{
                 fontSize: 12,
@@ -155,51 +156,51 @@ export default function ResultInstruction() {
         </View>
 
         <TimeOverPopup visible={visible}>
-                        <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 380, width: 320 }}>
-                            <Image source={icons.warning} style={{ width: 50, height: 50, marginTop: 40 }} />
-                            <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', paddingTop: 20, fontFamily: FONTS.AvenirRoman }}>The test is considered invalid{'\n'}after 10 minutes and it must{'\n'}be conducted again. Do you{'\n'}want to cancel this test or{'\n'}proceed with this test?</Text>
-                            
-                            <TouchableOpacity
-                        onPress={() => navigation.navigate('Home')}
-                                style={{ flex: 1 }}>
-                                <View style={{
-                                    backgroundColor: '#ffffff', width: 150,borderColor:'#222D81',
-                                    borderWidth:1, height: 50, borderRadius: 100, alignItems: 'center',
-                                    justifyContent: 'center', marginTop: 20
-                                }}>
-                                    <Text
-                                        style={{
-                                            color: '#222D81',
-                                            
-                                            fontSize: 14,
-                                            fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
+          <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 380, width: 320 }}>
+            <Image source={icons.warning} style={{ width: 50, height: 50, marginTop: 40 }} />
+            <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', paddingTop: 20, fontFamily: FONTS.AvenirRoman }}>The test is considered invalid{'\n'}after 10 minutes and it must{'\n'}be conducted again. Do you{'\n'}want to cancel this test or{'\n'}proceed with this test?</Text>
 
-                                        }}>
-                                        CANCEL TEST
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Home')}
+              style={{ flex: 1 }}>
+              <View style={{
+                backgroundColor: '#ffffff', width: 150, borderColor: '#222D81',
+                borderWidth: 1, height: 50, borderRadius: 100, alignItems: 'center',
+                justifyContent: 'center', marginTop: 20
+              }}>
+                <Text
+                  style={{
+                    color: '#222D81',
 
-                            <TouchableOpacity
-                                onPress={() => setVisible(false)}
-                                style={{ flex: 1 }}>
-                                <View style={{
-                                    backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
-                                    justifyContent: 'center', marginTop: 10
-                                }}>
-                                    <Text
-                                        style={{
-                                            color: '#ffffff',
-                                            fontSize: 14,
-                                            fontWeight: '800', fontFamily: FONTS.AvenirBlack
+                    fontSize: 14,
+                    fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
 
-                                        }}>
-                                        PROCEED
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </TimeOverPopup>
+                  }}>
+                  CANCEL TEST
+                </Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => setVisible(false)}
+              style={{ flex: 1 }}>
+              <View style={{
+                backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
+                justifyContent: 'center', marginTop: 10
+              }}>
+                <Text
+                  style={{
+                    color: '#ffffff',
+                    fontSize: 14,
+                    fontWeight: '800', fontFamily: FONTS.AvenirBlack
+
+                  }}>
+                  PROCEED
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </TimeOverPopup>
         {/* <View>
           <TouchableOpacity onPress={() => navigation.navigate('Cassette')}
           >
@@ -244,13 +245,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-},
-modalContainer: {
+  },
+  modalContainer: {
     width: 20,
     height: 30,
     backgroundColor: 'green',
     elevation: 20,
-},
+  },
   textInput: {
     borderColor: '#989898',
     borderWidth: 1,

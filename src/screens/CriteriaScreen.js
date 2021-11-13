@@ -86,7 +86,6 @@ export default function CriteriaScreen() {
 
 
     const [addDetailsMutation, { data: testResponse, error: testError, loading }] = useMutation(GQLMutation.ADD_TEST);
-
     const submitUserDetails = () => {
         addDetailsMutation({
             variables: {
@@ -95,7 +94,7 @@ export default function CriteriaScreen() {
                 CountDown: "0.0",
                 Latitude: 0,
                 Longitude: 0,
-                PatientId: "2321233`",
+                PatientId: 9,
                 SickleScanTestResult: "HBBA"
             }
         });

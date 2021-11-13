@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView, Modal, Animated } from 'react-native';
 import CommonBottomButton from '../CommonBottomButton';
 import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
 import { SIZES, FONTS } from '../Constants/Theme';
+import CountDown from 'react-native-countdown-component';
 
 const TimerPopup = ({ visible, children }) => {
     const [showModal, setShowModal] = React.useState(visible);
@@ -12,6 +13,7 @@ const TimerPopup = ({ visible, children }) => {
     React.useEffect(() => {
         toggleModal();
     }, [visible]);
+
     const toggleModal = () => {
         if (visible) {
             setShowModal(true)
@@ -25,7 +27,6 @@ const TimerPopup = ({ visible, children }) => {
         <View style={styles.modalBackground}>
             <Animated.View style={styles.modalContainer, { transform: [{ scale: scalevalue }] }}>{children}</Animated.View>
         </View>
-
     </Modal>
 };
 const screenHeight = Dimensions.get('window').height;
@@ -36,10 +37,8 @@ export default function TimerScreen() {
 
     const navigation = useNavigation();
 
-
     return (
         <View style={styles.MainContainer}>
-
             <ScrollView contentContainerStyle showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
                     <TouchableOpacity
@@ -60,15 +59,23 @@ export default function TimerScreen() {
 
                 <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 30, elevation: 5, padding: 20, flex: 1, }}>
 
-                    <TouchableOpacity onPress={() => setVisible(true)}>
-                        <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingBottom: 20 }}>
-                            Countdown
-                        </Text>
-                    </TouchableOpacity>
+
+                    <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingBottom: 20 }}>
+                        Countdown
+                    </Text>
+
                     <Image source={images.countdown} style={{ width: 200, height: 200, alignSelf: 'center', paddingBottom: 25 }} />
                     <View style={{ alignContent: 'center', justifyContent: 'center', flex: 1 }}>
                         <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Allow test to run for 5{'\n'} minutes.Read the results{'\n'} in the detection window</Text>
-                        <Text style={{ fontSize: 60, padding: 80, paddingTop: 50, paddingLeft: 0, paddingRight: 0, justifyContent: 'center', textAlign: 'center', color: '#101E8E', fontFamily: FONTS.AvenirBlack, fontWeight: '800' }}>05:00</Text>
+                        <CountDown
+                            until={60 * 4 + 60}
+                            size={30}
+                            onFinish={() => setVisible(true)}
+                            digitStyle={{ backgroundColor: '#FFF' }}
+                            digitTxtStyle={{ color: '#222D81' }}
+                            timeToShow={['M', 'S']}
+                            timeLabels={{ m: 'MM', s: 'SS' }}
+                        />
                     </View>
                     <TimerPopup visible={visible}>
                         <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
