@@ -1,17 +1,14 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Text, View, TouchableOpacity, TextInput, Dimensions, Image, StyleSheet, ScrollView, Modal, Animated } from 'react-native';
 import images from '../Constants/Images';
 import { SIZES, FONTS } from '../Constants/Index';
 import { icons } from '../Constants/Index';
-import DropDownPicker from 'react-native-dropdown-picker';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
-import { AuthActions } from '../persistance/actions/AuthActions';
 import BouncyCheckboxGroup, {
   ICheckboxButton,
 } from 'react-native-bouncy-checkbox-group';
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import { AuthContext } from '../navigation/ApplicationNavigator';
 
 const screenHeight = Dimensions.get('window').height;
@@ -62,7 +59,6 @@ const HealthPopup = ({ visible, children }) => {
 
 
 export default function RegisterScreen() {
-  const dispatch = useDispatch();
 
   // const [countryValue, setCountryValue] = useState(null);
 
@@ -77,10 +73,9 @@ export default function RegisterScreen() {
   // ]);
 
   const [healthPopup, sethealthPopup] = React.useState(false);
+  const [disableButton, setDisableButton] = React.useState(false);
 
   const navigation = useNavigation();
-
-
 
   const registerValidationSchema = yup.object().shape({
     firstName: yup
@@ -99,44 +94,16 @@ export default function RegisterScreen() {
       .required('Email is required'),
     password: yup
       .string()
-      
+
       .required('Password is required'),
     confirmPassword: yup
       .string()
-      
+
       .required('Confirm Password is required'),
   });
 
   const { register } = useContext(AuthContext);
 
-  // const registers = data => {
-  //   CommonLoading.show();
-  //   const registerData = {
-  //     FirstName: data.firstName,
-  //     LastName: data.lasttName,
-  //     Email: data.email,
-  //     Mobile: data.mobile,
-  //     Password: data.password,
-  //     confirmPassword: data.confirmPassword,
-  //     Organization: data.organization,
-  //     Department: data.department,
-  //     Country: data.country,
-  //     Address: data.address,
-  //     City: data.city,
-  //     State: data.state,
-  //     PinCode: data.pincode,
-  //   };
-  //   dispatch(
-  //     AuthActions.register('Account/SignUp', registerData),
-  //   ).then((response) => {
-  //     CommonLoading.hide();
-  //     if (response && response.success === false) { } else {
-  //       register(response.data)
-  //       console.log(response.data)
-  //     }
-  //   },
-  //   );
-  // };
 
 
   const submitRegisterForm = (values) => {
@@ -181,17 +148,20 @@ export default function RegisterScreen() {
 
                 <View style={styles.inputs}>
 
-                <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Are you a trained HealthWorker?</Text>
-                <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                  <BouncyCheckboxGroup
-                    data={staticData}
-                    // onPress={() => setVisible(true)}
-                    onChange={(selectedItem: ICheckboxButton,) => {
-                      console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                      if (selectedItem.id === 1) {
-                        sethealthPopup(true)
-                      }
-                    }}
+                  <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Are you a trained HealthWorker?</Text>
+                  <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                    <BouncyCheckboxGroup
+                      data={staticData}
+                      // onPress={() => setVisible(true)}
+                      onChange={(selectedItem: ICheckboxButton,) => {
+                        console.log('SelectedItem: ', JSON.stringify(selectedItem));
+                        if (selectedItem.id === 1) {
+                          sethealthPopup(true)
+                          setDisableButton(true)
+                        }else{
+                          setDisableButton(false)
+                        }
+                      }}
 
                     />
                   </View>
@@ -292,97 +262,22 @@ export default function RegisterScreen() {
                   )}
 
 
-
-                  {/* <Text style={styles.textFieldLabel}>Organization</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    keyboardType='default'
-                    placeholderTextColor='#B4B4B4'
-                    value={values.organization}
-                    placeholder='Webority'
-                    maxLength={20} /> */}
-
-                  {/* <Text style={styles.textFieldLabel}>Department</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    keyboardType='default'
-                    placeholderTextColor='#B4B4B4'
-                    value={values.department}
-                    placeholder='IT'
-                    maxLength={20} /> */}
-
-                  {/* <Text style={styles.textFieldLabel}>Country </Text>
-                  <DropDownPicker
-                    open={openCountry}
-                    value={countryValue}
-                    items={countryType}
-                    setOpen={setOpenCountry}
-                    setValue={setCountryValue}
-                    setItems={setCountryType}
-                    zIndex={10000}
-                    zIndexInverse={1000}
-                    placeholder="India"
-                    style={styles.pickerContainer}
-
-                    listMode="FLATLIST"
-                    dropDownContainerStyle={styles.dropDownContainerStyle}
-                    closeAfterSelecting={true}
-                    textStyle={{
-                      fontFamily: Platform.select({
-                        ios: ' FONTS.AvenirRoman',
-                        android: ' FONTS.AvenirRoman',
-                      }),
-                    }}
-                  /> */}
-                  {/* <Text style={styles.textFieldLabel}>Address</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    keyboardType='default'
-                    placeholderTextColor='#B4B4B4'
-                    placeholder='Enter your address'
-                    value={values.address}
-                    maxLength={20} /> */}
-
-                  {/* <Text style={styles.textFieldLabel}>City</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    keyboardType='default'
-                    placeholderTextColor='#B4B4B4'
-                    placeholder='Kapurthala'
-                    value={values.city}
-                    maxLength={20} /> */}
-
-                  {/* <Text style={styles.textFieldLabel}>State</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    keyboardType='default'
-                    placeholderTextColor='#B4B4B4'
-                    placeholder='Kapurthala'
-                    value={values.state}
-                    maxLength={20} /> */}
-
-                  {/* <Text style={styles.textFieldLabel}>Pin Code</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    keyboardType='default'
-                    placeholderTextColor='#B4B4B4'
-                    value={values.pincode}
-                    placeholder='Kapurthala'
-                    maxLength={8} /> */}
                   <TouchableOpacity
                     onPress={handleSubmit}
                     style={{
                       alignItems: 'center',
                       justifyContent: 'center',
                       paddingTop: 80,
-                    }}>
-                    <View style={styles.inputView}>
+                    }}
+                    disabled={disableButton}
+                    >
+
+                    <View style={!disableButton ? styles.inputView : styles.disabledButton}>
                       <Text
                         style={{
                           color: 'white',
                           fontSize: 18,
                           fontWeight: 'bold',
-                          // fontFamily: FONTS.AvenirBlack
                         }}>
                         CONTINUE
                       </Text>
@@ -394,31 +289,31 @@ export default function RegisterScreen() {
           </Formik>
         </View>
         <HealthPopup visible={healthPopup}>
-                  <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
-                    <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
-                    <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Only a trained health {'\n'}professional should perform this test.{'\n'}{'\n'} Please do not conduct the {'\n'} tests, if you have not received any training</Text>
+          <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
+            <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
+            <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Only a trained health {'\n'}professional should perform this test.{'\n'}{'\n'} Please do not conduct the {'\n'} tests, if you have not received any training</Text>
 
 
-                    <TouchableOpacity
-                      onPress={() => sethealthPopup(false)}
-                      style={{ flex: 1 }}>
-                      <View style={{
-                        backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
-                        justifyContent: 'center', marginTop: 20
-                      }}>
-                        <Text
-                          style={{
-                            color: '#ffffff',
-                            fontSize: 14,
-                            fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
+            <TouchableOpacity
+              onPress={() => sethealthPopup(false)}
+              style={{ flex: 1 }}>
+              <View style={{
+                backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
+                justifyContent: 'center', marginTop: 20
+              }}>
+                <Text
+                  style={{
+                    color: '#ffffff',
+                    fontSize: 14,
+                    fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
 
-                          }}>
-                          OK
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </HealthPopup>
+                  }}>
+                  OK
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </HealthPopup>
       </ScrollView>
     </View>
   );
@@ -457,6 +352,18 @@ const styles = StyleSheet.create({
     marginTop: screenHeight / 6,
     alignItems: 'center',
     backgroundColor: '#222D81',
+    marginTop: 2,
+  },
+  disabledButton:{
+    width: '100%',
+    borderRadius: 100,
+    height: 55,
+    marginBottom: 20,
+    justifyContent: 'center',
+    paddingHorizontal: SIZES.padding2,
+    marginTop: screenHeight / 6,
+    alignItems: 'center',
+    backgroundColor: 'gray',
     marginTop: 2,
   },
   textInput: {

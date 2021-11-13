@@ -52,7 +52,7 @@ export default function SearchPatient() {
         systemId: yup.string().when("aadhaar", {
             is: value => value && value.length === 0,
             then: yup.string().required(
-                "System Id is required."
+                "Unique Id is required."
             ),
             otherwise: yup.string()
         }),
@@ -60,6 +60,7 @@ export default function SearchPatient() {
 
     const [getRecords, { loading, error, data }] = useLazyQuery(GQLQuery.SEARCH_PATIENT_RECORD);
     const submitSearch = (values) => {
+        console.log(values)
         getRecords({
             variables: {
                 AadharNumber: values.aadhaar,
@@ -74,6 +75,9 @@ export default function SearchPatient() {
             PatientRecord: PatientRecord
         })
     }
+
+    console.log(error)
+    console.log(data)
 
 
 
@@ -149,7 +153,7 @@ export default function SearchPatient() {
                                     )}
                                     <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, textAlign: 'center', fontWeight: '400' }}> Or </Text>
 
-                                    <Text style={styles.textFieldLabel}>System ID </Text>
+                                    <Text style={styles.textFieldLabel}>Unique ID</Text>
                                     <TextInput
                                         name="systemId"
                                         onChangeText={handleChange('systemId')}
@@ -158,7 +162,7 @@ export default function SearchPatient() {
                                         style={styles.textInput}
                                         keyboardType='number-pad'
                                         placeholderTextColor='#B4B4B4'
-                                        placeholder='Enter system ID'
+                                        placeholder='Enter unique ID'
                                     />
                                     {errors.systemId && touched.systemId && (
                                         <Text style={styles.error}>{errors.systemId}</Text>
@@ -235,7 +239,7 @@ const styles = StyleSheet.create({
     },
     modalBackground: {
         flex: 1,
-        backgroundColor: 'transparent',
+        backgroundColor: 'rgba(0,0,0,0.5)',
         justifyContent: 'center',
         alignItems: 'center',
     },
