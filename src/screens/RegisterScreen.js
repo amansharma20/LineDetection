@@ -150,7 +150,7 @@ export default function RegisterScreen() {
 
                 <View style={styles.inputs}>
 
-                  <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Are you a trained HealthWorker?</Text>
+                  <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Are you a trained Health Professional?</Text>
                   <View style={{ flexDirection: 'row', marginLeft: 10 }}>
                     <BouncyCheckboxGroup
                       data={staticData}
