@@ -98,7 +98,7 @@ export default function CriteriaScreen() {
                 <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 30, elevation: 5, padding: 20, paddingBottom: 280, flex: 1 }}>
 
 
-                    <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>
+                    <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingBottom: 20 }}>
                         Qualifying Criteria
                     </Text>
 
@@ -199,7 +199,7 @@ export default function CriteriaScreen() {
                         }}>
                         <View style={{
                             backgroundColor: '#ffffff', width: '100%', height: 50, borderRadius: 50, alignItems: 'center',
-                            justifyContent: 'center', borderColor: '#222D81', borderWidth: 1, flex: 1,
+                            justifyContent: 'center', borderColor: '#222D81', borderWidth: 1, flex: 1, elevation: 5
                         }}>
                             <Text
                                 style={{
@@ -219,7 +219,7 @@ export default function CriteriaScreen() {
                         }}>
                         <View style={{
                             backgroundColor: '#222D81', width: '100%', height: 50, borderRadius: 50, alignItems: 'center',
-                            justifyContent: 'center', flex: 1,
+                            justifyContent: 'center', flex: 1, elevation: 5
                         }}>
                             <Text
                                 style={{

@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { AuthActions } from '../persistance/actions/AuthActions';
 import DropDownPicker from 'react-native-dropdown-picker';
 import CommonLoading from '../components/CommonLoading';
+import CommonBottomButton from '../CommonBottomButton';
 const screenHeight = Dimensions.get('window').height;
 
 export default function RegistrationScreen(props) {
@@ -86,29 +87,30 @@ export default function RegistrationScreen(props) {
 
   return (
     <View style={styles.MainContainer}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <Image source={images.logo} style={{ width: 150, height: 90 }} />
-        </View>
-        <View style={styles.body}>
-          <Text style={{ fontSize: 24, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', fontStyle: 'normal', paddingTop: 20, fontFamily: FONTS.AvenirBlack, color: '#474747' }}>Welcome</Text>
-          <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', color: '#474747', paddingTop: 5, fontWeight: 'bold', opacity: 0.5, fontFamily: FONTS.AvenirRoman }}>Please enter your details</Text>
-        </View>
+      <Formik
+        validationSchema={registerValidationSchema}
+        initialValues={{
+          organization: '',
+          department: '',
+          address: '',
+          city: '',
+          state: '',
+          pinCode: '',
+        }}
+        onSubmit={values => submitSignUpData(values)}>
+        {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
+          <>
+            <ScrollView style={{padding: 10}} showsVerticalScrollIndicator={false}>
+              <View style={styles.header}>
+                <Image source={images.logo} style={{ width: 150, height: 90 }} />
+              </View>
+              <View style={styles.body}>
+                <Text style={{ fontSize: 24, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', fontStyle: 'normal', paddingTop: 20, fontFamily: FONTS.AvenirBlack, color: '#474747' }}>Welcome</Text>
+                <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', color: '#474747', paddingTop: 5, fontWeight: 'bold', opacity: 0.5, fontFamily: FONTS.AvenirRoman }}>Please enter your details</Text>
+              </View>
 
-        <View style={styles.inputs}>
-          <Formik
-            validationSchema={registerValidationSchema}
-            initialValues={{
-              organization: '',
-              department: '',
-              address: '',
-              city: '',
-              state: '',
-              pinCode: '',
-            }}
-            onSubmit={values => submitSignUpData(values)}>
-            {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
-              <>
+              <View style={styles.inputs}>
+
                 <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Organization</Text>
                 <TextInput
                   name="organization"
@@ -117,7 +119,7 @@ export default function RegistrationScreen(props) {
                   onChangeText={handleChange('organization')}
                   onBlur={handleBlur('organization')}
                   placeholderTextColor='#B4B4B4'
-                  placeholder='Enter your username'
+                  placeholder=''
                   value={values.organization}
                   maxLength={20} />
 
@@ -134,14 +136,14 @@ export default function RegistrationScreen(props) {
                   onChangeText={handleChange('department')}
                   onBlur={handleBlur('department')}
                   value={values.department}
-                  placeholder='Please create your Password'
+                  placeholder=''
                   maxLength={20} />
 
                 {errors.department && touched.department && (
                   <Text style={styles.error}>{errors.department}</Text>
                 )}
 
-                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Country</Text>
+                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, color: 'black' }}>Country</Text>
                 <DropDownPicker
                   open={openCountry}
                   value={countryValue}
@@ -167,7 +169,7 @@ export default function RegistrationScreen(props) {
                   }}
                 />
 
-                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Address</Text>
+                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, color: 'black' }}>Address</Text>
                 <TextInput
                   name="address"
                   style={styles.textInput}
@@ -175,18 +177,14 @@ export default function RegistrationScreen(props) {
                   onChangeText={handleChange('address')}
                   onBlur={handleBlur('address')}
                   placeholderTextColor='#B4B4B4'
-                  placeholder='Please confirm your Password'
+                  placeholder=''
                   value={values.address}
                   maxLength={20} />
                 {errors.address && touched.address && (
                   <Text style={styles.error}>{errors.address}</Text>
                 )}
 
-                {errors.address && touched.address && (
-                  <Text style={styles.error}>{errors.address}</Text>
-                )}
-
-                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>City</Text>
+                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, color: 'black' }}>City</Text>
                 <TextInput
                   name="city"
                   style={styles.textInput}
@@ -194,14 +192,14 @@ export default function RegistrationScreen(props) {
                   placeholderTextColor='#B4B4B4'
                   onChangeText={handleChange('city')}
                   onBlur={handleBlur('city')}
-                  placeholder='Please confirm your Password'
+                  placeholder=''
                   value={values.city}
                   maxLength={20} />
                 {errors.city && touched.city && (
                   <Text style={styles.error}>{errors.city}</Text>
                 )}
 
-                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>State</Text>
+                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, color: 'black' }}>State</Text>
                 <TextInput
                   name="state"
                   style={styles.textInput}
@@ -209,18 +207,14 @@ export default function RegistrationScreen(props) {
                   placeholderTextColor='#B4B4B4'
                   onChangeText={handleChange('state')}
                   onBlur={handleBlur('state')}
-                  placeholder='Please confirm your Password'
+                  placeholder=''
                   value={values.state}
                   maxLength={20} />
                 {errors.state && touched.state && (
                   <Text style={styles.error}>{errors.state}</Text>
                 )}
 
-                {errors.state && touched.state && (
-                  <Text style={styles.error}>{errors.state}</Text>
-                )}
-
-                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Pin Code</Text>
+                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, color: 'black' }}>Pin Code</Text>
                 <TextInput
                   name="pinCode"
                   style={styles.textInput}
@@ -228,13 +222,13 @@ export default function RegistrationScreen(props) {
                   placeholderTextColor='#B4B4B4'
                   onChangeText={handleChange('pinCode')}
                   onBlur={handleBlur('pinCode')}
-                  placeholder='Please confirm your Password'
+                  placeholder=''
                   value={values.pinCode}
                   maxLength={20} />
                 {errors.pinCode && touched.pinCode && (
                   <Text style={styles.error}>{errors.pinCode}</Text>
                 )}
-                <TouchableOpacity onPress={handleSubmit}>
+                {/* <TouchableOpacity onPress={handleSubmit}>
                   <View style={styles.inputView}>
                     <Text
                       style={{
@@ -245,13 +239,14 @@ export default function RegistrationScreen(props) {
                       CONTINUE
                     </Text>
                   </View>
-                </TouchableOpacity>
-              </>
-            )}
-          </Formik>
-        </View>
-      </ScrollView >
-    </View >
+                </TouchableOpacity> */}
+              </View>
+            </ScrollView>
+            <CommonBottomButton onPress={handleSubmit} children={'CONTINUE'} />
+          </>
+        )}
+      </Formik>
+    </View>
   );
 }
 const styles = StyleSheet.create({
@@ -301,7 +296,9 @@ const styles = StyleSheet.create({
   },
   pickerContainer: {
     backgroundColor: '#FBF9F9',
-    borderWidth: 0,
+    borderWidth: 1,
+    borderRadius: 0,
+    height: 40,
     marginTop: 10,
   },
   dropDownContainerStyle: {
@@ -309,9 +306,9 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-     justifyContent: 'center', 
-     alignItems: 'center', 
-     paddingBottom: 20
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 20
   },
   focus: {
     borderColor: '#101E8E'
@@ -319,7 +316,6 @@ const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
     justifyContent: 'center',
-    padding: 20,
     backgroundColor: 'white',
   },
   textFieldLabel: {

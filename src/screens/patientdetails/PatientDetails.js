@@ -151,6 +151,9 @@ export default function PatientDetails() {
 
     return (
         <View style={styles.MainContainer}>
+        
+        <CommonHeader />
+
 
             <Formik
                 validationSchema={patientSchema}
@@ -195,7 +198,6 @@ export default function PatientDetails() {
                                 </View>
                             </IDPopup>
 
-                                <CommonHeader />
 
 
 
@@ -346,7 +348,7 @@ export default function PatientDetails() {
 
 
                                                 </View>
-                                                <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Guardian's Aadhaar Available?</Text>
+                                                <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Guardian's Aadhaar ID Available?</Text>
                                                 <View style={{ flexDirection: 'row' }}>
 
                                                     <BouncyCheckboxGroup

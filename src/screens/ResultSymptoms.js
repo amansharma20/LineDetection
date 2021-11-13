@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView, } from 'react-native';
+import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView, SafeAreaView, StatusBar } from 'react-native';
 import images from '../Constants/Images';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { icons } from '../Constants/Index';
 import { FONTS, } from '../Constants/Theme';
 import CommonBottomButton from '../CommonBottomButton';
+import CommonHeader from '../components/CommonHeader';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -19,15 +20,19 @@ export default function ResultSymptoms(props) {
     console.log(imageData);
 
     return (
-        <View style={styles.MainContainer}>
+        <SafeAreaView style={styles.MainContainer}>
+
+            <StatusBar
+                hidden={false}
+                backgroundColor={'white'}
+                barStyle={'dark-content'}
+            />
 
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={styles.header}>
-
-                    <Image source={images.headerlogo} style={{ width: 95, height: 53, justifyContent: 'center', alignItems: 'center' }} />
+                <View style={{ paddingVertical: 40 }}>
+                    <CommonHeader />
 
                 </View>
-
                 <View style={{ backgroundColor: 'white', margin: 20, elevation: 5, padding: 20, flex: 1, paddingTop: 40 }}>
 
 
@@ -47,7 +52,7 @@ export default function ResultSymptoms(props) {
 
 
 
-                        
+
                         <TouchableOpacity onPress={() => navigation.navigate('ManualResultScreen')}>
                             <Text style={{ fontSize: 18, padding: 10, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#222D81', fontFamily: FONTS.AvenirBlack }}>SELECT RESULT</Text>
                         </TouchableOpacity>
@@ -79,7 +84,7 @@ export default function ResultSymptoms(props) {
             <CommonBottomButton
                 onPress={() => navigation.navigate('Summary')}
                 children={'FINISH TEST'} />
-        </View>
+        </SafeAreaView>
     );
 }
 const styles = StyleSheet.create({

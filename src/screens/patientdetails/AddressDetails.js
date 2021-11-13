@@ -29,9 +29,9 @@ export default function AddressDetails() {
 
     return (
         <View style={styles.MainContainer}>
+            <CommonHeader />
 
             <ScrollView contentContainerStyle={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
-                <CommonHeader />
 
                 <View style={{ backgroundColor: 'white', margin: 5, elevation: 5, padding: 20, flex: 1, paddingBottom: 50 }}>
 

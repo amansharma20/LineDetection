@@ -69,15 +69,9 @@ export default function InstructionsScreen() {
                                     //  fontFamily: FONTS.AvenirBlack
 
                                 }}>
-                                CONTINUE
+                                START TIMER
                             </Text>
                         </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('StopWatch')}>
-                        <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingTop: 10 }}>
-                            Skip
-                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>

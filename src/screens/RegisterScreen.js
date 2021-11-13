@@ -13,6 +13,7 @@ import BouncyCheckboxGroup, {
 } from 'react-native-bouncy-checkbox-group';
 import { Formik, Field } from 'formik';
 import { AuthContext } from '../navigation/ApplicationNavigator';
+import CommonBottomButton from '../CommonBottomButton';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -99,11 +100,11 @@ export default function RegisterScreen() {
       .required('Email is required'),
     password: yup
       .string()
-      
+
       .required('Password is required'),
     confirmPassword: yup
       .string()
-      
+
       .required('Confirm Password is required'),
   });
 
@@ -146,52 +147,53 @@ export default function RegisterScreen() {
   }
   return (
     <View style={styles.MainContainer}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <Image source={images.logo} style={{ width: 150, height: 90 }} />
-        </View>
-        <View style={styles.body}>
+      <Formik
+        validationSchema={registerValidationSchema}
+        initialValues={{
+          firstName: '',
+          lastName: '',
+          email: '',
+          mobile: '',
+          password: '',
+          confirmPassword: ''
+        }}
+        onSubmit={values => submitRegisterForm(values)}>
+        {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
+          <>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View style={styles.header}>
+                <Image source={images.logo} style={{ width: 150, height: 90, marginTop: 30  }} />
+              </View>
+              <View style={styles.body}>
 
-          <TouchableOpacity onPress={() => setVisible(true)}>
-            <Text style={{
-              fontSize: 24, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', fontStyle: 'normal', paddingTop: 10,
-              // fontFamily: FONTS.AvenirBlack, 
-              color: '#474747'
-            }}>Welcome</Text></TouchableOpacity>
-          <Text style={{
-            fontSize: 18, textAlign: 'center', justifyContent: 'center', opacity: 0.5, color: '#474747', paddingTop: 5, fontWeight: 'bold',
-            // fontFamily: FONTS.AvenirRoman 
-          }}>Please enter your details</Text>
-        </View>
+                <TouchableOpacity onPress={() => setVisible(true)}>
+                  <Text style={{
+                    fontSize: 24, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', paddingTop: 10,
+                    color: '#474747',
+                  }}>Welcome</Text>
+                </TouchableOpacity>
+                <Text style={{
+                  fontSize: 18, textAlign: 'center', justifyContent: 'center', opacity: 0.5, color: '#474747', paddingTop: 5, fontWeight: 'bold',
+                  // fontFamily: FONTS.AvenirRoman 
+                }}>Please enter your details</Text>
+              </View>
 
-        <View style={styles.inputs}>
-          <Formik
-            validationSchema={registerValidationSchema}
-            initialValues={{
-              firstName: '',
-              lastName: '',
-              email: '',
-              mobile: '',
-              password: '',
-              confirmPassword: ''
-            }}
-            onSubmit={values => submitRegisterForm(values)}>
-            {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
-              <>
+              <View style={styles.inputs}>
+
 
                 <View style={styles.inputs}>
 
-                <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Are you a trained HealthWorker?</Text>
-                <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                  <BouncyCheckboxGroup
-                    data={staticData}
-                    // onPress={() => setVisible(true)}
-                    onChange={(selectedItem: ICheckboxButton,) => {
-                      console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                      if (selectedItem.id === 1) {
-                        sethealthPopup(true)
-                      }
-                    }}
+                  <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Are you a trained Health Professional?</Text>
+                  <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                    <BouncyCheckboxGroup
+                      data={staticData}
+                      // onPress={() => setVisible(true)}
+                      onChange={(selectedItem: ICheckboxButton,) => {
+                        console.log('SelectedItem: ', JSON.stringify(selectedItem));
+                        if (selectedItem.id === 1) {
+                          sethealthPopup(true)
+                        }
+                      }}
 
                     />
                   </View>
@@ -290,86 +292,7 @@ export default function RegisterScreen() {
                   {errors.confirmPassword && touched.confirmPassword && (
                     <Text style={styles.error}>{errors.confirmPassword}</Text>
                   )}
-
-
-
-                  {/* <Text style={styles.textFieldLabel}>Organization</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    keyboardType='default'
-                    placeholderTextColor='#B4B4B4'
-                    value={values.organization}
-                    placeholder='Webority'
-                    maxLength={20} /> */}
-
-                  {/* <Text style={styles.textFieldLabel}>Department</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    keyboardType='default'
-                    placeholderTextColor='#B4B4B4'
-                    value={values.department}
-                    placeholder='IT'
-                    maxLength={20} /> */}
-
-                  {/* <Text style={styles.textFieldLabel}>Country </Text>
-                  <DropDownPicker
-                    open={openCountry}
-                    value={countryValue}
-                    items={countryType}
-                    setOpen={setOpenCountry}
-                    setValue={setCountryValue}
-                    setItems={setCountryType}
-                    zIndex={10000}
-                    zIndexInverse={1000}
-                    placeholder="India"
-                    style={styles.pickerContainer}
-
-                    listMode="FLATLIST"
-                    dropDownContainerStyle={styles.dropDownContainerStyle}
-                    closeAfterSelecting={true}
-                    textStyle={{
-                      fontFamily: Platform.select({
-                        ios: ' FONTS.AvenirRoman',
-                        android: ' FONTS.AvenirRoman',
-                      }),
-                    }}
-                  /> */}
-                  {/* <Text style={styles.textFieldLabel}>Address</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    keyboardType='default'
-                    placeholderTextColor='#B4B4B4'
-                    placeholder='Enter your address'
-                    value={values.address}
-                    maxLength={20} /> */}
-
-                  {/* <Text style={styles.textFieldLabel}>City</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    keyboardType='default'
-                    placeholderTextColor='#B4B4B4'
-                    placeholder='Kapurthala'
-                    value={values.city}
-                    maxLength={20} /> */}
-
-                  {/* <Text style={styles.textFieldLabel}>State</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    keyboardType='default'
-                    placeholderTextColor='#B4B4B4'
-                    placeholder='Kapurthala'
-                    value={values.state}
-                    maxLength={20} /> */}
-
-                  {/* <Text style={styles.textFieldLabel}>Pin Code</Text>
-                  <TextInput
-                    style={styles.textInput}
-                    keyboardType='default'
-                    placeholderTextColor='#B4B4B4'
-                    value={values.pincode}
-                    placeholder='Kapurthala'
-                    maxLength={8} /> */}
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     onPress={handleSubmit}
                     style={{
                       alignItems: 'center',
@@ -387,39 +310,43 @@ export default function RegisterScreen() {
                         CONTINUE
                       </Text>
                     </View>
+                  </TouchableOpacity> */}
+                </View>
+
+              </View>
+              <HealthPopup visible={healthPopup}>
+                <View style={{ alignItems: 'center', justifyContent: 'space-around', backgroundColor: 'white', elevation: 5, height: 320, width: 250 }}>
+                  <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
+                  <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman, paddingHorizontal: 40 }}>Only a trained health professional should perform this test.Please do not conduct the tests, if you have not received any training</Text>
+
+
+                  <TouchableOpacity
+                    onPress={() => sethealthPopup(false)}
+                    style={{ flex: 1 }}>
+                    <View style={{
+                      backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
+                      justifyContent: 'center', marginTop: 20
+                    }}>
+                      <Text
+                        style={{
+                          color: '#ffffff',
+                          fontSize: 14,
+                          fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
+
+                        }}>
+                        OK
+                      </Text>
+                    </View>
                   </TouchableOpacity>
                 </View>
-              </>
-            )}
-          </Formik>
-        </View>
-        <HealthPopup visible={healthPopup}>
-                  <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
-                    <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
-                    <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Only a trained health {'\n'}professional should perform this test.{'\n'}{'\n'} Please do not conduct the {'\n'} tests, if you have not received any training</Text>
-
-
-                    <TouchableOpacity
-                      onPress={() => sethealthPopup(false)}
-                      style={{ flex: 1 }}>
-                      <View style={{
-                        backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
-                        justifyContent: 'center', marginTop: 20
-                      }}>
-                        <Text
-                          style={{
-                            color: '#ffffff',
-                            fontSize: 14,
-                            fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
-
-                          }}>
-                          OK
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </HealthPopup>
-      </ScrollView>
+              </HealthPopup>
+            </ScrollView>
+            <CommonBottomButton
+              onPress={handleSubmit}
+              children={'CONTINUE'} />
+          </>
+        )}
+      </Formik>
     </View>
   );
 }
@@ -489,9 +416,9 @@ const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
     justifyContent: 'center',
-    padding: 20,
+    // padding: 20,
     backgroundColor: 'white',
-    paddingTop: 30
+    // paddingTop: 30
   },
   textFieldLabel: {
     fontSize: 14,

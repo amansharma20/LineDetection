@@ -149,6 +149,7 @@ export default function HomeScreen() {
                                 fontFamily: FONTS.AvenirRoman,
                                 paddingTop: 20,
                                 flexWrap: 'wrap',
+                                textAlign: 'center'
                             }}>
                             Search Database
                         </Text>
@@ -171,7 +172,7 @@ export default function HomeScreen() {
                                 fontFamily: FONTS.AvenirRoman,
                                 paddingTop: 20,
                             }}>
-                            Help &amp; Faqs
+                            Help & Faqs
                         </Text>
                     </View>
                 </TouchableOpacity>

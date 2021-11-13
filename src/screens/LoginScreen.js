@@ -9,6 +9,7 @@ import CommonLoading from '../components/CommonLoading';
 import { useDispatch } from 'react-redux';
 import { AuthActions } from '../persistance/actions/AuthActions';
 import { AuthContext } from '../navigation/ApplicationNavigator';
+import CommonBottomButton from '../CommonBottomButton';
 const screenHeight = Dimensions.get('window').height;
 
 export default function LoginScreen() {
@@ -35,25 +36,26 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.MainContainer}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <Image source={images.logo} style={{ width: 150, height: 90 }} />
-        </View>
-        <View style={styles.body}>
-          <Text style={{ fontSize: 24, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', fontStyle: 'normal', paddingTop: 80, fontFamily: FONTS.AvenirBlack, color: '#474747' }}>Welcome</Text>
-          <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', color: '#474747', opacity: 0.5, paddingTop: 5, fontWeight: 'bold', fontFamily: FONTS.AvenirRoman }}>Please enter your details</Text>
-        </View>
+      <Formik
+        initialValues={{
+          Username: 'teena@webority.com',
+          Password: '1234567',
+        }}
+        onSubmit={values => login(values)}>
+        {({ handleSubmit, handleBlur, handleChange, values }) => (
+          <>
+            <ScrollView style={{padding: 20}} showsVerticalScrollIndicator={false}>
+              <View style={styles.header}>
+                <Image source={images.logo} style={{ width: 150, height: 90 }} />
+              </View>
+              <View style={styles.body}>
+                <Text style={{ fontSize: 24, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', fontStyle: 'normal', paddingTop: 80, fontFamily: FONTS.AvenirBlack, color: '#474747' }}>Welcome</Text>
+                <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', color: '#474747', opacity: 0.5, paddingTop: 5, fontWeight: 'bold', fontFamily: FONTS.AvenirRoman }}>Please enter your details</Text>
+              </View>
 
-        <View style={styles.inputs}>
-          <Text style={{ fontSize: 14, paddingVertical: 50, paddingBottom: 0, fontWeight: '400', fontFamily: FONTS.AvenirRoman }}>Username</Text>
-          <Formik
-            initialValues={{
-              Username: 'teena@webority.com',
-              Password: '1234567',
-            }}
-            onSubmit={values => login(values)}>
-            {({ handleSubmit, handleBlur, handleChange, values }) => (
-              <>
+              <View style={styles.inputs}>
+                <Text style={{ fontSize: 14, paddingVertical: 50, paddingBottom: 0, fontWeight: '400', fontFamily: FONTS.AvenirRoman }}>Email ID</Text>
+
                 <View style={styles.inputContainer}>
                   <TextInput
                     name="Username"
@@ -88,10 +90,10 @@ export default function LoginScreen() {
                 </View>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('ResetPassword')}>
-                  <Text style={{ fontSize: 15, color: '#101E8E', textAlign: 'right', padding: 10, paddingRight: 0, fontWeight: '400', fontFamily: FONTS.AvenirBlack }}>Forgot Password?</Text>
+                  <Text style={{ fontSize: 15, color: '#101E8E', textAlign: 'right', padding: 10, paddingRight: 0, fontWeight: '700', fontFamily: FONTS.AvenirBlack }}>Forgot Password?</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={handleSubmit}
                   style={{
                     alignItems: 'center',
@@ -103,13 +105,13 @@ export default function LoginScreen() {
                       style={{
                         color: 'white',
                         fontSize: 18,
-                        fontWeight: '800',
+                        fontWeight: '700',
                         fontFamily: FONTS.AvenirBlack
                       }}>
                       LOGIN
                     </Text>
                   </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
 
 
@@ -136,13 +138,17 @@ export default function LoginScreen() {
                   
                 </TouchableOpacity>
                 </View> */}
-              </>
-            )}
-          </Formik>
 
-        </View>
+              </View>
 
-      </ScrollView>
+            </ScrollView>
+            <CommonBottomButton
+              onPress={handleSubmit}
+              children={'LOGIN'} />
+
+          </>
+        )}
+      </Formik>
     </View>
   );
 }
@@ -192,7 +198,6 @@ const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
     justifyContent: 'center',
-    padding: 20,
     backgroundColor: 'white',
   }
 });

@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView, Modal, Animated } from 'react-native';
 import CommonBottomButton from '../CommonBottomButton';
 import images from '../Constants/Images';
@@ -68,7 +68,7 @@ export default function TimerScreen() {
                     <Image source={images.countdown} style={{ width: 200, height: 200, alignSelf: 'center', paddingBottom: 25 }} />
                     <View style={{ alignContent: 'center', justifyContent: 'center', flex: 1 }}>
                         <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Allow test to run for 5{'\n'} minutes.Read the results{'\n'} in the detection window</Text>
-                        <Text style={{ fontSize: 60, padding: 80, paddingTop: 50, paddingLeft: 0, paddingRight: 0, justifyContent: 'center', textAlign: 'center', color: '#101E8E', fontFamily: FONTS.AvenirBlack, fontWeight: '800' }}>05:00</Text>
+                        <Text style={{ fontSize: 60, padding: 80, paddingTop: 50, paddingLeft: 0, paddingRight: 0, justifyContent: 'center', textAlign: 'center', color: '#101E8E', fontFamily: FONTS.AvenirBlack, fontWeight: '800' }}>5:00</Text>
                     </View>
                     <TimerPopup visible={visible}>
                         <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>

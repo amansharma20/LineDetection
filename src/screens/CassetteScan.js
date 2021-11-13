@@ -24,6 +24,8 @@ import { Camera } from 'expo-camera';
 
 import { cropPicture } from '../helpers/image-helper';
 import { icons, images } from '../Constants/Index';
+import CommonHeader from '../components/CommonHeader';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const RESULT_MAPPING = ['AA', 'AS', 'Invalid', 'SS'];
 
@@ -82,98 +84,90 @@ export default function CassetteScan() {
         setPresentedShape(RESULT_MAPPING[highestPrediction]);
         // navigation.navigate('Result', (RESULT_MAPPING[highestPrediction] || croppedData) )
         navigation.navigate('Result', {
-            resultData: {base64: croppedData, result: RESULT_MAPPING[highestPrediction]}
-        } )
+            resultData: { base64: croppedData, result: RESULT_MAPPING[highestPrediction] }
+        })
     };
 
     return (
-        <ScrollView contentContainerStyle={{ flex: 1 }} style={styles.container}>
-            <View style={styles.header}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('SampleTest')}
-                    style={{
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}>
-                    <Image source={icons.backarrow} style={{ width: 25, height: 25, resizeMode: 'contain' }} />
-                </TouchableOpacity>
-                <Image source={images.headerlogo} style={{ width: 95, height: 53 }} />
-                <View>
+        <SafeAreaView style={{flex: 1}}>
 
-                </View>
-            </View>
+            <ScrollView contentContainerStyle={{ flex: 1 }} style={styles.container}>
+                <CommonHeader />
 
 
-            <Modal visible={isProcessing} transparent={true} animationType="slide">
-                <View style={styles.modal}>
-                    <View style={styles.modalContent}>
-                        {console.log(presentedShape)}
-                        <Text>Your current result is {presentedShape}</Text>
-                        {presentedShape === '' &&
-                            (
-                                <Text>
-                                    Loading...
-                                </Text>
-                            )
-                        }
-                        <Pressable
-                            style={styles.dismissButton}
-                            onPress={() => {
-                                setPresentedShape('');
-                                setIsProcessing(false);
-                            }}>
-                            <Text>Dismiss</Text>
-                        </Pressable>
+                <Modal statusBarTranslucent visible={isProcessing} transparent={true} animationType="slide">
+                    <View style={styles.modal}>
+                        <View style={styles.modalContent}>
+                            {console.log(presentedShape)}
+                            <Text>Your current result is {presentedShape}</Text>
+                            {presentedShape === '' &&
+                                (
+                                    <Text style={{textAlign: 'center'}}>
+                                        Loading... {'\n'}
+                                        (It may take upto a minute.)
+                                    </Text>
+                                    
+                                )
+                            }
+                            <Pressable
+                                style={styles.dismissButton}
+                                onPress={() => {
+                                    setPresentedShape('');
+                                    setIsProcessing(false);
+                                }}>
+                                <Text>Dismiss</Text>
+                            </Pressable>
+                        </View>
                     </View>
-                </View>
-            </Modal>
+                </Modal>
 
-            <View
-                style={{ flex: 1 }}
-            >
-                <Text
-              style={{
-                fontSize: 16,
-                textAlign:'right',
-                justifyContent:'flex-end',
-                fontWeight: 'bold',
-                color: '#474747',
-                paddingRight:40,
-                paddingBottom:10,
-              }}>
-              06:41
-            </Text>
-                <Camera
-                    ref={cameraRef}
-                    type={Camera.Constants.Type.back}
-                    autoFocus={true}
-                    whiteBalance={Camera.Constants.WhiteBalance.auto}
-                    style={styles.camera}
-                />
-            </View>
-
-
-            <View style={{ alignItems: 'center', height: '20%', marginVertical: 40, justifyContent: 'space-between' }}>
-               
-                <Pressable
-                    onPress={() => handleImageCapture()}
-                    style={styles.captureButton}
-                />
-                 <Text style={{ fontSize: 16, color: '#474747', alignSelf: 'center', paddingTop:15, textAlign: 'center', paddingHorizontal: 20, fontWeight: 'bold' }}>
-                    Please align the cartridge in the{'\n'}frame above to scan it
-                    
-                </Text>
-                <TouchableOpacity
-                        onPress={() => navigation.navigate('ManualResultScreen')}>
-                    <Text style={{ fontSize: 30, color: '#101E8E', fontWeight: 'bold' }}>
-                        Skip
+                <View
+                    style={{ flex: 1 }}
+                >
+                    <Text
+                        style={{
+                            fontSize: 16,
+                            textAlign: 'right',
+                            justifyContent: 'flex-end',
+                            fontWeight: 'bold',
+                            color: '#474747',
+                            paddingRight: 40,
+                            paddingBottom: 10,
+                        }}>
+                        06:41
                     </Text>
-                </TouchableOpacity>
-            </View>
+                    <Camera
+                        ref={cameraRef}
+                        type={Camera.Constants.Type.back}
+                        autoFocus={true}
+                        whiteBalance={Camera.Constants.WhiteBalance.auto}
+                        style={styles.camera}
+                    />
+                </View>
 
 
-            <StatusBar style="auto" />
-        </ScrollView>
+                <View style={{ alignItems: 'center', height: '20%', marginVertical: 40, justifyContent: 'space-between' }}>
+
+                    <Pressable
+                        onPress={() => handleImageCapture()}
+                        style={styles.captureButton}
+                    />
+                    <Text style={{ fontSize: 16, color: '#474747', alignSelf: 'center', paddingTop: 15, textAlign: 'center', paddingHorizontal: 20, fontWeight: 'bold' }}>
+                        Please align the cartridge in the{'\n'}frame above to scan it
+
+                    </Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('ManualResultScreen')}>
+                        <Text style={{ fontSize: 30, color: '#101E8E', fontWeight: 'bold' }}>
+                            Skip
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+
+
+                <StatusBar style="auto" />
+            </ScrollView>
+        </SafeAreaView>
     );
 }
 const styles = StyleSheet.create({
@@ -213,14 +207,15 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)'
     },
     modalContent: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 300,
-        height: 300,
+        width: 200,
+        height: 200,
         borderRadius: 24,
-        backgroundColor: 'gray',
+        backgroundColor: 'white',
     },
     dismissButton: {
         width: 150,
