@@ -18,6 +18,22 @@ mutation MyMutation ($FullName:String!,$DateOfBirth:DateTime!,$MobileNumber:Stri
     }
   }
   `,
+  ADD_TEST: gql`
+  mutation MyMutation($BloodTransfusion: Boolean!, $ConsentFromPerson: Boolean!, $CountDown: String!,$Latitude: Decimal!,$Longitude: Decimal!,$PatientId: Long!,$SickleScanTestResult: String!) {
+    AddSickleScanTestMutation {
+      AddTestForPatient(
+          BloodTransfusion: $BloodTransfusion,
+          ConsentFromPerson: $ConsentFromPerson,
+          CountDown: $CountDown,
+          Latitude: $Latitude,
+          Longitude: $Longitude,
+          PatientId: $PatientId,
+          SickleScanTestResult: $SickleScanTestResult
+          )
+      }
+    }
+  
+  `
 };
 
 

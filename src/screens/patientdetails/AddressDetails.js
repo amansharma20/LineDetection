@@ -54,10 +54,8 @@ export default function AddressDetails(props) {
     };
 
     const [addDetailsMutation, { data: userSickle, error: userError, loading }] = useMutation(GQLMutation.ADD_PATIENT_DETAILS);
-
+   
     const submitUserDetails = (values) => {
-
-        
         addDetailsMutation({
             variables: {
                 FullName: previousDetails.basicDetails.fullName,
@@ -86,11 +84,11 @@ export default function AddressDetails(props) {
 
     }
 
-    useEffect(()=>{
-        if(!loading && userSickle){
+    useEffect(() => {
+        if (!loading && userSickle) {
             setVisible(true);
         }
-    },[loading,userSickle])
+    }, [loading, userSickle])
 
     const Details = userSickle && userSickle.AddPatientMutation && userSickle.AddPatientMutation.AddPatientDetail
 
@@ -119,7 +117,12 @@ export default function AddressDetails(props) {
                                     <Text style={{ fontSize: 16, padding: 10, fontWeight: 'bold', textAlign: 'center', color: '#222D81', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>{Details && Details.UniqueID}</Text>
                                     <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Please note down the ID{'\n'}for future reference</Text>
                                     <TouchableOpacity
-                                        onPress={() => setVisible(false)}
+                                        onPress={() => {
+                                            setVisible(false);
+                                            navigation.navigate('Criteria',{
+
+                                            });
+                                        }}
                                         style={{ flex: 1 }}>
                                         <View style={{
                                             backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
