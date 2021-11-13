@@ -12,11 +12,9 @@ import { GQLMutation } from '../../persistance/mutation/Mutation';
 
 export default function AddressDetails(props) {
 
-    let updateOutside;
-
     const previousDetails = props.route.params.previousDetails;
-
     const navigation = useNavigation();
+
     const [visible, setVisible] = React.useState(false);
     const [stateValue, setStateValue] = useState(null);
     const [openState, setOpenState] = useState(null);
@@ -87,6 +85,7 @@ export default function AddressDetails(props) {
     useEffect(() => {
         if (!loading && userSickle) {
             setVisible(true);
+
         }
     }, [loading, userSickle])
 
@@ -120,10 +119,8 @@ export default function AddressDetails(props) {
                                     <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Please note down the ID{'\n'}for future reference</Text>
                                     <TouchableOpacity
                                         onPress={() => {
+                                            navigation.navigate('Criteria');
                                             setVisible(false);
-                                            navigation.navigate('Criteria',{
-
-                                            });
                                         }}
                                         style={{ flex: 1 }}>
                                         <View style={{
