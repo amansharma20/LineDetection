@@ -83,6 +83,20 @@ export default function ResultInstruction() {
           timeToShow={['M', 'S']}
           timeToShow={['M', 'S']}
         />
+
+<Text
+              style={{
+                fontSize: 12,
+
+                justifyContent: 'center',
+                textAlign: 'center',
+                color: '#000000',
+                paddingVertical: 30,
+                fontFamily: FONTS.AvenirRoman,
+              }}>
+              Warning: Do not record results for tests that{'\n'}have run longer than 10 minutes, repeat test using a{'\n'}new test device.
+            </Text>
+            
         <View
           style={{
             backgroundColor: 'white',
@@ -140,18 +154,7 @@ export default function ResultInstruction() {
                 }}>
                 Sample Image
               </Text></TouchableOpacity>
-            <Text
-              style={{
-                fontSize: 12,
-
-                justifyContent: 'center',
-                textAlign: 'center',
-                color: '#000000',
-                paddingVertical: 30,
-                fontFamily: FONTS.AvenirRoman,
-              }}>
-              Warning: Do not record results for tests that{'\n'}have run longer than 10 minutes, repeat test using a{'\n'}new test device.
-            </Text>
+            
           </View>
         </View>
 

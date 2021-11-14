@@ -50,7 +50,7 @@ export default function SearchPatient() {
             ),
             otherwise: yup.string()
         }),
-        systemId: yup.string().when("aadhaar", {
+        systemId: yup.string('').when("aadhaar", {
             is: value => value && value.length === 0,
             then: yup.string().required(
                 "System Id is required."
@@ -75,9 +75,6 @@ export default function SearchPatient() {
             PatientRecord: PatientRecord
         })
     }
-
-    console.log(data)
-    console.log(error)
 
     return (
         <View style={styles.MainContainer}>

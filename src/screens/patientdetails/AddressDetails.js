@@ -54,6 +54,39 @@ export default function AddressDetails(props) {
     const [addDetailsMutation, { data: userSickle, error: userError, loading }] = useMutation(GQLMutation.ADD_PATIENT_DETAILS);
    
     const submitUserDetails = (values) => {
+
+
+        const temp = {
+            FullName: previousDetails.basicDetails.fullName,
+            DateOfBirth: previousDetails.dob,
+            MobileNumber: previousDetails.basicDetails.mobile,
+            Email: previousDetails.basicDetails.email,
+            Gender: previousDetails.gender,
+            AadharAvailable: previousDetails.isAadhaar,
+            AadharNumber: previousDetails.basicDetails.aadhaar,
+            GuardianName: previousDetails.basicDetails.guardianName,
+            GuardianRelationship: previousDetails.relationship,
+            GuardianIDAvailable: previousDetails.isGuardianAadhaar,
+            GuardianIDNumber: previousDetails.basicDetails.guardianAadhaar,
+            CareOf: values.careOf,
+            HouseNumber: values.hNo,
+            Street: values.street,
+            Area: values.area,
+            PostOffice: values.po,
+            District: values.district,
+            State: stateValue,
+            PinCode: values.pincode,
+            Country: values.country,
+            City: values.city,
+        }
+
+
+        console.log('temp')
+        console.log(temp)
+        console.log('temp')
+
+
+
         addDetailsMutation({
             variables: {
                 FullName: previousDetails.basicDetails.fullName,
@@ -88,6 +121,9 @@ export default function AddressDetails(props) {
 
         }
     }, [loading, userSickle])
+
+    console.log(userSickle)
+    console.log(userError)
 
     const Details = userSickle && userSickle.AddPatientMutation && userSickle.AddPatientMutation.AddPatientDetail
 

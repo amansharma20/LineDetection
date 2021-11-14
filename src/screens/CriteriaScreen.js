@@ -160,7 +160,7 @@ export default function CriteriaScreen() {
                     <NoTestPopup visible={noTestPopup}>
                         <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
                             <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
-                            <Text style={{ fontSize: 16, padding: 20, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Sickle SCAN test should not {'\n'}performed within 6 months {'\n'}of receiving a blood transfusion</Text>
+                            <Text style={{ fontSize: 16, padding: 20, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Sickle SCAN test should not {'\n'}be performed within 6 months {'\n'}of receiving a blood transfusion</Text>
 
                             <TouchableOpacity
                                 onPress={() => setnoTestPopup(false)}

@@ -10,7 +10,6 @@ import BouncyCheckboxGroup, {
 } from 'react-native-bouncy-checkbox-group';
 import { Formik } from 'formik';
 import { AuthContext } from '../navigation/ApplicationNavigator';
-import CommonBottomButton from '../CommonBottomButton';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -105,8 +104,6 @@ export default function RegisterScreen() {
 
   const { register } = useContext(AuthContext);
 
-
-
   const submitRegisterForm = (values) => {
     navigation.navigate('Registration', {
       formValues: values
@@ -150,7 +147,7 @@ export default function RegisterScreen() {
 
                 <View style={styles.inputs}>
 
-                  <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Are you a trained Health Professional?</Text>
+                  <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Are you a trained health professional?</Text>
                   <View style={{ flexDirection: 'row', marginLeft: 10 }}>
                     <BouncyCheckboxGroup
                       data={staticData}
@@ -168,7 +165,7 @@ export default function RegisterScreen() {
                     />
                   </View>
 
-                  <Text style={styles.textFieldLabel}>First Name</Text>
+                  <Text style={styles.textFieldLabel}>First Name*</Text>
                   <TextInput
                     name="firstName"
                     style={styles.textInput}

@@ -65,7 +65,7 @@ export default function TimerScreen() {
 
                     <Image source={images.countdown} style={{ width: 200, height: 200, alignSelf: 'center', paddingBottom: 25 }} />
                     <View style={{ alignContent: 'center', justifyContent: 'center', flex: 1 }}>
-                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Allow test to run for 5{'\n'} minutes.Read the results{'\n'} in the detection window</Text>
+                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Allow test to run for 5{'\n'} minutes.Read the results{'\n'} in the detection window.</Text>
                         <CountDown
                             until={60 * 4 + 60}
                             size={30}
