@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView, Modal, Animated } from 'react-native';
 import images from '../Constants/Images';
+import { GQLQuery } from '../persistance/query/GQLQuery';
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
 
@@ -31,11 +32,19 @@ const screenHeight = Dimensions.get('window').height;
 
 export default function PatientReport(props) {
 
-    const Report = props.route.params.report;
+    // console.log(props)
+
+    
+    
     const [visible, setVisible] = React.useState(false);
     const navigation = useNavigation();
 
+    const { data, error } = useQuery(GQLQuery.SEARCH_PATIENT_RECORD);
+    const PatientData = data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch;
     
+console.log(data)
+console.log('data')
+console.log(error)    
 
     return (
         <View style={styles.MainContainer}>

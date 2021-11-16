@@ -29,6 +29,20 @@ export default function AddressDetails(props) {
         { label: 'Sikkim', value: 'sikkim' },
     ]);
 
+    const [countryValue, setCountryValue] = useState(null);
+
+    const [openCountry, setOpenCountry] = useState(null);
+
+    const [countryType, setCountryType] = useState([
+        { label: 'India', value: 'IN' },
+        { label: 'Australia', value: 'AUS' },
+        { label: 'NewZealand', value: 'NZ' },
+        { label: 'Nigeria', value: 'nigeria' },
+        { label: 'Bangladesh', value: 'BG' },
+    ]);
+
+    const [selectedCountry, setSelectedCountry] = useState();
+
     const IDPopup = ({ visible, children }) => {
         const [showModal, setShowModal] = React.useState(visible);
         const scalevalue = React.useRef(new Animated.Value(0)).current;
@@ -52,7 +66,7 @@ export default function AddressDetails(props) {
     };
 
     const [addDetailsMutation, { data: userSickle, error: userError, loading }] = useMutation(GQLMutation.ADD_PATIENT_DETAILS);
-   
+
     const submitUserDetails = (values) => {
 
 
@@ -152,7 +166,7 @@ export default function AddressDetails(props) {
                                     <Image source={icons.greenicon} style={{ width: 40, height: 40, }} />
                                     <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#989898', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Your Unique ID is</Text>
                                     <Text style={{ fontSize: 16, padding: 10, fontWeight: 'bold', textAlign: 'center', color: '#222D81', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>{Details && Details.UniqueID}</Text>
-                                    <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Please note down the ID{'\n'}for future reference</Text>
+                                    <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Please note down the ID{'\n'}for future references</Text>
                                     <TouchableOpacity
                                         onPress={() => {
                                             navigation.navigate('Criteria');
@@ -233,8 +247,9 @@ export default function AddressDetails(props) {
                                     {errors.area && touched.area && (
                                         <Text style={styles.error}>{errors.area}</Text>
                                     )}
-
-                                    <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>City</Text>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, fontFamily: FONTS.AvenirRoman }}>City</Text>
+                                        <Text style={styles.textsymbolLabel}>*</Text></View>
                                     <TextInput
                                         name="city"
                                         onChangeText={handleChange('city')}
@@ -274,7 +289,9 @@ export default function AddressDetails(props) {
                                     )}
 
                                     <View style={{ padding: 0 }}>
-                                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>State</Text>
+                                        <View style={{ flexDirection: 'row' }}>
+                                            <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, fontFamily: FONTS.AvenirRoman }}>State</Text>
+                                            <Text style={styles.textsymbolLabel}>*</Text></View>
                                         <DropDownPicker
                                             name="state"
                                             onChangeText={handleChange('state')}
@@ -300,7 +317,9 @@ export default function AddressDetails(props) {
                                                 }),
                                             }}
                                         />
-                                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Pin Code</Text>
+                                        <View style={{ flexDirection: 'row' }}>
+                                            <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, fontFamily: FONTS.AvenirRoman }}>Pin Code</Text>
+                                            <Text style={styles.textsymbolLabel}>*</Text></View>
                                         <TextInput
                                             name="pincode"
                                             onChangeText={handleChange('pincode')}
@@ -309,16 +328,33 @@ export default function AddressDetails(props) {
                                             style={styles.textInput}
                                             placeholder=''
                                             maxLength={10} />
-
-                                        <Text style={styles.textFieldLabel}>Country</Text>
-                                        <TextInput
-                                            name="country"
-                                            onChangeText={handleChange('country')}
-                                            onBlur={handleBlur('country')}
-                                            value={values.country}
-                                            style={styles.textInput}
-                                            placeholder=''
-                                            maxLength={100} />
+                                        <View style={{ flexDirection: 'row' }}>
+                                            <Text style={styles.textFieldLabel}>Country</Text>
+                                            <Text style={styles.textsymbolLabel}>*</Text></View>
+                                        <DropDownPicker
+                                            open={openCountry}
+                                            value={countryValue}
+                                            items={countryType}
+                                            setOpen={setOpenCountry}
+                                            setValue={setCountryValue}
+                                            setItems={setCountryType}
+                                            zIndex={10000}
+                                            dropDownDirection="BOTTOM"
+                                            placeholder="Select Country"
+                                            style={styles.pickerContainer}
+                                            onChangeValue={(value) => {
+                                                setSelectedCountry(value)
+                                            }}
+                                            listMode="FLATLIST"
+                                            dropDownContainerStyle={styles.dropDownContainerStyle}
+                                            closeAfterSelecting={true}
+                                            textStyle={{
+                                                // fontFamily: Platform.select({
+                                                //   ios: ' FONTS.AvenirRoman',
+                                                //   android: ' FONTS.AvenirRoman',
+                                                // }),
+                                            }}
+                                        />
                                     </View>
                                 </View>
                             </View>
@@ -376,6 +412,13 @@ const styles = StyleSheet.create({
     inputs: {
         height: '47%',
     },
+    textsymbolLabel: {
+        color: 'red',
+        textAlign: 'left',
+        padding: 0,
+        paddingTop: 10,
+        paddingRight: 5,
+    },
     pickerContainer: {
         backgroundColor: '#FBF9F9',
         borderWidth: 1,
@@ -409,6 +452,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         padding: 10,
         paddingBottom: 0,
+        paddingRight: 0,
         paddingLeft: 0,
         // fontFamily: FONTS.AvenirRoman
     },

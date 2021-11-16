@@ -152,7 +152,7 @@ export default function CassetteScan() {
                         style={styles.captureButton}
                     />
                     <Text style={{ fontSize: 16, color: '#474747', alignSelf: 'center', paddingTop: 15, textAlign: 'center', paddingHorizontal: 20, fontWeight: 'bold' }}>
-                        Please align the cartridge in the{'\n'}frame above to scan it
+                        Please align the cassette in the{'\n'}frame above to scan it
 
                     </Text>
                     <TouchableOpacity

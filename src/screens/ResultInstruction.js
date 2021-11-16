@@ -9,6 +9,7 @@ import {
   Dimensions,
   Image,
   StyleSheet,
+  StatusBar,
   ScrollView,
   Modal,
   Animated
@@ -18,6 +19,7 @@ import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
 import CountDown from 'react-native-countdown-component';
+import CommonHeader from '../components/CommonHeader';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -51,24 +53,19 @@ export default function ResultInstruction() {
   const [visible, setVisible] = React.useState(false);
 
   return (
+    
     <View style={styles.MainContainer}>
-      <ScrollView contentContainerStyle={{ paddingHorizontal: 10 }} showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-
-            }}>
-            <View>
-              <Image source={icons.backarrow} style={{ width: 25, height: 25, resizeMode: 'contain' }} />
+            <StatusBar
+                hidden={false}
+                backgroundColor={'white'}
+                barStyle={'dark-content'}
+            />
+            <View style={{ paddingVertical: 40 }}>
+                <CommonHeader />
             </View>
-          </TouchableOpacity>
 
-          <Image source={images.headerlogo} style={{ width: 95, height: 53, alignItems: 'center', justifyContent: 'center' }} />
-          
-        </View>
+            <ScrollView contentContainerStyle={{ paddingHorizontal: 0 }} showsVerticalScrollIndicator={false}>
+        
         <CountDown
           until={60 * 4 + 60}
           size={20}
@@ -84,19 +81,19 @@ export default function ResultInstruction() {
           timeToShow={['M', 'S']}
         />
 
-<Text
-              style={{
-                fontSize: 12,
+        <Text
+          style={{
+            fontSize: 12,
 
-                justifyContent: 'center',
-                textAlign: 'center',
-                color: '#000000',
-                paddingVertical: 30,
-                fontFamily: FONTS.AvenirRoman,
-              }}>
-              Warning: Do not record results for tests that{'\n'}have run longer than 10 minutes, repeat test using a{'\n'}new test device.
-            </Text>
-            
+            justifyContent: 'center',
+            textAlign: 'center',
+            color: '#000000',
+            paddingVertical: 30,
+            fontFamily: FONTS.AvenirRoman,
+          }}>
+          Warning: Do not record results for tests that{'\n'}have run longer than 10 minutes, repeat test using a{'\n'}new test device.
+        </Text>
+
         <View
           style={{
             backgroundColor: 'white',
@@ -131,7 +128,7 @@ export default function ResultInstruction() {
                 paddingBottom: 20,
                 fontWeight: 'bold',
               }}>
-              Please scan the lines on cartridge{'\n'}for full detail report
+              Scan the lines on cassette{'\n'}for full detail report
             </Text>
             <View style={{ alignItems: 'center' }}>
               <Image
@@ -154,7 +151,7 @@ export default function ResultInstruction() {
                 }}>
                 Sample Image
               </Text></TouchableOpacity>
-            
+
           </View>
         </View>
 
@@ -223,7 +220,7 @@ export default function ResultInstruction() {
       </ScrollView>
       <CommonBottomButton
         onPress={() => navigation.navigate('Cassette')}
-        children={"SCAN CARTRIDGE"} />
+        children={"SCAN CASSETTE"} />
     </View>
   );
 }

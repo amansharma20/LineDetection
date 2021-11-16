@@ -7,6 +7,7 @@ import { useLazyQuery, useQuery } from '@apollo/client';
 import { SIZES, FONTS } from '../Constants/Theme';
 import * as yup from 'yup';
 import { Formik } from 'formik';
+import DropDownPicker from 'react-native-dropdown-picker';
 import { GQLQuery } from '../persistance/query/GQLQuery';
 import CommonHeader from '../components/CommonHeader';
 
@@ -40,6 +41,20 @@ export default function SearchPatient() {
     const [visible, setVisible] = useState(false);
     const navigation = useNavigation();
 
+     const [searchValue, setSearchValue] = useState(null);
+
+        const [openSearch, setOpenSearch] = useState(null);
+
+        const [searchType, setSearchType] = useState([
+            { label: 'Self Aadhaar ID', value: 'SelfAadhaarID' },
+            { label: 'Gaurdian Aadhaar ID', value: 'GaurdianAadhaarID' },
+            { label: 'Unique ID', value: 'UniqueID' },
+            { label: 'Mobile Number', value: 'MobileNumber' },
+        ]);
+
+        const [selectedSearch, setSelectedSearch] = useState();
+    
+
     const searchPatientSchema = yup.object().shape({
         name: yup
             .string(),
@@ -66,8 +81,10 @@ export default function SearchPatient() {
                 AadharNumber: values.aadhaar,
                 UniqueId: values.systemId,
             }
+
         });
-    }
+
+       
 
     const PatientRecord = data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch;
     if (data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch) {
@@ -75,6 +92,11 @@ export default function SearchPatient() {
             PatientRecord: PatientRecord
         })
     }
+
+}
+    console.log(data);
+    console.log(error);
+    console.log('data');
 
     return (
         <View style={styles.MainContainer}>
@@ -99,61 +121,50 @@ export default function SearchPatient() {
                             <>
                                 <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 20, elevation: 5, padding: 20, flex: 1, height: 380 }}>
                                     <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>
-                                        Search Patient
+                                        Search
                                     </Text>
                                     <View style={styles.inputs}>
-                                        <Text style={styles.textFieldLabel}>Full Name</Text>
-                                        <TextInput
-                                            name="name"
-                                            onChangeText={handleChange('name')}
-                                            onBlur={handleBlur('name')}
-                                            value={values.name}
-                                            style={styles.textInput}
-                                            keyboardType='default'
-                                            placeholderTextColor='#B4B4B4'
-                                            placeholder='Enter full name'
-
+                                        <Text style={styles.textFieldLabel}>Search By</Text>
+                                        <DropDownPicker
+                                            open={openSearch}
+                                            value={searchValue}
+                                            items={searchType}
+                                            setOpen={setOpenSearch}
+                                            setValue={setSearchValue}
+                                            setItems={setSearchType}
+                                            zIndex={10000}
+                                            zIndexInverse={1000}
+                                            style={styles.pickerContainer}
+                                            onChangeValue={(value) => {
+                                                setSelectedSearch(value)
+                                            }}
+                                            listMode="FLATLIST"
+                                            dropDownDirection='BOTTOM'
+                                            dropDownContainerStyle={styles.dropDownContainerStyle}
+                                            closeAfterSelecting={true}
+                                            textStyle={{
+                                                // fontFamily: Platform.select({
+                                                //   ios: ' FONTS.AvenirRoman',
+                                                //   android: ' FONTS.AvenirRoman',
+                                                // }),
+                                            }}
                                         />
-                                        {errors.name && touched.name && (
-                                            <Text style={styles.error}>{errors.name}</Text>
-                                        )}
-                                        <Text style={styles.textFieldLabel}>Aadhaar Number </Text>
-                                        <TextInput
-                                            name="aadhaar"
-                                            onChangeText={handleChange('aadhaar')}
-                                            onBlur={handleBlur('aadhaar')}
-                                            value={values.aadhaar}
-                                            style={styles.textInput}
-                                            keyboardType='default'
-                                            placeholderTextColor='#B4B4B4'
-                                            placeholder='Enter Aadhaar number'
-                                            maxLength={12} />
-
-                                        {errors.aadhaar && touched.aadhaar && (
-                                            <Text style={styles.error}>{errors.aadhaar}</Text>
-                                        )}
-                                        <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, textAlign: 'center', fontWeight: '400' }}> Or </Text>
-
-                                        <Text style={styles.textFieldLabel}>System ID </Text>
-                                        <TextInput
-                                            name="systemId"
-                                            onChangeText={handleChange('systemId')}
-                                            onBlur={handleBlur('systemId')}
-                                            value={values.systemId}
-                                            style={styles.textInput}
-                                            keyboardType='number-pad'
-                                            placeholderTextColor='#B4B4B4'
-                                            placeholder='Enter system ID'
-                                        />
-                                        {errors.systemId && touched.systemId && (
-                                            <Text style={styles.error}>{errors.systemId}</Text>
-                                        )}
-
                                     </View>
+                                    <TextInput
+                                        name="aadhaar"
+                                        onChangeText={handleChange('aadhaar')}
+                                        onBlur={handleBlur('aadhaar')}
+                                        value={values.aadhaar}
+                                        style={styles.textInput}
+                                        keyboardType='default'
+                                        placeholderTextColor='#B4B4B4'
+                                        maxLength={12} />
+
                                 </View>
-                                <View style={{ justifyContent: 'center', padding: 20 }}>
+                                <View style={{ justifyContent: 'center', padding: 20, }}>
                                     <TouchableOpacity
-                                        onPress={handleSubmit}
+                                        // onPress={handleSubmit}
+                                        onPress={() => navigation.navigate('SelectDatabase')}
                                         style={{
                                             alignItems: 'center',
                                             justifyContent: 'center',
@@ -217,7 +228,7 @@ const styles = StyleSheet.create({
         width: '100%',
         borderRadius: 100,
         height: 55,
-        marginTop: 30,
+        marginTop: 20,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#222D81',
@@ -227,6 +238,17 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    dropDownContainerStyle: {
+        backgroundColor: 'white',
+    },
+    pickerContainer: {
+        backgroundColor: '#FBF9F9',
+        borderColor:'#989898',
+        borderWidth: 1,
+        borderRadius: 0,
+        height: 40,
+        marginTop: 10,
     },
     modalContainer: {
         width: 20,

@@ -26,17 +26,19 @@ export const GQLQuery = {
         }
   `,
 
-  SEARCH_PATIENT_RECORD: gql`
-      query MyQuery ($AadharNumber: String!, $UniqueID: String!){
-          SearchPatientQuery {
-            GetPatientBySearch(AadharNumber: $AadharNumber, UniqueID: $UniqueID) {
-              Id
-              FullName
-              DateOfBirth
-              UniqueID
-            }
-          }
-        }`,
+  // SEARCH_PATIENT_RECORD: gql`
+  //     query MyQuery ($AadharNumber: String!, $UniqueID: String!, MobileNumber: String!, GuardianIDNumber: String!){
+  //         SearchPatientQuery {
+  //           GetPatientBySearch(AadharNumber: $AadharNumber, UniqueID: $UniqueID, MobileNumber: $MobileNumber, GuardianIDNumber: $GuardianIDNumber ) {
+  //             FullName
+  //             AadharNumber
+  //             Gender
+  //             DateOfBirth
+  //           }
+  //         }
+  //       }`,
+
+
   SEARCH_SICKLE_TEST_RECORD: gql`
   query MyQuery($PatientId: Long!) {
       PatientTestReportQuery {
@@ -44,15 +46,14 @@ export const GQLQuery = {
           Patient {
             FullName
             DateOfBirth
-            GuardianIdNumber
             MobileNumber
             City
             Country
             District
             HouseNumber
-            Pincode
+            PinCode
             State
-            StreetRoadLane
+            Street
             }
             SickleScanTestResult
             HealthWorkerUser {

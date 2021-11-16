@@ -83,6 +83,7 @@ export default function CriteriaScreen() {
     const navigation = useNavigation();
     const [noTestPopup, setnoTestPopup] = React.useState(false);
     const [noConsentPopup, setnoConsentPopup] = React.useState(false);
+    const [disableButton, setDisableButton] = React.useState(false);
 
 
     const [addDetailsMutation, { data: testResponse, error: testError, loading }] = useMutation(GQLMutation.ADD_TEST);
@@ -132,6 +133,9 @@ export default function CriteriaScreen() {
                                 console.log('SelectedItem: ', JSON.stringify(selectedItem));
                                 if (selectedItem.id === 1) {
                                     setnoConsentPopup(true)
+                                    setDisableButton(true)
+                                } else {
+                                  setDisableButton(false)
                                 }
                             }}
 
@@ -148,6 +152,9 @@ export default function CriteriaScreen() {
                                 console.log('SelectedItem: ', JSON.stringify(selectedItem));
                                 if (selectedItem.id === 0) {
                                     setnoTestPopup(true)
+                                    setDisableButton(true)
+                                } else {
+                                  setDisableButton(false)
                                 }
                             }}
 
@@ -240,11 +247,9 @@ export default function CriteriaScreen() {
                         }
                         style={{
                             width: 150, height: 50
-                        }}>
-                        <View style={{
-                            backgroundColor: '#222D81', width: '100%', height: 50, borderRadius: 50, alignItems: 'center',
-                            justifyContent: 'center', flex: 1, elevation: 5
-                        }}>
+                        }}
+                        disabled={disableButton}>
+                        <View style={!disableButton ? styles.inputView : styles.disabledButton}>
                             <Text
                                 style={{
                                     color: '#ffffff',
@@ -278,6 +283,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'green',
         elevation: 20,
     },
+    inputView: {
+        backgroundColor: '#222D81', width: '100%', height: 50, borderRadius: 50, alignItems: 'center',
+        justifyContent: 'center', flex: 1, elevation: 5
+      },
+      disabledButton: {
+        backgroundColor: '#C6C6C6', width: '100%', height: 50, borderRadius: 50, alignItems: 'center',
+        justifyContent: 'center', flex: 1, elevation: 5
+      },
     MainContainer: {
         justifyContent: 'center',
         backgroundColor: 'white',

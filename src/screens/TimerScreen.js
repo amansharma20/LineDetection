@@ -30,9 +30,36 @@ const TimerPopup = ({ visible, children }) => {
     </Modal>
 };
 
+const SkipPopup = ({ visible, children }) => {
+    const [showModal, setShowModal] = React.useState(visible);
+    const scalevalue = React.useRef(new Animated.Value(0)).current;
+    React.useEffect(() => {
+        toggleModal();
+    }, [visible]);
+
+    const toggleModal = () => {
+        if (visible) {
+            setShowModal(true)
+            Animated.spring(scalevalue, { toValue: 1, duration: 300, useNativeDriver: true, }).start();
+        } else {
+            setTimeout(() => setShowModal(false), 200);
+            Animated.timing(scalevalue, { toValue: 0, duration: 300, useNativeDriver: true, }).start();
+        }
+    }
+    return <Modal transparent visible={showModal}>
+        <View style={styles.modalBackground}>
+            <Animated.View style={styles.modalContainer, { transform: [{ scale: scalevalue }] }}>{children}</Animated.View>
+        </View>
+    </Modal>
+};
+
 export default function TimerScreen() {
 
     const [visible, setVisible] = React.useState(false);
+
+    const [skipPopup, setSkipPopup] = React.useState(false);
+
+
 
     const navigation = useNavigation();
 
@@ -65,7 +92,7 @@ export default function TimerScreen() {
 
                     <Image source={images.countdown} style={{ width: 200, height: 200, alignSelf: 'center', paddingBottom: 25 }} />
                     <View style={{ alignContent: 'center', justifyContent: 'center', flex: 1 }}>
-                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Allow test to run for 5{'\n'} minutes.Read the results{'\n'} in the detection window.</Text>
+                        <Text style={{ fontSize: 16, padding: 10, justifyContent: 'center', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman }}>Allow test to run for 5{'\n'} minutes. Read the results{'\n'} in the detection window</Text>
                         <CountDown
                             until={60 * 4 + 60}
                             size={30}
@@ -104,6 +131,55 @@ export default function TimerScreen() {
                         </View>
                     </TimerPopup>
 
+                    <SkipPopup visible={skipPopup}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
+                            <Image source={icons.warning} style={{ width: 50, height: 50, marginTop: 40 }} />
+                            <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', paddingTop: 20, fontFamily: FONTS.AvenirRoman }}>"The test should run for the full 5 minute period. Are you sure you want to proceed?"</Text>
+
+
+
+                            <TouchableOpacity
+                                 onPress={() => setSkipPopup(false)}
+                                style={{ flex: 1 }}>
+                                <View style={{
+                                    backgroundColor: '#ffffff', width: 150, borderColor: '#222D81',
+                                    borderWidth: 1, height: 50, borderRadius: 100, alignItems: 'center',
+                                    justifyContent: 'center', marginTop: 0
+                                }}>
+                                    <Text
+                                        style={{
+                                            color: '#222D81',
+
+                                            fontSize: 14,
+                                            fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
+
+                                        }}>
+                                        NO
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('ResultInstruction')}
+                                style={{ flex: 1 }}>
+                                <View style={{
+                                    backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
+                                    justifyContent: 'center', marginTop: 5
+                                }}>
+                                    <Text
+                                        style={{
+                                            color: '#ffffff',
+                                            fontSize: 14,
+                                            fontWeight: '800', fontFamily: FONTS.AvenirBlack
+
+                                        }}>
+                                        YES
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </SkipPopup>
+
 
                 </View>
                 {/* <View>
@@ -125,7 +201,7 @@ export default function TimerScreen() {
                 </View> */}
             </ScrollView>
             <CommonBottomButton
-                onPress={() => navigation.navigate('ResultInstruction')}
+                onPress={() => setSkipPopup(true)}
                 children={'Skip'} />
         </View>
     );

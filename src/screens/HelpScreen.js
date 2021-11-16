@@ -10,12 +10,12 @@ const screenHeight = Dimensions.get('window').height;
 const CONTENT = [
     {
         id: '42',
-        categoryName: 'What is Sickle SCAN®?',
+        categoryName: 'What is Sickle SCAN?',
         subCategory: [
             {
                 id: '1',
                 name:
-                    "Sickle SCAN® is a multiplexed, qualitative, point-of-care immunoassay used for the rapid diagnosis of sickle cell disorders. The test is made up of three indicators, which detect the presence of haemoglobins A, S and C, allowing the user to rapidly distinguish between normal, carrier and sickle cell samples.",
+                    "Sickle SCAN is a multiplexed, qualitative, point-of-care immunoassay used for the rapid diagnosis of sickle cell disorders. The test is made up of three indicators, which detect the presence of haemoglobins A, S and C, allowing the user to rapidly distinguish between normal, carrier and sickle cell samples.",
             },
 
         ],
@@ -23,12 +23,12 @@ const CONTENT = [
 
     {
         id: '42',
-        categoryName: 'What all is required to conduct a Sickle SCAN® test?',
+        categoryName: 'What all is required to conduct a Sickle SCAN test?',
         subCategory: [
             {
                 id: '1',
                 name:
-                    "Sickle SCAN® test kit contains: \n i. Sickle SCAN® Cartridge \n ii. Capillary Sampler \n iii. Pre-Treatment Module (containing buffer solution) \n iv. Package Insert \n \n Materials not provided but required: Lancet v. Lancet \n vi. Alcohol wipes \n vii. Gloves \n viii. Timer ",
+                    "Sickle SCAN test kit contains: \n i. Sickle SCAN Cartridge \n ii. Capillary Sampler \n iii. Pre-Treatment Module (containing buffer solution) \n iv. Package Insert \n \n Materials not provided but required: Lancet v. Lancet \n vi. Alcohol wipes \n vii. Gloves \n viii. Timer ",
             },
 
         ],
@@ -36,12 +36,12 @@ const CONTENT = [
 
     {
         id: '42',
-        categoryName: 'How quickly can Sickle SCAN® yield results?',
+        categoryName: 'How quickly can Sickle SCAN yield results?',
         subCategory: [
             {
                 id: '1',
                 name:
-                    "After the specimen and buffer mixture has been correctly dispensed into the Sickle SCAN® cartridge, it takes only 5 minutes to yield the results. The test results are considered invalid if they are recorded 10 minutes after the test was started (the time when 5 drops of buffer mixed with blood specimen were dropped on the test cartridge).",
+                    "After the specimen and buffer mixture has been correctly dispensed into the Sickle SCAN cartridge, it takes only 5 minutes to yield the results. The test results are considered invalid if they are recorded 10 minutes after the test was started (the time when 5 drops of buffer mixed with blood specimen were dropped on the test cartridge).",
             },
 
         ],
@@ -49,12 +49,12 @@ const CONTENT = [
 
     {
         id: '42',
-        categoryName: 'What does Sickle SCAN® diagnose?',
+        categoryName: 'What does Sickle SCAN diagnose?',
         subCategory: [
             {
                 id: '1',
                 name:
-                    "Sickle SCAN® detects the presence of haemoglobins A, S and C in the sample specimen. A combination of one or more of these haemoglobins indicate the hemoglobinopathy status of a person, namely: \n Only A: Normal \n Only S: Sickle Cell Disease (SCD) \n A and S: Sickle Cell Trait (SCT) \n A and C: Hb C trait \n S and C: Hb SC disease \n \n Sickle Cell Trait: People with one sickle cell gene and one normal gene have sickle cell trait (SCT). SCT patients usually do not exhibit any of the symptoms of sickle cell disease (SCD) but have the potential to pass the trait onto their children. If both parents have SCT, there is a 25% probability that their child can have SCD and a 50% probability that the child will have SCT. \n \n Sickle Cell Disease: Sickle Cell Disease (SCD) occurs when people are born with both sickle cell genes and no normal gene. It is an inherited blood disorder that is acquired when both parents have a sickle cell gene. The disorder often causes red blood cells to become sickle-shaped through the presence of the abnormal haemoglobin S variant. The more rigid sickle-shaped blood may have difficulty passing through small blood vessels, blocking the normal blood flow, damaging tissues, and ultimately leading to many of the complications of Sickle Cell Disease including repeated pain crises. \n\n HbSC Disease: HbSC Disease patients have haemoglobin C and haemoglobin S, which are both abnormal haemoglobins. HbSC disease is a milder sickling disorder, and symptoms are similar to that of SCD’s but are less frequent and less severe.",
+                    "Sickle SCAN detects the presence of haemoglobins A, S and C in the sample specimen. A combination of one or more of these haemoglobins indicate the hemoglobinopathy status of a person, namely: \n Only A: Normal \n Only S: Sickle Cell Disease (SCD) \n A and S: Sickle Cell Trait (SCT) \n A and C: Hb C trait \n S and C: Hb SC disease \n \n Sickle Cell Trait: People with one sickle cell gene and one normal gene have sickle cell trait (SCT). SCT patients usually do not exhibit any of the symptoms of sickle cell disease (SCD) but have the potential to pass the trait onto their children. If both parents have SCT, there is a 25% probability that their child can have SCD and a 50% probability that the child will have SCT. \n \n Sickle Cell Disease: Sickle Cell Disease (SCD) occurs when people are born with both sickle cell genes and no normal gene. It is an inherited blood disorder that is acquired when both parents have a sickle cell gene. The disorder often causes red blood cells to become sickle-shaped through the presence of the abnormal haemoglobin S variant. The more rigid sickle-shaped blood may have difficulty passing through small blood vessels, blocking the normal blood flow, damaging tissues, and ultimately leading to many of the complications of Sickle Cell Disease including repeated pain crises. \n\n HbSC Disease: HbSC Disease patients have haemoglobin C and haemoglobin S, which are both abnormal haemoglobins. HbSC disease is a milder sickling disorder, and symptoms are similar to that of SCD’s but are less frequent and less severe.",
             },
 
         ],
@@ -75,12 +75,12 @@ const CONTENT = [
 
     {
         id: '42',
-        categoryName: 'Who can get tested with Sickle SCAN®?',
+        categoryName: 'Who can get tested with Sickle SCAN?',
         subCategory: [
             {
                 id: '1',
                 name:
-                    "Sickle SCAN® can be used to test any person older than 24 hours postpartum.",
+                    "Sickle SCAN can be used to test any person older than 24 hours postpartum.",
             },
 
         ],
@@ -101,12 +101,12 @@ const CONTENT = [
 
     {
         id: '42',
-        categoryName: 'Why do we need the Sickle SCAN® app?',
+        categoryName: 'Why do we need the Sickle SCAN app?',
         subCategory: [
             {
                 id: '1',
                 name:
-                    "Sickle SCAN® app eliminates the use of physical registers and records data in the cloud that is accessible anywhere, anytime. The app has the capability to interpret the results simply by scanning the test cartridge with the in-built camera on your mobile device, thereby eliminating human error. Step by step instructions ensures that a health professional conducts the tests accurately",
+                    "Sickle SCAN app eliminates the use of physical registers and records data in the cloud that is accessible anywhere, anytime. The app has the capability to interpret the results simply by scanning the test cartridge with the in-built camera on your mobile device, thereby eliminating human error. Step by step instructions ensures that a health professional conducts the tests accurately",
             },
 
         ],

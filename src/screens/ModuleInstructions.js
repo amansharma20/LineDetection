@@ -39,7 +39,7 @@ export default function ModuleInstructions() {
                                     textAlign: 'center', alignSelf: 'center', paddingHorizontal: 80, paddingTop: 24,
                                     color: '#474747', fontSize: 16
                                 }}>
-                                    Remove colored cap from Pretreatment Module
+                                    Remove colored cap from PreTreatment Module
                                 </Text>
                             </View>
                         </View>

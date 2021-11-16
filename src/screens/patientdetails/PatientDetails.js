@@ -88,12 +88,13 @@ export default function PatientDetails() {
         { label: 'Mother', value: 'mother' },
         { label: 'Father', value: 'father' },
         { label: 'Spouse', value: 'spouse' },
-        { label: 'Brother/Sister', value: 'brother/sister' },
+        { label: 'Brother/Sister', value: 'brothersister' },
         { label: 'Other', value: 'other' },
         { label: 'None', value: 'none' },
     ]);
 
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
+    const emailRegExp= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     const [, setShowModal] = useState(false);
 
 
@@ -143,7 +144,9 @@ export default function PatientDetails() {
                                 </Text>
 
                                 <View style={styles.inputs}>
-                                    <Text style={styles.textFieldLabel}>Full Name</Text>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Text style={styles.textFieldLabel}>Full Name</Text>
+                                        <Text style={styles.textsymbolLabel}>*</Text></View>
                                     <TextInput
                                         name="fullName"
                                         onChangeText={handleChange('fullName')}
@@ -157,7 +160,9 @@ export default function PatientDetails() {
                                     {errors.fullName && touched.fullName && (
                                         <Text style={styles.error}>{errors.fullName}</Text>
                                     )}
-                                    <Text style={styles.textFieldLabel}>Date of Birth</Text>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Text style={styles.textFieldLabel}>Date of Birth</Text>
+                                        <Text style={styles.textsymbolLabel}>*</Text></View>
                                     <View>
                                         <TouchableOpacity onPress={() => setShowModal(true)}>
                                             <DatePicker
@@ -196,8 +201,9 @@ export default function PatientDetails() {
                                     {errors.email && touched.email && (
                                         <Text style={styles.error}>{errors.email}</Text>
                                     )}
-
-                                    <Text style={styles.textFieldLabel}>Gender</Text>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Text style={styles.textFieldLabel}>Gender</Text>
+                                        <Text style={styles.textsymbolLabel}>*</Text></View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 10 }}>
                                         <BouncyCheckboxGroup
                                             data={staticData}
@@ -209,8 +215,9 @@ export default function PatientDetails() {
 
                                         />
                                     </View>
-
-                                    <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Aadhaar ID Available</Text>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, paddingRight: 0, fontFamily: FONTS.AvenirRoman }}>Aadhaar ID Available</Text>
+                                        <Text style={styles.textsymbolLabel}>*</Text></View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                         <BouncyCheckboxGroup
                                             data={aadhaarcheckboxData}
@@ -230,7 +237,10 @@ export default function PatientDetails() {
                                         showAadharOptions === false ?
                                             <>
                                                 <View>
-                                                    <Text style={styles.textFieldLabel}>Aadhaar Number </Text>
+                                                    <View style={{ flexDirection: 'row' }}>
+                                                        <Text style={styles.textFieldLabel}>Aadhaar Number </Text>
+                                                        <Text style={styles.textsymbolLabel}>*</Text>
+                                                    </View>
                                                     <TextInput
                                                         name="aadhaar"
                                                         onChangeText={handleChange('aadhaar')}
@@ -239,8 +249,8 @@ export default function PatientDetails() {
                                                         style={styles.textInput}
                                                         keyboardType='default'
                                                         placeholderTextColor='#B4B4B4'
-                                                        placeholder='Enter adhaar number'
-                                                        maxLength={50} />
+                                                        placeholder='Enter aadhaar number'
+                                                        maxLength={12} />
                                                     {errors.aadhaar && touched.aadhaar && (
                                                         <Text style={styles.error}>{errors.aadhaar}</Text>
                                                     )}
@@ -250,7 +260,9 @@ export default function PatientDetails() {
                                             :
                                             <>
                                                 <View>
-                                                    <Text style={styles.textFieldLabel}>Name of Guardian </Text>
+                                                    <View style={{ flexDirection: 'row' }}>
+                                                        <Text style={styles.textFieldLabel}>Name of Guardian</Text>
+                                                        <Text style={styles.textsymbolLabel}>*</Text></View>
                                                     <TextInput
                                                         name="guardianName"
                                                         onChangeText={handleChange('guardianName')}
@@ -265,7 +277,9 @@ export default function PatientDetails() {
                                                     {errors.guardianName && touched.guardianName && (
                                                         <Text style={styles.error}>{errors.guardianName}</Text>
                                                     )}
-                                                    <Text style={styles.textFieldLabel}>Select Relationship </Text>
+                                                    <View style={{ flexDirection: 'row' }}>
+                                                        <Text style={styles.textFieldLabel}>Select Relationship</Text>
+                                                        <Text style={styles.textsymbolLabel}>*</Text></View>
                                                     <DropDownPicker
                                                         open={openSelectRelationship}
                                                         value={relationshipValue}
@@ -288,7 +302,9 @@ export default function PatientDetails() {
                                                         }}
                                                     />
                                                 </View>
-                                                <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Guardian's Aadhaar ID Available?</Text>
+                                                <View style={{ flexDirection: 'row' }}>
+                                                    <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, paddingRight: 0, fontFamily: FONTS.AvenirRoman }}>Guardian's Aadhaar ID Available?</Text>
+                                                    <Text style={styles.textsymbolLabel}>*</Text></View>
                                                 <View style={{ flexDirection: 'row' }}>
                                                     <BouncyCheckboxGroup
                                                         data={IDPopupData}
@@ -305,6 +321,7 @@ export default function PatientDetails() {
                                                 </View>
                                                 <View style={{ flexDirection: 'row' }}>
                                                     <Text style={styles.textFieldLabel}>Guardian Aadhaar No. / Other ID</Text>
+                                                    <Text style={styles.textsymbolLabel}>*</Text>
                                                 </View>
                                                 <TextInput
                                                     name="guardianAadhaar"
@@ -315,7 +332,7 @@ export default function PatientDetails() {
                                                     keyboardType='default'
                                                     placeholderTextColor='#B4B4B4'
                                                     placeholder='1234 5678 4321'
-                                                    maxLength={12} />
+                                                    maxLength={50} />
                                                 {errors.guardianAadhaar && touched.guardianAadhaar && (
                                                     <Text style={styles.error}>{errors.guardianAadhaar}</Text>
                                                 )}
@@ -428,9 +445,17 @@ const styles = StyleSheet.create({
             android: 0
         }),
     },
+    textsymbolLabel: {
+        color: 'red',
+        textAlign: 'left',
+        padding: 0,
+        paddingTop: 10,
+        paddingRight: 5,
+    },
     textFieldLabel: {
         fontSize: 14,
         padding: 10,
+        paddingRight: 0,
         paddingBottom: 0,
         paddingLeft: 0,
         // fontFamily: FONTS.AvenirRoman

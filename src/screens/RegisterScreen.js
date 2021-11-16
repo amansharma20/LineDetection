@@ -1,9 +1,10 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useContext } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import { Text, View, TouchableOpacity, TextInput, Dimensions, Image, StyleSheet, ScrollView, Modal, Animated } from 'react-native';
 import images from '../Constants/Images';
 import { SIZES, FONTS } from '../Constants/Index';
 import { icons } from '../Constants/Index';
+import PhoneInput from 'react-native-phone-number-input';
 import * as yup from 'yup';
 import BouncyCheckboxGroup, {
   ICheckboxButton,
@@ -86,23 +87,31 @@ export default function RegisterScreen() {
       .required('Last name is required'),
     mobile: yup
       .string()
-
+      .matches(/(\d){10}\b/, 'Enter a valid mobile number')
       .required('Mobile number is required'),
     email: yup
       .string()
+      .matches(emailRegExp, 'Enter a valid email id')
 
       .required('Email is required'),
     password: yup
       .string()
-
+      .min(8, ({ min }) => `Password must be at least ${min} characters`)
       .required('Password is required'),
     confirmPassword: yup
       .string()
-
+      .oneOf([yup.ref('password')], 'Password does not match')
       .required('Confirm Password is required'),
   });
 
   const { register } = useContext(AuthContext);
+  const emailRegExp= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+
+  const [phoneNumber, setphoneNumber] = useState('');
+  const phoneInput = useRef(null);
+  const buttonPress = () => {
+    Alert.alert(phoneNumber);
+  };
 
   const submitRegisterForm = (values) => {
     navigation.navigate('Registration', {
@@ -146,8 +155,9 @@ export default function RegisterScreen() {
 
 
                 <View style={styles.inputs}>
-
-                  <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Are you a trained health professional?</Text>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ fontSize: 14, padding: 10, paddingLeft: 0, paddingRight: 0, fontFamily: FONTS.AvenirRoman }}>Are you a trained health professional?</Text>
+                    <Text style={styles.textsymbolLabel}>*</Text></View>
                   <View style={{ flexDirection: 'row', marginLeft: 10 }}>
                     <BouncyCheckboxGroup
                       data={staticData}
@@ -164,8 +174,10 @@ export default function RegisterScreen() {
 
                     />
                   </View>
-
-                  <Text style={styles.textFieldLabel}>First Name*</Text>
+                  <View style={{ flexDirection: 'row', }}>
+                    <Text style={styles.textFieldLabel}>First Name</Text>
+                    <Text style={styles.textsymbolLabel}>*</Text>
+                  </View>
                   <TextInput
                     name="firstName"
                     style={styles.textInput}
@@ -175,14 +187,15 @@ export default function RegisterScreen() {
                     placeholderTextColor='#B4B4B4'
                     placeholder='Enter your first name'
                     value={values.firstName}
-                    maxLength={20}
+                    maxLength={40}
                   />
 
                   {errors.firstName && touched.firstName && (
                     <Text style={styles.error}>{errors.firstName}</Text>
                   )}
-
-                  <Text style={styles.textFieldLabel}>Last Name</Text>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text style={styles.textFieldLabel}>Last Name</Text>
+                    <Text style={styles.textsymbolLabel}>*</Text></View>
                   <TextInput
                     name="lastName"
                     style={styles.textInput}
@@ -192,13 +205,50 @@ export default function RegisterScreen() {
                     placeholderTextColor='#B4B4B4'
                     placeholder='Enter your last name'
                     value={values.lastName}
-                    maxLength={20} />
+                    maxLength={80} />
                   {errors.lastName && touched.lastName && (
                     <Text style={styles.error}>{errors.lastName}</Text>
                   )}
 
-                  <Text style={styles.textFieldLabel}>Mobile Number</Text>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text style={styles.textFieldLabel}>Email ID</Text>
+                    <Text style={styles.textsymbolLabel}>*</Text></View>
                   <TextInput
+                    name="email"
+                    style={styles.textInput}
+                    keyboardType='default'
+                    placeholderTextColor='#B4B4B4'
+                    onChangeText={handleChange('email')}
+                    onBlur={handleBlur('email')}
+                    placeholder='example@example.com'
+                    autoCapitalize='none'
+                    value={values.email} />
+                  {errors.email && touched.email && (
+                    <Text style={styles.error}>{errors.email}</Text>
+                  )}
+
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text style={styles.textFieldLabel}>Mobile Number</Text>
+                    <Text style={styles.textsymbolLabel}>*</Text></View>
+
+                  <PhoneInput
+                    ref={phoneInput}
+                    defaultValue={phoneNumber}
+                    defaultCode="IN"
+                    layout="first"
+                    autoFocus
+                   containerStyle={styles.phoneContainer}
+                      value={values.mobile}
+                     textContainerStyle={styles.phonetextInput}
+                     onChangeText={handleChange('mobile')}
+                     onBlur={handleBlur('mobile')}
+                     placeholderTextColor='#B4B4B4'
+                     keyboardType="numeric"
+                    onChangeFormattedText={text => {
+                      setphoneNumber(text);
+                    }}
+                  />
+                  {/* <TextInput
                     name="mobile"
                     style={styles.textInput}
                     keyboardType='default'
@@ -208,27 +258,15 @@ export default function RegisterScreen() {
                     keyboardType="numeric"
                     value={values.mobile}
                     placeholder='9876543210'
-                    maxLength={10} />
+                    maxLength={10} /> */}
                   {errors.mobile && touched.mobile && (
                     <Text style={styles.error}>{errors.mobile}</Text>
                   )}
 
-                  <Text style={styles.textFieldLabel}>Email ID</Text>
-                  <TextInput
-                    name="email"
-                    style={styles.textInput}
-                    keyboardType='default'
-                    placeholderTextColor='#B4B4B4'
-                    onChangeText={handleChange('email')}
-                    onBlur={handleBlur('email')}
-                    placeholder='example@example.com'
-                    value={values.email} />
-                  {errors.email && touched.email && (
-                    <Text style={styles.error}>{errors.email}</Text>
-                  )}
 
-
-                  <Text style={styles.textFieldLabel}>Password</Text>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text style={styles.textFieldLabel}>Password</Text>
+                    <Text style={styles.textsymbolLabel}>*</Text></View>
                   <TextInput
                     name="password"
                     style={styles.textInput}
@@ -243,8 +281,9 @@ export default function RegisterScreen() {
                   {errors.password && touched.password && (
                     <Text style={styles.error}>{errors.password}</Text>
                   )}
-
-                  <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Confirm Password</Text>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, fontFamily: FONTS.AvenirRoman }}>Confirm Password</Text>
+                    <Text style={styles.textsymbolLabel}>*</Text></View>
                   <TextInput
                     name='confirmPassword'
                     style={styles.textInput}
@@ -288,7 +327,7 @@ export default function RegisterScreen() {
               <HealthPopup visible={healthPopup}>
                 <View style={{ alignItems: 'center', justifyContent: 'space-around', backgroundColor: 'white', elevation: 5, height: 320, width: 250 }}>
                   <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
-                  <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman, paddingHorizontal: 40 }}>Only a trained health professional should perform this test.Please do not conduct the tests, if you have not received any training</Text>
+                  <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman, paddingHorizontal: 40 }}>The test should only be performed by a trained health professional. Please do not conduct the test if you have not received any training</Text>
 
 
                   <TouchableOpacity
@@ -311,33 +350,7 @@ export default function RegisterScreen() {
                   </TouchableOpacity>
                 </View>
               </HealthPopup>
-              {/* </View> */}
-              <HealthPopup visible={healthPopup}>
-                <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
-                  <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
-                  <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Only a trained health {'\n'}professional should perform this test.{'\n'}{'\n'} Please do not conduct the {'\n'} tests, if you have not received any training</Text>
 
-
-                  <TouchableOpacity
-                    onPress={() => sethealthPopup(false)}
-                    style={{ flex: 1 }}>
-                    <View style={{
-                      backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
-                      justifyContent: 'center', marginTop: 20
-                    }}>
-                      <Text
-                        style={{
-                          color: '#ffffff',
-                          fontSize: 14,
-                          fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
-
-                        }}>
-                        OK
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              </HealthPopup>
             </ScrollView>
           </>
         )}
@@ -393,6 +406,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray',
     marginTop: 2,
   },
+  phoneContainer: {
+    backgroundColor: '#FBF9F9',
+  },
   textInput: {
     backgroundColor: '#FBF9F9',
     borderWidth: 1,
@@ -402,6 +418,12 @@ const styles = StyleSheet.create({
     height: 40,
     paddingLeft: 10,
     marginTop: 2
+  },
+  phonetextInput: {
+     backgroundColor: '#FBF9F9',
+    // borderWidth: 1,
+    // borderColor: '#989898',
+
   },
   inputs: {
     padding: 20
@@ -431,8 +453,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     padding: 10,
     paddingBottom: 0,
+    paddingRight: 0,
     paddingLeft: 0,
     // fontFamily: FONTS.AvenirRoman
+  },
+  textsymbolLabel: {
+    color: 'red',
+    textAlign: 'left',
+    padding: 0,
+    paddingTop: 10,
+    paddingRight: 5,
   },
   error: {
     padding: 4,

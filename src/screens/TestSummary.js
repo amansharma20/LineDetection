@@ -4,8 +4,11 @@ import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView
 import CommonBottomButton from '../CommonBottomButton';
 import CommonHeader from '../components/CommonHeader';
 import images from '../Constants/Images';
+import { GQLQuery } from '../persistance/query/GQLQuery';
+
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
+import { useQuery } from '@apollo/client';
 
 const SubmitPopup = ({ visible, children }) => {
     const [showModal, setShowModal] = React.useState(visible);
@@ -31,11 +34,32 @@ const SubmitPopup = ({ visible, children }) => {
 };
 const screenHeight = Dimensions.get('window').height;
 
-export default function TestSummary() {
+export default function TestSummary(props) {
 
     const [visible, setVisible] = React.useState(false);
 
     const navigation = useNavigation();
+
+    // const Record = props.route.params.PatientRecord
+
+    // const { data, error } = useQuery(GQLQuery.SEARCH_SICKLE_TEST_RECORD, {
+    //     variables: {
+    //         PatientId: Record.Id
+    //     },
+    // });
+
+
+
+    const { data, error } = useQuery(GQLQuery.SEARCH_SICKLE_TEST_RECORD,{
+        variables:{
+            PatientId: 7
+        }
+    });
+    const PatientData = data && data.PatientTestReportQuery && data.PatientTestReportQuery.GetTestReportByPatientId;
+    
+console.log(data)
+console.log('data')
+console.log(error)    
 
 
     return (
@@ -55,7 +79,7 @@ export default function TestSummary() {
                     </Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Name</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>Raj Kumar</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>FullName</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Gender</Text>

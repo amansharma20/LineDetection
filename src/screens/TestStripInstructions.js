@@ -40,7 +40,7 @@ export default function InstructionsScreen() {
                                 }}>
                                     Dispense 5 drops of the
                                     treated sample into the
-                                    Test Cartridge sample well
+                                    Test Cassette sample well
                                 </Text>
                             </View>
                         </View>

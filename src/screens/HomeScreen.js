@@ -26,6 +26,19 @@ export default function HomeScreen() {
     const { data, error } = useQuery(GQLQuery.GET_PROFILE);
     const HealthWorkerProfileData = data && data.HealthWorkerUserQuery && data.HealthWorkerUserQuery.GetHealthWorkerUserDetails;
 
+    const { data: pateintData, error: patienterror } = useQuery(GQLQuery.SEARCH_SICKLE_TEST_RECORD,{
+        variables:{
+            PatientId: 9
+        }
+    });
+    
+console.log('data')
+
+console.log(pateintData)
+console.log(patienterror)  
+console.log('data')
+  
+
     return (
         <ScrollView style={styles.MainContainer}>
             <View style={styles.header}>
@@ -168,7 +181,7 @@ export default function HomeScreen() {
                                 fontFamily: FONTS.AvenirRoman,
                                 paddingTop: 20,
                             }}>
-                            Help & Faqs
+                            Help &amp; FAQ's
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -190,7 +203,7 @@ export default function HomeScreen() {
                         fontWeight: 'bold',
                         fontFamily: FONTS.AvenirBlack,
                     }}>
-                    Powered by:
+                    Powered By:
                 </Text>
                 <Text
                     style={{

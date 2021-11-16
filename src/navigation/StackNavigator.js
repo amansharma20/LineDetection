@@ -30,6 +30,7 @@ import OTPScreen from '../screens/OTPScreen';
 import DummyImageScreen from '../screens/DummyImageScreen';
 import ManualResultScreen from '../screens/ManualResultScreen';
 import ClosePreTreatment from '../screens/ClosePreTreatment';
+import SelectDatabase from '../screens/SelectDatabase';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,7 +40,6 @@ export default function StackNavigator() {
       screenOptions={{
         headerShown: false,
       }}>
-
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="PatientDetails" component={PatientDetails} />
       <Stack.Screen name="ClosePreTreatment" component={ClosePreTreatment} />
@@ -70,6 +70,7 @@ export default function StackNavigator() {
       <Stack.Screen name="NewPassword" component={NewPassword} />
       <Stack.Screen name="OTP" component={OTPScreen} />
       <Stack.Screen name="CassetteScan" component={CassetteScan} />
+      <Stack.Screen name="SelectDatabase" component={SelectDatabase} />
     </Stack.Navigator>
   );
 }

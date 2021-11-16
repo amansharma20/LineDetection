@@ -124,7 +124,7 @@ export default function ManualResultScreen() {
                         flex: 1,
                     }}>
                     <View style={styles.inputs}>
-                        <TouchableOpacity onPress={() => setVisible(true)}>
+                        
                             <Text
                                 style={{
                                     fontSize: 20,
@@ -136,7 +136,7 @@ export default function ManualResultScreen() {
                                 }}>
                                 Select Result Manually
                             </Text>
-                        </TouchableOpacity>
+                     
                         <View style={{ alignItems: 'center', flexDirection: 'row', alignSelf: 'center', paddingTop: 50, }}>
                             <Image
                                 source={images.hbaa}
