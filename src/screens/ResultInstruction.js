@@ -46,10 +46,10 @@ const TimeOverPopup = ({ visible, children }) => {
   </Modal>
 };
 
-export default function ResultInstruction() {
+export default function ResultInstruction(props) {
 
   const navigation = useNavigation();
-
+  const Record = props.route.params.Record;
   const [visible, setVisible] = React.useState(false);
 
   return (
@@ -136,8 +136,7 @@ export default function ResultInstruction() {
                 style={{ width: 240, height: 178, resizeMode: 'stretch' }}
               />
             </View>
-            <TouchableOpacity onPress={() => navigation.navigate('Result')}
-            >
+            
               <Text
                 style={{
                   fontSize: 16,
@@ -150,7 +149,7 @@ export default function ResultInstruction() {
                   fontWeight: 'bold',
                 }}>
                 Sample Image
-              </Text></TouchableOpacity>
+              </Text>
 
           </View>
         </View>
@@ -219,7 +218,9 @@ export default function ResultInstruction() {
         </View> */}
       </ScrollView>
       <CommonBottomButton
-        onPress={() => navigation.navigate('Cassette')}
+        onPress={() => navigation.navigate('Cassette',{
+          Record : Record
+        })}
         children={"SCAN CASSETTE"} />
     </View>
   );

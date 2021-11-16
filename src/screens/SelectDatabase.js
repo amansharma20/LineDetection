@@ -1,52 +1,17 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, TextInput, FlatList, ScrollView, Modal, Animated } from 'react-native';
-import images from '../Constants/Images';
-import { icons } from '../Constants/Index';
-import { useLazyQuery, useQuery } from '@apollo/client';
-import { SIZES, FONTS } from '../Constants/Theme';
-import * as yup from 'yup';
-import { Formik } from 'formik';
-import DropDownPicker from 'react-native-dropdown-picker';
-import { GQLQuery } from '../persistance/query/GQLQuery';
+import React from 'react';
+import { Text, View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { FONTS } from '../Constants/Theme';
 import CommonHeader from '../components/CommonHeader';
+import _ from 'lodash';
 
 
 
-const screenHeight = Dimensions.get('window').height;
 
-export default function SelectDatabase() {
-
+export default function SelectDatabase(props) {
 
     const navigation = useNavigation();
-
-
-
-
-
-    const [getRecords, { loading, error, data }] = useLazyQuery(GQLQuery.SEARCH_PATIENT_RECORD);
-    const submitSearch = (values) => {
-        getRecords({
-            variables: {
-                AadharNumber: values.aadhaar,
-                UniqueId: values.systemId,
-            }
-
-        });
-
-
-
-        const PatientRecord = data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch;
-        if (data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch) {
-            navigation.navigate('SearchResult', {
-                PatientRecord: PatientRecord
-            })
-        }
-
-    }
-    console.log(data);
-    console.log(error);
-    console.log('data');
+    const details = props.route.params.PatientRecord;
 
     return (
         <View style={styles.MainContainer}>
@@ -57,58 +22,22 @@ export default function SelectDatabase() {
                     <TouchableOpacity onPress={() => setVisible(true)}>
                         <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 30, fontFamily: FONTS.AvenirBlack }}>
                             Search Database
-                        </Text></TouchableOpacity>
-
-                    {/* <Formik
-                        validationSchema={searchPatientSchema}
-                        initialValues={{
-                            name: '',
-                            aadhaar: '',
-                            systemId: '',
-                        }}
-                        onSubmit={values => submitSearch(values)}>
-                {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
-                    <>
-                    <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 20, elevation: 5, padding: 20, flex: 1, height: 380 }}>
-                    <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>
-                    Select
-                    </Text>
-                    <View>
-                    <FlatList
-                    data={activities}
-                    renderItem={renderAvailableActivitiesItem}
-                    keyExtractor={item => item.id}
-                    horizontal
-                    contentContainerStyle={{
-                }}
-                    />
-
-
-
-                    </View>
-                    <View style={{ justifyContent: 'center', padding: 20, }}>
-                    <TouchableOpacity
-                    onPress={handleSubmit}
-                    style={{
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
-                    <View style={styles.buttonContainer}>
-                    <Text
-                    style={{
-                    color: 'white',
-                    fontSize: 18,
-                    fontWeight: 'bold',
-                    fontFamily: FONTS.AvenirBlack
-                }}>
-                    SEARCH
-                    </Text>
-                    </View>
+                        </Text>
                     </TouchableOpacity>
-                    </View>
-                    </>
-                )}
-                    </Formik> */}
+
+
+                    {_.map(details, (value, index) => {
+                        return (
+                            <TouchableOpacity onPress={() => navigation.navigate('SearchResult', {
+                                PatientRecord: details
+                            })}>
+                                <Text style={{ marginLeft: 100 }}>{value.FullName}</Text>
+                                <Text style={{ marginLeft: 100 }}>{value.Gender}</Text>
+                            </TouchableOpacity>
+                        );
+                    })}
+
+
                 </ScrollView>
             </View>
 

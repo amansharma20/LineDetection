@@ -1,9 +1,8 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView, Modal, Animated } from 'react-native';
+import React from 'react';
+import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, Modal, Animated } from 'react-native';
 import CommonBottomButton from '../CommonBottomButton';
 import CommonHeader from '../components/CommonHeader';
-import images from '../Constants/Images';
 import { GQLQuery } from '../persistance/query/GQLQuery';
 
 import { icons } from '../Constants/Index';
@@ -36,32 +35,11 @@ const screenHeight = Dimensions.get('window').height;
 
 export default function TestSummary(props) {
 
+    const Record = props.route.params.Record;
     const [visible, setVisible] = React.useState(false);
-
     const navigation = useNavigation();
 
-    // const Record = props.route.params.PatientRecord
-
-    // const { data, error } = useQuery(GQLQuery.SEARCH_SICKLE_TEST_RECORD, {
-    //     variables: {
-    //         PatientId: Record.Id
-    //     },
-    // });
-
-
-
-    const { data, error } = useQuery(GQLQuery.SEARCH_SICKLE_TEST_RECORD,{
-        variables:{
-            PatientId: 7
-        }
-    });
-    const PatientData = data && data.PatientTestReportQuery && data.PatientTestReportQuery.GetTestReportByPatientId;
-    
-console.log(data)
-console.log('data')
-console.log(error)    
-
-
+ 
     return (
         <View style={styles.mainContainer}>
 
@@ -79,31 +57,31 @@ console.log(error)
                     </Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Name</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>FullName</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record[0].FullName}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Gender</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>Male</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record[0].Gender}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Date of Birth</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>12/Dec/1990</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record[0].DateOfBirth}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>ID(Guardian Aadhaar)</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>1234567</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record[0].UniqueID}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Mobile Number</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>9879879876</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record[0].MobileNumber}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Address</Text>
-                        <Text style={{ fontSize: 12, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack, textAlign: 'right' }}>323, Village Akoda,{'\n'}District Dhar,{'\n'}Madhya Pradesh-454001</Text></View>
+                        <Text style={{ fontSize: 12, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack, textAlign: 'right' }}>{Record[0].UniqueID}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Country</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>India</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record[0].Country}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Conducted by</Text>

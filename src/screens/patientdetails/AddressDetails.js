@@ -68,8 +68,6 @@ export default function AddressDetails(props) {
     const [addDetailsMutation, { data: userSickle, error: userError, loading }] = useMutation(GQLMutation.ADD_PATIENT_DETAILS);
 
     const submitUserDetails = (values) => {
-
-
         const temp = {
             FullName: previousDetails.basicDetails.fullName,
             DateOfBirth: previousDetails.dob,
@@ -93,13 +91,6 @@ export default function AddressDetails(props) {
             Country: values.country,
             City: values.city,
         }
-
-
-        console.log('temp')
-        console.log(temp)
-        console.log('temp')
-
-
 
         addDetailsMutation({
             variables: {
@@ -136,9 +127,6 @@ export default function AddressDetails(props) {
         }
     }, [loading, userSickle])
 
-    console.log(userSickle)
-    console.log(userError)
-
     const Details = userSickle && userSickle.AddPatientMutation && userSickle.AddPatientMutation.AddPatientDetail
 
     return (
@@ -169,7 +157,9 @@ export default function AddressDetails(props) {
                                     <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Please note down the ID{'\n'}for future references</Text>
                                     <TouchableOpacity
                                         onPress={() => {
-                                            navigation.navigate('Criteria');
+                                            navigation.navigate('Criteria',{
+                                                details: Details
+                                            });
                                             setVisible(false);
                                         }}
                                         style={{ flex: 1 }}>

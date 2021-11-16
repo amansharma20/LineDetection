@@ -1,17 +1,14 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView } from 'react-native';
+import React from 'react';
+import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet } from 'react-native';
 import CommonHeader from '../components/CommonHeader';
 import images from '../Constants/Images';
-import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
-const screenHeight = Dimensions.get('window').height;
 
-export default function InstructionsScreen() {
+export default function InstructionsScreen(props) {
 
     const navigation = useNavigation();
-
-
+    const Record = props.route.params.Record;
     return (
         <View style={styles.MainContainer}>
 
@@ -58,7 +55,9 @@ export default function InstructionsScreen() {
             <View style={{ backgroundColor: 'white' }}>
                 <View style={{ paddingBottom: 20, elevation: 8, backgroundColor: 'white', paddingHorizontal: 20 }}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Buffer')}
+                        onPress={() => navigation.navigate('Buffer',{
+                            Record: Record
+                        })}
                         activeOpacity={0.9}
                         style={{
                             alignItems: 'center',

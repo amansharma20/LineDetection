@@ -78,33 +78,16 @@ const NoConsentPopup = ({ visible, children }) => {
     </Modal>;
 };
 const screenHeight = Dimensions.get('window').height;
-export default function CriteriaScreen() {
 
+export default function CriteriaScreen(props) {
+
+    const Id = props.route.params.details.Id;
+    console.log(Id);
     const navigation = useNavigation();
     const [noTestPopup, setnoTestPopup] = React.useState(false);
     const [noConsentPopup, setnoConsentPopup] = React.useState(false);
     const [disableButton, setDisableButton] = React.useState(false);
 
-
-    const [addDetailsMutation, { data: testResponse, error: testError, loading }] = useMutation(GQLMutation.ADD_TEST);
-    const submitUserDetails = () => {
-        addDetailsMutation({
-            variables: {
-                BloodTransfusion: noTestPopup,
-                ConsentFromPerson: noConsentPopup,
-                CountDown: "0.0",
-                Latitude: 0,
-                Longitude: 0,
-                PatientId: 9,
-                SickleScanTestResult: "HBBA"
-            }
-        });
-
-    }
-
-
-    console.log(testResponse)
-    console.log(testError)
 
 
     return (

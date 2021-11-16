@@ -12,7 +12,7 @@ import { AuthActions } from '../persistance/actions/AuthActions';
 const screenHeight = Dimensions.get('window').height;
 export default function OTPScreen(props) {
 
-    console.log(props.route.params.email)
+    console.log(props)
 
     const email = props.route.params.email
 
@@ -54,8 +54,8 @@ export default function OTPScreen(props) {
                         }}
                         pinCount={4}
                         autoFocusOnLoad
-                        // codeInputFieldStyle={styles.underlineStyleBase}
-                        // codeInputHighlightStyle={styles.underlineStyleHighLighted}
+                        codeInputFieldStyle={styles.underlineStyleBase}
+                        codeInputHighlightStyle={styles.underlineStyleHighLighted}
                         onCodeFilled={(code => {
                             setOtp(code)
                             console.log(`Code is ${code}, you are good to go!`)

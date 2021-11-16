@@ -25,22 +25,28 @@ export const GQLQuery = {
         }
         }
   `,
-
-  // SEARCH_PATIENT_RECORD: gql`
-  //     query MyQuery ($AadharNumber: String!, $UniqueID: String!, MobileNumber: String!, GuardianIDNumber: String!){
-  //         SearchPatientQuery {
-  //           GetPatientBySearch(AadharNumber: $AadharNumber, UniqueID: $UniqueID, MobileNumber: $MobileNumber, GuardianIDNumber: $GuardianIDNumber ) {
-  //             FullName
-  //             AadharNumber
-  //             Gender
-  //             DateOfBirth
-  //           }
-  //         }
-  //       }`,
-
+  SEARCH_PATIENT_RECORD: gql`
+      query MyQuery ($AadharNumber: String, $UniqueID: String, $MobileNumber: String, $GuardianIDNumber: String){
+          SearchPatientQuery {
+            GetPatientBySearch(AadharNumber: $AadharNumber, UniqueID: $UniqueID, MobileNumber: $MobileNumber, GuardianIDNumber: $GuardianIDNumber ) {
+              FullName
+              AadharNumber
+              Gender
+              DateOfBirth
+              Id
+              UniqueID
+              MobileNumber
+              CareOf
+              Street
+              Area
+              City
+              Country
+              }
+          }
+        }`,
 
   SEARCH_SICKLE_TEST_RECORD: gql`
-  query MyQuery($PatientId: Long!) {
+  query MyQuery($PatientId: Long) {
       PatientTestReportQuery {
         GetTestReportByPatientId(PatientId: $PatientId){
           Patient {

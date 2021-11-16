@@ -33,9 +33,9 @@ const RESULT_MAPPING = ['AA', 'AS', 'Invalid', 'SS'];
 
 
 
-export default function CassetteScan() {
+export default function CassetteScan(props) {
     const navigation = useNavigation();
-
+    const Record = props.route.params.Record;
     const cameraRef = useRef();
     const [isProcessing, setIsProcessing] = useState(false);
     const [presentedShape, setPresentedShape] = useState('');
@@ -65,25 +65,15 @@ export default function CassetteScan() {
 
     const processImagePrediction = async (base64Image) => {
         const croppedData = await cropPicture(base64Image, 300);
-        // console.log('croppedData', croppedData, 'croppedData');
         const model = await getModel();
         const tensor = await convertBase64ToTensor(croppedData.base64);
-
         const prediction = await startPrediction(model, tensor);
-        console.log('prediction');
-        console.log(prediction);
-        console.log('prediction');
-
         const highestPrediction = prediction.indexOf(
             Math.max.apply(null, prediction),
         );
-        console.log('highestPrediction');
-        console.log(highestPrediction);
-        console.log('highestPrediction');
         setPresentedShape(RESULT_MAPPING[highestPrediction]);
-        // navigation.navigate('Result', (RESULT_MAPPING[highestPrediction] || croppedData) )
         navigation.navigate('Result', {
-            resultData: { base64: croppedData, result: RESULT_MAPPING[highestPrediction] }
+            resultData: { base64: croppedData, result: RESULT_MAPPING[highestPrediction], Record : Record}
         })
     };
 

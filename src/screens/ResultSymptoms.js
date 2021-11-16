@@ -11,6 +11,9 @@ export default function ResultSymptoms(props) {
     const navigation = useNavigation();
     const imageData = props.route.params.resultData.base64.base64;
     const result = props.route.params.resultData.result;
+    const Record = props.route.params.resultData.Record;
+
+    
     return (
         <SafeAreaView style={styles.MainContainer}>
             <StatusBar
@@ -38,7 +41,9 @@ export default function ResultSymptoms(props) {
                 </View>
             </ScrollView>
             <CommonBottomButton
-                onPress={() => navigation.navigate('Summary')}
+                onPress={() => navigation.navigate('Summary',{
+                    Record : Record
+                })}
                 children={'FINISH TEST'} />
         </SafeAreaView>
     );

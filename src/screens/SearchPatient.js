@@ -41,80 +41,82 @@ export default function SearchPatient() {
     const [visible, setVisible] = useState(false);
     const navigation = useNavigation();
 
-     const [searchValue, setSearchValue] = useState(null);
+    const [searchValue, setSearchValue] = useState(null);
 
-        const [openSearch, setOpenSearch] = useState(null);
+    const [openSearch, setOpenSearch] = useState(null);
 
-        const [searchType, setSearchType] = useState([
-            { label: 'Self Aadhaar ID', value: 'SelfAadhaarID' },
-            { label: 'Gaurdian Aadhaar ID', value: 'GaurdianAadhaarID' },
-            { label: 'Unique ID', value: 'UniqueID' },
-            { label: 'Mobile Number', value: 'MobileNumber' },
-        ]);
+    const [searchType, setSearchType] = useState([
+        { label: 'Self Aadhaar ID', value: 'SelfAadhaarID' },
+        { label: 'Gaurdian Aadhaar ID', value: 'GaurdianAadhaarID' },
+        { label: 'Unique ID', value: 'UniqueID' },
+        { label: 'Mobile Number', value: 'MobileNumber' },
+    ]);
 
-        const [selectedSearch, setSelectedSearch] = useState();
-    
+    const [selectedSearch, setSelectedSearch] = useState();
+
 
     const searchPatientSchema = yup.object().shape({
-        name: yup
-            .string(),
-        aadhaar: yup.string().when("name", {
-            is: value => value && value.length > 0,
-            then: yup.string().required(
-                "Aadhaar Number is required."
-            ),
-            otherwise: yup.string()
-        }),
-        systemId: yup.string('').when("aadhaar", {
-            is: value => value && value.length === 0,
-            then: yup.string().required(
-                "System Id is required."
-            ),
-            otherwise: yup.string('')
-        }),
+        aadhaar: yup.string()
     });
 
     const [getRecords, { loading, error, data }] = useLazyQuery(GQLQuery.SEARCH_PATIENT_RECORD);
     const submitSearch = (values) => {
-        getRecords({
-            variables: {
-                AadharNumber: values.aadhaar,
-                UniqueId: values.systemId,
-            }
+        console.log(values);
+        switch (selectedSearch) {
 
-        });
-
-       
-
+            case 'SelfAadhaarID':
+                getRecords({
+                    variables: {
+                        AadharNumber: values.aadhaar,
+                    }
+                });
+                break;
+            case 'GaurdianAadhaarID':
+                getRecords({
+                    variables: {
+                        GaurdianIDNumber: values.aadhaar,
+                    }
+                });
+                break;
+            case 'UniqueID':
+                getRecords({
+                    variables: {
+                        UniqueID: values.aadhaar,
+                    }
+                });
+                break;
+            case 'MobileNumber':
+                getRecords({
+                    variables: {
+                        MobileNumber: values.aadhaar,
+                    }
+                });
+                break;
+            default:
+            // code block
+        }
+    }
     const PatientRecord = data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch;
     if (data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch) {
-        navigation.navigate('SearchResult', {
+        navigation.navigate('SelectDatabase', {
             PatientRecord: PatientRecord
         })
     }
 
-}
-    console.log(data);
-    console.log(error);
-    console.log('data');
-
     return (
         <View style={styles.MainContainer}>
             <CommonHeader />
-
             <View>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <TouchableOpacity onPress={() => setVisible(true)}>
                         <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 30, fontFamily: FONTS.AvenirBlack }}>
                             Search Database
-                        </Text></TouchableOpacity>
-
+                        </Text>
+                    </TouchableOpacity>
                     <Formik
                         validationSchema={searchPatientSchema}
                         initialValues={{
-                            name: '',
-                            aadhaar: '',
-                            systemId: '',
+                            aadhaar: ''
                         }}
                         onSubmit={values => submitSearch(values)}>
                         {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
@@ -142,12 +144,6 @@ export default function SearchPatient() {
                                             dropDownDirection='BOTTOM'
                                             dropDownContainerStyle={styles.dropDownContainerStyle}
                                             closeAfterSelecting={true}
-                                            textStyle={{
-                                                // fontFamily: Platform.select({
-                                                //   ios: ' FONTS.AvenirRoman',
-                                                //   android: ' FONTS.AvenirRoman',
-                                                // }),
-                                            }}
                                         />
                                     </View>
                                     <TextInput
@@ -163,8 +159,8 @@ export default function SearchPatient() {
                                 </View>
                                 <View style={{ justifyContent: 'center', padding: 20, }}>
                                     <TouchableOpacity
-                                        // onPress={handleSubmit}
-                                        onPress={() => navigation.navigate('SelectDatabase')}
+                                        onPress={handleSubmit}
+                                        // onPress={() => navigation.navigate('SelectDatabase')}
                                         style={{
                                             alignItems: 'center',
                                             justifyContent: 'center',
@@ -187,9 +183,6 @@ export default function SearchPatient() {
                     </Formik>
                 </ScrollView>
             </View>
-
-
-
             <NoDataPopup visible={visible}>
                 <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
                     <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
@@ -222,7 +215,12 @@ export default function SearchPatient() {
 
 const styles = StyleSheet.create({
     header: {
-        flex: 1, flexDirection: 'row', justifyContent: 'space-between', padding: 20, paddingLeft: 0, paddingRight: 0,
+        flex: 1, 
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        padding: 20, 
+        paddingLeft: 0, 
+        paddingRight: 0,
     },
     buttonContainer: {
         width: '100%',
@@ -244,7 +242,7 @@ const styles = StyleSheet.create({
     },
     pickerContainer: {
         backgroundColor: '#FBF9F9',
-        borderColor:'#989898',
+        borderColor: '#989898',
         borderWidth: 1,
         borderRadius: 0,
         height: 40,

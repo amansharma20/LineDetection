@@ -53,12 +53,13 @@ const SkipPopup = ({ visible, children }) => {
     </Modal>
 };
 
-export default function TimerScreen() {
+export default function TimerScreen(props) {
 
     const [visible, setVisible] = React.useState(false);
 
     const [skipPopup, setSkipPopup] = React.useState(false);
 
+    const Record = props.route.params.Record;
 
 
     const navigation = useNavigation();
@@ -160,7 +161,9 @@ export default function TimerScreen() {
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                onPress={() => navigation.navigate('ResultInstruction')}
+                                onPress={() => navigation.navigate('ResultInstruction',{
+                                    Record : Record
+                                })}
                                 style={{ flex: 1 }}>
                                 <View style={{
                                     backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',

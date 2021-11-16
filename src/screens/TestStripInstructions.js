@@ -1,15 +1,14 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView } from 'react-native';
+import React from 'react';
+import { Text, View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import CommonHeader from '../components/CommonHeader';
 import images from '../Constants/Images';
-import { icons } from '../Constants/Index';
-import { FONTS } from '../Constants/Theme';
-const screenHeight = Dimensions.get('window').height;
 
-export default function InstructionsScreen() {
+export default function InstructionsScreen(props) {
 
     const navigation = useNavigation();
+    const Record = props.route.params.Record;
+
 
     return (
         <View style={styles.MainContainer}>
@@ -19,15 +18,11 @@ export default function InstructionsScreen() {
             {/* </View> */}
 
             <View style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-
-
-
                 <View style={{ backgroundColor: 'white', flex: 1, paddingHorizontal: 20, paddingTop: 40, paddingBottom: 20 }}>
                     <View style={{
                         backgroundColor: 'white', alignSelf: 'center', flex: 1, width: '100%', elevation: 5,
                         alignItems: 'center', paddingTop: 20
                     }}>
-
                         <Text style={{ alignSelf: 'center', fontSize: 20, color: '#101E8E', fontWeight: '700' }}>
                             Step By Step Instructions
                         </Text>
@@ -53,7 +48,10 @@ export default function InstructionsScreen() {
             <View style={{ backgroundColor: 'white' }}>
                 <View style={{ paddingBottom: 20, elevation: 8, backgroundColor: 'white', paddingHorizontal: 20 }}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('StopWatch')}
+                        onPress={() => navigation.navigate('StopWatch',{
+                            Record : Record
+
+                        })}
                         activeOpacity={0.9}
                         style={{
                             alignItems: 'center',

@@ -7,9 +7,10 @@ import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
 const screenHeight = Dimensions.get('window').height;
 
-export default function ModuleInstructions() {
+export default function ModuleInstructions(props) {
 
     const navigation = useNavigation();
+    const Record = props.route.params.Record;
 
 
     return (
@@ -52,7 +53,9 @@ export default function ModuleInstructions() {
             <View style={{ backgroundColor: 'white' }}>
                 <View style={{ paddingBottom: 20, elevation: 8, backgroundColor: 'white', paddingHorizontal: 20 }}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('TestStrip')}
+                        onPress={() => navigation.navigate('TestStrip',{
+                            Record: Record
+                        })}
                         activeOpacity={0.9}
                         style={{
                             alignItems: 'center',

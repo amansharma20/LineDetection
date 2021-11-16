@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { useNavigation } from '@react-navigation/core';
 import React, { useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
@@ -9,36 +9,32 @@ import { GQLQuery } from '../persistance/query/GQLQuery';
 
 export default function SearchResult(props) {
 
-    const Record = props.route.params.PatientRecord
+    const Record = props.route.params.PatientRecord;
     const navigation = useNavigation();
-
-    const [isTestAvailable, setIsTestAvailable] = useState(false)
-
-    const { data, error } = useQuery(GQLQuery.SEARCH_SICKLE_TEST_RECORD, {
+    const [isTestAvailable, setIsTestAvailable] = useState(false);
+    const { data } = useQuery(GQLQuery.SEARCH_SICKLE_TEST_RECORD, {
         variables: {
             PatientId: Record.Id
         },
     });
 
-    const Test = data && data.PatientTestReportQuery && data.PatientTestReportQuery.GetTestReportByPatientId
+    const Test = data && data.PatientTestReportQuery && data.PatientTestReportQuery.GetTestReportByPatientId;
     useEffect(() => {
         if (data && data.PatientTestReportQuery && data.PatientTestReportQuery.GetTestReportByPatientId) {
             setIsTestAvailable(true);
         }
     })
 
+
     return (
         <View style={styles.MainContainer}>
-
             <ScrollView showsVerticalScrollIndicator={false}>
-
                 <View style={styles.header}>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Search')}
                         style={{
                             alignItems: 'center',
                             justifyContent: 'center',
-
                         }}>
                         <View
                             style={styles.header}>
@@ -53,14 +49,14 @@ export default function SearchResult(props) {
                 </Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom: 0 }}>
                     <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>Full Name</Text>
-                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record.FullName}</Text></View>
+                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record[0].FullName}</Text></View>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom: 0 }}>
                     <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>Date of Birth</Text>
-                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record.DateOfBirth}</Text></View>
+                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record[0].DateOfBirth}</Text></View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom: 0 }}>
                     <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>ID (Guardian Aadhaar)</Text>
-                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record.UniqueId}</Text></View>
+                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record[0].UniqueID}</Text></View>
                 <View style={{
                     backgroundColor: 'white', marginHorizontal: 40, marginVertical: 30, elevation: 5, padding: 40, borderBottomColor: '#CF0A2C',
                     borderRightColor: 'transparent',
@@ -69,9 +65,10 @@ export default function SearchResult(props) {
                     borderWidth: 5,
 
                 }}>
-
                     <TouchableOpacity
-                        onPress={() => isTestAvailable ? alert('Please View Report') : navigation.navigate('Instruction')}
+                        onPress={() => isTestAvailable ? alert('Please View Report') : navigation.navigate('Instruction', {
+                            Record: Record
+                        })}
                         style={{
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -104,8 +101,8 @@ export default function SearchResult(props) {
                         onPress={() => {
                             isTestAvailable ? navigation.navigate('Report', {
                                 report: Test
-                            }) : 
-                            alert('Please Conduct test.')
+                            }) :
+                                alert('Please Conduct test.')
                         }}
                         style={{
                             alignItems: 'center',
