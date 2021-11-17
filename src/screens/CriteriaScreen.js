@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { useNavigation } from '@react-navigation/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView, Modal, Animated } from 'react-native';
 import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
@@ -78,14 +78,23 @@ const NoConsentPopup = ({ visible, children }) => {
 
 export default function CriteriaScreen(props) {
 
-  
+
     const Record = props.route.params.Record;
-    
+
     const navigation = useNavigation();
     const [noTestPopup, setnoTestPopup] = React.useState(false);
     const [noConsentPopup, setnoConsentPopup] = React.useState(false);
-    const [disableButton, setDisableButton] = React.useState(false);
 
+
+    const [showConsent, setShowConsent] = useState(false)
+    const [showTest, setShowTest] = useState(false)
+
+    function isDisable() {
+        if (noTestPopup == false && noConsentPopup == true) {
+            return false
+        }
+        return true
+    }
 
     return (
         <View style={styles.MainContainer}>
@@ -105,11 +114,12 @@ export default function CriteriaScreen(props) {
                             data={staticData}
                             onChange={(selectedItem: ICheckboxButton) => {
                                 console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                                if (selectedItem.id === 1) {
+                                if (selectedItem.id == 0) {
                                     setnoConsentPopup(true)
-                                    setDisableButton(true)
+                                    setShowConsent(false)
                                 } else {
-                                    setDisableButton(false)
+                                    setnoConsentPopup(false)
+                                    setShowConsent(true)
                                 }
                             }}
 
@@ -124,23 +134,24 @@ export default function CriteriaScreen(props) {
                             // onPress={() => setVisible(true)}
                             onChange={(selectedItem: ICheckboxButton,) => {
                                 console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                                if (selectedItem.id === 0) {
+                                if (selectedItem.id == 0) {
                                     setnoTestPopup(true)
-                                    setDisableButton(true)
+                                    setShowTest(true)
                                 } else {
-                                    setDisableButton(false)
+                                    setnoTestPopup(false)
+                                    setShowTest(false)
                                 }
                             }}
 
                         />
                     </View>
-                    <NoTestPopup visible={noTestPopup}>
+                    <NoTestPopup visible={showConsent}>
                         <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
                             <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
                             <Text style={{ fontSize: 16, padding: 20, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Sickle SCAN test should not {'\n'}be performed within 6 months {'\n'}of receiving a blood transfusion</Text>
 
                             <TouchableOpacity
-                                onPress={() => setnoTestPopup(false)}
+                                onPress={() => setShowConsent(false)}
                                 style={{ flex: 1 }}>
                                 <View style={{
                                     backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
@@ -160,12 +171,12 @@ export default function CriteriaScreen(props) {
                         </View>
                     </NoTestPopup>
 
-                    <NoConsentPopup visible={noConsentPopup}>
+                    <NoConsentPopup visible={showTest}>
                         <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
                             <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
                             <Text style={{ fontSize: 16, padding: 20, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>It is mandatory to get {'\n'}consent of the person {'\n'}getting tested</Text>
                             <TouchableOpacity
-                                onPress={() => setnoConsentPopup(false)}
+                                onPress={() => setShowTest(false)}
                                 style={{ flex: 1 }}>
                                 <View style={{
                                     backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
@@ -213,18 +224,23 @@ export default function CriteriaScreen(props) {
                         onPress={() => {
                             navigation.navigate('Instruction', {
                                 testFlags: {
-                                   Blood:noTestPopup,
-                                   Consent: noConsentPopup,
-                                   Record : Record
+                                    Blood: noTestPopup,
+                                    Consent: noConsentPopup,
+                                    Record: Record
                                 }
                             });
+
+                            console.log(isDisable())
                         }
                         }
                         style={{
                             width: 150, height: 50
                         }}
-                        disabled={disableButton}>
-                        <View style={!disableButton ? styles.inputView : styles.disabledButton}>
+                        disabled={isDisable()}
+                    >
+                        <View
+                            style={isDisable() ? styles.disabledButton : styles.inputView}
+                        >
                             <Text
                                 style={{
                                     color: '#ffffff',

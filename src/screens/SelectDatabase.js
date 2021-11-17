@@ -46,7 +46,7 @@ export default function SelectDatabase(props) {
                 let data = {
                     id: index,
                     fillColor: '#101E8E',
-                    text: `${value.FullName}    ${value.Gender}    ${formatedDate(new Date(value.DateOfBirth))}`,
+                    text: `${value.FullName}    ${value.Gender}  ${formatedDate(new Date(value.DateOfBirth))}`,
                     textStyle: stylesCheckbox.textStyle,
                     patient: value
                 }

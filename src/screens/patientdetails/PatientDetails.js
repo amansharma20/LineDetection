@@ -95,14 +95,14 @@ export default function PatientDetails() {
     ]);
 
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
-    const emailRegExp= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    const emailRegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     const [, setShowModal] = useState(false);
 
     const [phoneNumber, setphoneNumber] = useState('');
-  const phoneInput = useRef(null);
-  const buttonPress = () => {
-    Alert.alert(phoneNumber);
-  };
+    const phoneInput = useRef(null);
+    const buttonPress = () => {
+        Alert.alert(phoneNumber);
+    };
 
 
 
@@ -120,7 +120,7 @@ export default function PatientDetails() {
                 dob: dateOfBirth,
                 relationship: relationshipValue,
                 gender: gender,
-                isAadhaar: showAadharOptions,
+                isAadhaar: !showAadharOptions,
                 isGuardianAadhaar: isGuardianAadhaar
             }
         })
@@ -182,22 +182,22 @@ export default function PatientDetails() {
                                     <Text style={styles.textFieldLabel}>Mobile Number</Text>
 
                                     <PhoneInput
-                    ref={phoneInput}
-                    defaultValue={phoneNumber}
-                    defaultCode="IN"
-                    layout="first"
-                    autoFocus
-                   containerStyle={styles.phoneContainer}
-                      value={values.mobile}
-                     textContainerStyle={styles.phonetextInput}
-                     onChangeText={handleChange('mobile')}
-                     onBlur={handleBlur('mobile')}
-                     placeholderTextColor='#B4B4B4'
-                     keyboardType="numeric"
-                    onChangeFormattedText={text => {
-                      setphoneNumber(text);
-                    }}
-                  />
+                                        ref={phoneInput}
+                                        defaultValue={phoneNumber}
+                                        defaultCode="IN"
+                                        layout="first"
+                                        autoFocus
+                                        containerStyle={styles.phoneContainer}
+                                        value={values.mobile}
+                                        textContainerStyle={styles.phonetextInput}
+                                        onChangeText={handleChange('mobile')}
+                                        onBlur={handleBlur('mobile')}
+                                        placeholderTextColor='#B4B4B4'
+                                        keyboardType="numeric"
+                                        onChangeFormattedText={text => {
+                                            setphoneNumber(text);
+                                        }}
+                                    />
                                     {/* <TextInput
                                         name="mobile"
                                         onChangeText={handleChange('mobile')}
@@ -429,12 +429,12 @@ const styles = StyleSheet.create({
     },
     phoneContainer: {
         backgroundColor: '#FBF9F9',
-      },
-      phonetextInput: {
+    },
+    phonetextInput: {
         backgroundColor: '#FBF9F9',
-        color:'#101E8E'
-   
-     },
+        color: '#101E8E'
+
+    },
     dobText: {
         marginLeft: 10,
         color: '#B4B4B4',
