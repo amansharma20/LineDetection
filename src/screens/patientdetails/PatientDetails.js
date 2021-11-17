@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Text, View, TouchableOpacity, Platform, Image, StyleSheet, TextInput, ScrollView, Modal, Animated } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 // import { format } from 'date-fns';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import { SIZES, FONTS } from '../../Constants/Theme';
+import PhoneInput from 'react-native-phone-number-input';
 import BouncyCheckboxGroup, {
     ICheckboxButton,
 } from 'react-native-bouncy-checkbox-group';
@@ -97,6 +98,12 @@ export default function PatientDetails() {
     const emailRegExp= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     const [, setShowModal] = useState(false);
 
+    const [phoneNumber, setphoneNumber] = useState('');
+  const phoneInput = useRef(null);
+  const buttonPress = () => {
+    Alert.alert(phoneNumber);
+  };
+
 
 
     // const formatedDate = (date) => {
@@ -173,7 +180,25 @@ export default function PatientDetails() {
                                             />
                                         </TouchableOpacity></View>
                                     <Text style={styles.textFieldLabel}>Mobile Number</Text>
-                                    <TextInput
+
+                                    <PhoneInput
+                    ref={phoneInput}
+                    defaultValue={phoneNumber}
+                    defaultCode="IN"
+                    layout="first"
+                    autoFocus
+                   containerStyle={styles.phoneContainer}
+                      value={values.mobile}
+                     textContainerStyle={styles.phonetextInput}
+                     onChangeText={handleChange('mobile')}
+                     onBlur={handleBlur('mobile')}
+                     placeholderTextColor='#B4B4B4'
+                     keyboardType="numeric"
+                    onChangeFormattedText={text => {
+                      setphoneNumber(text);
+                    }}
+                  />
+                                    {/* <TextInput
                                         name="mobile"
                                         onChangeText={handleChange('mobile')}
                                         onBlur={handleBlur('mobile')}
@@ -182,7 +207,7 @@ export default function PatientDetails() {
                                         keyboardType='phone-pad'
                                         placeholderTextColor='#B4B4B4'
                                         placeholder='Enter mobile number'
-                                        maxLength={12} />
+                                        maxLength={12} /> */}
 
                                     {errors.mobile && touched.mobile && (
                                         <Text style={styles.error}>{errors.mobile}</Text>
@@ -402,6 +427,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
     },
+    phoneContainer: {
+        backgroundColor: '#FBF9F9',
+      },
+      phonetextInput: {
+        backgroundColor: '#FBF9F9',
+   
+     },
     dobText: {
         marginLeft: 10,
         color: '#B4B4B4',
