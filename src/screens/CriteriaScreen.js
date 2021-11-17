@@ -81,7 +81,7 @@ const screenHeight = Dimensions.get('window').height;
 
 export default function CriteriaScreen(props) {
 
-    const Id = props.route.params.details.Id;
+    const id = props.route.params.details.Id;
     const navigation = useNavigation();
     const [noTestPopup, setnoTestPopup] = React.useState(false);
     const [noConsentPopup, setnoConsentPopup] = React.useState(false);

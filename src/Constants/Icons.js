@@ -7,6 +7,7 @@ export const erroricon = require('../../assests/icons/erroricon.png');
 export const greenicon = require('../../assests/icons/greenicon.png');
 export const clockicon = require('../../assests/icons/clockicon.png');
 export const warning = require('../../assests/icons/warning.png');
+export const eye = require('../../assests/icons/eye.png');
 
 
 
@@ -19,6 +20,7 @@ export default {
     erroricon,
     greenicon,
     clockicon,
-    warning
+    warning,
+    eye
     
 };

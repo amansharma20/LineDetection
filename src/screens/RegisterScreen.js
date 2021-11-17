@@ -108,6 +108,7 @@ export default function RegisterScreen() {
   const emailRegExp= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
 
   const [phoneNumber, setphoneNumber] = useState('');
+  const [password, setPassword] = useState(true)
   const phoneInput = useRef(null);
   const buttonPress = () => {
     Alert.alert(phoneNumber);
@@ -267,6 +268,20 @@ export default function RegisterScreen() {
                   <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.textFieldLabel}>Password</Text>
                     <Text style={styles.textsymbolLabel}>*</Text></View>
+                    
+
+                    {
+    password?<View>
+        <TouchableOpacity onPress={() => setPassword(false)}>
+<Image source={icons.eye} style={{height:20, width:20}}/>
+</TouchableOpacity>
+    </View>:
+     <View>
+         <TouchableOpacity onPress={() => setPassword(true)}>
+<Image source={icons.eye} style={{height:20, width:20 ,}}/>
+</TouchableOpacity>
+     </View>
+}
                   <TextInput
                     name="password"
                     style={styles.textInput}
@@ -275,15 +290,18 @@ export default function RegisterScreen() {
                     onBlur={handleBlur('password')}
                     placeholderTextColor='#B4B4B4'
                     value={values.password}
-                    secureTextEntry
+                    secureTextEntry={password}
                     placeholder='Please create your Password'
                     maxLength={20} />
+                  
                   {errors.password && touched.password && (
                     <Text style={styles.error}>{errors.password}</Text>
                   )}
                   <View style={{ flexDirection: 'row' }}>
                     <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, fontFamily: FONTS.AvenirRoman }}>Confirm Password</Text>
                     <Text style={styles.textsymbolLabel}>*</Text></View>
+
+                    
                   <TextInput
                     name='confirmPassword'
                     style={styles.textInput}

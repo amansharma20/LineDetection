@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import { useNavigation } from '@react-navigation/core';
 import React, { useEffect, useState } from 'react';
 import { Text, View, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
+import CommonHeader from '../components/CommonHeader';
 import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
@@ -28,22 +29,9 @@ export default function SearchResult(props) {
 
     return (
         <View style={styles.MainContainer}>
+            <CommonHeader />
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={styles.header}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('Search')}
-                        style={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                        <View
-                            style={styles.header}>
-
-                            <Image source={icons.backarrow} style={{ width: 25, height: 25 }} />
-                        </View></TouchableOpacity>
-                    <Image source={images.headerlogo} style={{ width: 95, height: 53, }} />
-                    <Image source={images.profile} style={{ width: 55, height: 55, borderRadius: 100, borderColor: '#CF0A2C', }} />
-                </View>
+               
                 <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 20, fontFamily: FONTS.AvenirBlack }}>
                     Details
                 </Text>
@@ -55,7 +43,7 @@ export default function SearchResult(props) {
                     <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>Date of Birth</Text>
                     <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record[0].DateOfBirth}</Text></View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom: 0 }}>
-                    <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>ID (Guardian Aadhaar)</Text>
+                    <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>Unique ID</Text>
                     <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record[0].UniqueID}</Text></View>
                 <View style={{
                     backgroundColor: 'white', marginHorizontal: 40, marginVertical: 30, elevation: 5, padding: 40, borderBottomColor: '#CF0A2C',
