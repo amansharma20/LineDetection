@@ -40,6 +40,7 @@ export default function StackNavigator() {
       screenOptions={{
         headerShown: false,
       }}>
+        <Stack.Screen name="Criteria" component={CriteriaScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="PatientDetails" component={PatientDetails} />
       <Stack.Screen name="ClosePreTreatment" component={ClosePreTreatment} />
@@ -47,7 +48,7 @@ export default function StackNavigator() {
       <Stack.Screen name="ResultInstruction" component={ResultInstruction} />
       <Stack.Screen name="DummyImageScreen" component={DummyImageScreen} />
       <Stack.Screen name="Reset" component={ResetPassword} />
-      <Stack.Screen name="Criteria" component={CriteriaScreen} />
+      
       <Stack.Screen name="AddressPage" component={AddressDetails} />
       <Stack.Screen name="Instruction" component={InstructionsScreen} />
       <Stack.Screen name="Buffer" component={BufferSolutionInstructions} />
