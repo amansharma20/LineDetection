@@ -9,7 +9,7 @@ import BouncyCheckboxGroup, {
 import _ from 'lodash';
 
 const stylesCheckbox = {
-    textStyle: { textDecorationLine: 'none', color: '#101E8E', marginRight: 40 },
+    textStyle: { textDecorationLine: 'none', color: '#101E8E', },
 };
 
 const staticData = [
@@ -54,19 +54,23 @@ export default function SelectDatabase(props) {
             <CommonHeader />
 
             <ScrollView showsVerticalScrollIndicator={false}>
-                <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 30, fontFamily: FONTS.AvenirBlack }}>
-                    Select
-                </Text>
-                <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                    <BouncyCheckboxGroup
-                        data={bouncyData}
-                        style={{ flexDirection: "column" }}
-                        onChange={(selectedItem: ICheckboxButton) => {
-                            console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                            setSelectedPatient(selectedItem.patient);
-                        }}
-                    />
+                <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 20, elevation: 5, padding: 20, flex: 1, height: 380 }}>
+                    <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 30, fontFamily: FONTS.AvenirBlack }}>
+                        Select
+                    </Text>
+                    <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                        <BouncyCheckboxGroup
+                            data={bouncyData}
+                            style={{ flexDirection: "column" }}
+                            onChange={(selectedItem: ICheckboxButton) => {
+                                console.log('SelectedItem: ', JSON.stringify(selectedItem));
+                                setSelectedPatient(selectedItem.patient);
+                            }}
+                        />
+                    </View>
+
                 </View>
+
                 <View style={{ justifyContent: 'center', padding: 20, }}>
                     <TouchableOpacity onPress={() => navigation.navigate('SearchResult', {
                         PatientRecord: selectedPatent
@@ -89,6 +93,7 @@ export default function SelectDatabase(props) {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
+
 
         </View>
     );

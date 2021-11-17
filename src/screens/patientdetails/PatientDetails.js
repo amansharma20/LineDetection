@@ -432,6 +432,7 @@ const styles = StyleSheet.create({
       },
       phonetextInput: {
         backgroundColor: '#FBF9F9',
+        color:'#101E8E'
    
      },
     dobText: {
