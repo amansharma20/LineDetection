@@ -32,11 +32,11 @@ export default function SelectDatabase(props) {
     useEffect(() => {
         var bouncyCheckBoxData = []
         {
-            _.map(details, (value) => {
+            _.map(details, (value,index) => {
                 let data = {
-                    id: 0,
+                    id: index,
                     fillColor: '#101E8E',
-                    text: `${value.FullName}, ${value.Gender}, ${value.DOB}`,
+                    text: `${value.FullName}    ${value.Gender}    ${value.DateOfBirth}`,
                     textStyle: stylesCheckbox.textStyle,
                 }
                 bouncyCheckBoxData.push(data);
@@ -44,21 +44,19 @@ export default function SelectDatabase(props) {
             setBouncyData(bouncyCheckBoxData)
         }
 
-    }, [bouncyData])
+    }, [])
 
     return (
         <View style={styles.MainContainer}>
             <CommonHeader />
-            <View>
+            
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <TouchableOpacity onPress={() => setVisible(true)}>
                         <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 30, fontFamily: FONTS.AvenirBlack }}>
                             Select
                         </Text>
                     </TouchableOpacity>
-                    {_.map(details, (value, index) => {
-                        return (
-                            <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                    <View style={{ flexDirection: 'row', marginLeft: 10 }}>
                                 <BouncyCheckboxGroup
                                     data={bouncyData}
                                     onChange={(selectedItem: ICheckboxButton) => {
@@ -66,8 +64,6 @@ export default function SelectDatabase(props) {
                                     }}
                                 />
                             </View>
-                        );
-                    })}
                     <View style={{ justifyContent: 'center', padding: 20, }}>
                         <TouchableOpacity onPress={() => navigation.navigate('SearchResult', {
                             PatientRecord: details
@@ -90,7 +86,7 @@ export default function SelectDatabase(props) {
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
-            </View>
+        
         </View>
     );
 }
