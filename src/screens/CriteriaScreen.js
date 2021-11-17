@@ -82,27 +82,18 @@ const screenHeight = Dimensions.get('window').height;
 export default function CriteriaScreen(props) {
 
     const Id = props.route.params.details.Id;
-    console.log(Id);
     const navigation = useNavigation();
     const [noTestPopup, setnoTestPopup] = React.useState(false);
     const [noConsentPopup, setnoConsentPopup] = React.useState(false);
     const [disableButton, setDisableButton] = React.useState(false);
 
-
-
     return (
         <View style={styles.MainContainer}>
-
             <ScrollView contentContainerStyle={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
-
                     <Image source={images.headerlogo} style={{ width: 95, height: 53 }} />
-
                 </View>
-
                 <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 30, elevation: 5, padding: 20, paddingBottom: 280, flex: 1 }}>
-
-
                     <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingBottom: 20 }}>
                         Qualifying Criteria
                     </Text>

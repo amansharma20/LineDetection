@@ -19,18 +19,16 @@ mutation MyMutation ($FullName:String!,$DateOfBirth:DateTime!,$MobileNumber:Stri
   }
   `,
   ADD_TEST: gql`
-  mutation MyMutation($BloodTransfusion: Boolean!, $ConsentFromPerson: Boolean!, $CountDown: String!,$Latitude: Decimal!,$Longitude: Decimal!,$PatientId: Long!,$SickleScanTestResult: String!) {
+  mutation MyMutation($PatientId: Long!, $SickleScanTestResult: String!, $BloodTransfusion: Boolean!, $ConsentFromPerson: Boolean!) {
     AddSickleScanTestMutation {
       AddTestForPatient(
-          BloodTransfusion: $BloodTransfusion,
-          ConsentFromPerson: $ConsentFromPerson,
-          CountDown: $CountDown,
-          Latitude: $Latitude,
-          Longitude: $Longitude,
           PatientId: $PatientId,
           SickleScanTestResult: $SickleScanTestResult
+          BloodTransfusion: $BloodTransfusion
+          ConsentFromPerson: $ConsentFromPerson
           ){
             Id
+            
           }
       }
     }

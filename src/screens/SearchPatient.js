@@ -60,10 +60,11 @@ export default function SearchPatient() {
     });
 
     const [getRecords, { loading, error, data }] = useLazyQuery(GQLQuery.SEARCH_PATIENT_RECORD);
+    if (loading) {
+        return <Text>Loading</Text>
+    }
     const submitSearch = (values) => {
-        console.log(values);
         switch (selectedSearch) {
-
             case 'SelfAadhaarID':
                 getRecords({
                     variables: {
@@ -154,7 +155,7 @@ export default function SearchPatient() {
                                         style={styles.textInput}
                                         keyboardType='default'
                                         placeholderTextColor='#B4B4B4'
-                                        maxLength={12} />
+                                    />
 
                                 </View>
                                 <View style={{ justifyContent: 'center', padding: 20, }}>
@@ -215,11 +216,11 @@ export default function SearchPatient() {
 
 const styles = StyleSheet.create({
     header: {
-        flex: 1, 
-        flexDirection: 'row', 
-        justifyContent: 'space-between', 
-        padding: 20, 
-        paddingLeft: 0, 
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 20,
+        paddingLeft: 0,
         paddingRight: 0,
     },
     buttonContainer: {

@@ -42,7 +42,8 @@ export default function ResultSymptoms(props) {
             </ScrollView>
             <CommonBottomButton
                 onPress={() => navigation.navigate('Summary',{
-                    Record : Record
+                    Record : Record,
+                    result : result
                 })}
                 children={'FINISH TEST'} />
         </SafeAreaView>

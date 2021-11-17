@@ -3,11 +3,12 @@ import React from 'react';
 import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, Modal, Animated } from 'react-native';
 import CommonBottomButton from '../CommonBottomButton';
 import CommonHeader from '../components/CommonHeader';
-import { GQLQuery } from '../persistance/query/GQLQuery';
-
+import { format } from 'date-fns';
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+import { GQLQuery } from '../persistance/query/GQLQuery';
+import { GQLMutation } from '../persistance/mutation/Mutation';
 
 const SubmitPopup = ({ visible, children }) => {
     const [showModal, setShowModal] = React.useState(visible);
@@ -31,15 +32,48 @@ const SubmitPopup = ({ visible, children }) => {
 
     </Modal>
 };
+
+
+
 const screenHeight = Dimensions.get('window').height;
 
 export default function TestSummary(props) {
 
     const Record = props.route.params.Record;
+    const result = props.route.params.result;
     const [visible, setVisible] = React.useState(false);
     const navigation = useNavigation();
 
- 
+    const formatedDate = (date) => {
+        var formattedDate = format(date, 'd MMM yyyy');
+        return formattedDate;
+    };
+
+    const { data, error } = useQuery(GQLQuery.GET_PROFILE);
+    const HealthWorkerProfileData = data && data.HealthWorkerUserQuery && data.HealthWorkerUserQuery.GetHealthWorkerUserDetails;
+
+    const [addTestMutation, { data: testReportResponse, error: testError, loading }] = useMutation(GQLMutation.ADD_TEST);
+
+    const submitUserDetails = () => {
+       console.log("helo")
+        addTestMutation({
+            variables: {
+                PatientId: Record[0].Id,
+                SickleScanTestResult: result,
+                BloodTransfusion: true,
+                ConsentFromPerson: true
+            }
+        });
+
+    }
+
+    console.log(testError)
+    console.log(testReportResponse)
+
+    if(testReportResponse){
+        setVisible(true)
+    }
+
     return (
         <View style={styles.mainContainer}>
 
@@ -47,9 +81,6 @@ export default function TestSummary(props) {
                 <View style={{paddingVertical: 40}}>
                     <CommonHeader />
                 </View>
-
-
-
                 <View style={{ backgroundColor: 'white', marginHorizontal: 20, elevation: 5, paddingTop: 20, flex: 1, paddingBottom: 0 }}>
 
                     <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingBottom: 0 }}>
@@ -65,7 +96,7 @@ export default function TestSummary(props) {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Date of Birth</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record[0].DateOfBirth}</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{formatedDate(new Date(Record[0].DateOfBirth))}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>ID(Guardian Aadhaar)</Text>
@@ -85,15 +116,15 @@ export default function TestSummary(props) {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Conducted by</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>Prema Kumari</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{HealthWorkerProfileData.FirstName} {HealthWorkerProfileData.LastName}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Date of Test</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>02/Nov/2021</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{formatedDate(new Date())}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Test Result</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#CF0A2C', fontFamily: FONTS.AvenirBlack }}>Sickle Cell Trait</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#CF0A2C', fontFamily: FONTS.AvenirBlack }}>{result}</Text></View>
 
                     <SubmitPopup visible={visible}>
                         <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 280 }}>
@@ -126,7 +157,7 @@ export default function TestSummary(props) {
 
             </View>
             <CommonBottomButton
-                onPress={() => setVisible(true)}
+                onPress={submitUserDetails}
                 children={'SUBMIT REPORT'} />
         </View>
     );
