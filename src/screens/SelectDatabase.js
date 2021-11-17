@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { FONTS } from '../Constants/Theme';
 import CommonHeader from '../components/CommonHeader';
@@ -16,60 +16,59 @@ const staticData = [
     {
         id: 0,
         fillColor: '#101E8E',
-        text: '{value.FullName , value.Gender,  value.DOB}',
+        text: 'Data is sbhwdhjbw',
         textStyle: stylesCheckbox.textStyle,
 
     },
 ];
-
-
-
 
 export default function SelectDatabase(props) {
 
     const navigation = useNavigation();
     const details = props.route.params.PatientRecord;
 
+    const [bouncyData, setBouncyData] = useState(staticData)
+
+    useEffect(() => {
+        var bouncyCheckBoxData = []
+        {
+            _.map(details, (value) => {
+                let data = {
+                    id: 0,
+                    fillColor: '#101E8E',
+                    text: `${value.FullName}, ${value.Gender}, ${value.DOB}`,
+                    textStyle: stylesCheckbox.textStyle,
+                }
+                bouncyCheckBoxData.push(data);
+            })
+            setBouncyData(bouncyCheckBoxData)
+        }
+
+    }, [bouncyData])
 
     return (
         <View style={styles.MainContainer}>
             <CommonHeader />
-
             <View>
-                
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <TouchableOpacity onPress={() => setVisible(true)}>
-
-                       
                         <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 30, fontFamily: FONTS.AvenirBlack }}>
-                        Select
+                            Select
                         </Text>
                     </TouchableOpacity>
-
-                   
-
-
-                   
-
-
-
                     {_.map(details, (value, index) => {
                         return (
                             <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                        <BouncyCheckboxGroup
-
-                            text={staticData} text={staticData}
-                            data={staticData}
-                            onChange={(selectedItem: ICheckboxButton) => {
-                                console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                            }}
-
-                        />
-
-                    </View>
+                                <BouncyCheckboxGroup
+                                    data={bouncyData}
+                                    onChange={(selectedItem: ICheckboxButton) => {
+                                        console.log('SelectedItem: ', JSON.stringify(selectedItem));
+                                    }}
+                                />
+                            </View>
                         );
                     })}
- <View style={{ justifyContent: 'center', padding: 20, }}>
+                    <View style={{ justifyContent: 'center', padding: 20, }}>
                         <TouchableOpacity onPress={() => navigation.navigate('SearchResult', {
                             PatientRecord: details
                         })}
@@ -88,18 +87,10 @@ export default function SelectDatabase(props) {
                                     SEARCH
                                 </Text>
                             </View>
-
                         </TouchableOpacity>
                     </View>
-
                 </ScrollView>
-
-
             </View>
-
-
-
-
         </View>
     );
 }
