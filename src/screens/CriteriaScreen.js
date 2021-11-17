@@ -87,6 +87,10 @@ export default function CriteriaScreen(props) {
     const [noConsentPopup, setnoConsentPopup] = React.useState(false);
     const [disableButton, setDisableButton] = React.useState(false);
 
+
+
+
+
     return (
         <View style={styles.MainContainer}>
             <ScrollView contentContainerStyle={{ paddingHorizontal: 20 }} showsVerticalScrollIndicator={false}>
@@ -216,7 +220,12 @@ export default function CriteriaScreen(props) {
                     <TouchableOpacity
                         onPress={() => {
                             submitUserDetails();
-                            navigation.navigate('Instruction');
+                            navigation.navigate('Instruction',{
+                                testFlags: {
+                                    noTestPopup,
+                                     
+                                }
+                            });
                         }
                         }
                         style={{
