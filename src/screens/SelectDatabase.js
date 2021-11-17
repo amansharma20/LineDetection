@@ -27,17 +27,20 @@ export default function SelectDatabase(props) {
     const navigation = useNavigation();
     const details = props.route.params.PatientRecord;
 
+
     const [bouncyData, setBouncyData] = useState(staticData)
+    const [selectedPatent, setSelectedPatient] = useState();
 
     useEffect(() => {
         var bouncyCheckBoxData = []
         {
-            _.map(details, (value,index) => {
+            _.map(details, (value, index) => {
                 let data = {
                     id: index,
                     fillColor: '#101E8E',
                     text: `${value.FullName}    ${value.Gender}    ${value.DateOfBirth}`,
                     textStyle: stylesCheckbox.textStyle,
+                    patient: value
                 }
                 bouncyCheckBoxData.push(data);
             })
@@ -49,44 +52,44 @@ export default function SelectDatabase(props) {
     return (
         <View style={styles.MainContainer}>
             <CommonHeader />
-            
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <TouchableOpacity onPress={() => setVisible(true)}>
-                        <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 30, fontFamily: FONTS.AvenirBlack }}>
-                            Select
-                        </Text>
+
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 30, fontFamily: FONTS.AvenirBlack }}>
+                    Select
+                </Text>
+                <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                    <BouncyCheckboxGroup
+                        data={bouncyData}
+                        style={{ flexDirection: "column" }}
+                        onChange={(selectedItem: ICheckboxButton) => {
+                            console.log('SelectedItem: ', JSON.stringify(selectedItem));
+                            setSelectedPatient(selectedItem.patient);
+                        }}
+                    />
+                </View>
+                <View style={{ justifyContent: 'center', padding: 20, }}>
+                    <TouchableOpacity onPress={() => navigation.navigate('SearchResult', {
+                        PatientRecord: selectedPatent
+                    })}
+                        style={{
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}>
+                        <View style={styles.buttonContainer}>
+                            <Text
+                                style={{
+                                    color: 'white',
+                                    fontSize: 18,
+                                    fontWeight: 'bold',
+                                    fontFamily: FONTS.AvenirBlack
+                                }}>
+                                SEARCH
+                            </Text>
+                        </View>
                     </TouchableOpacity>
-                    <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                                <BouncyCheckboxGroup
-                                    data={bouncyData}
-                                    onChange={(selectedItem: ICheckboxButton) => {
-                                        console.log('SelectedItem: ', JSON.stringify(selectedItem));
-                                    }}
-                                />
-                            </View>
-                    <View style={{ justifyContent: 'center', padding: 20, }}>
-                        <TouchableOpacity onPress={() => navigation.navigate('SearchResult', {
-                            PatientRecord: details
-                        })}
-                            style={{
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}>
-                            <View style={styles.buttonContainer}>
-                                <Text
-                                    style={{
-                                        color: 'white',
-                                        fontSize: 18,
-                                        fontWeight: 'bold',
-                                        fontFamily: FONTS.AvenirBlack
-                                    }}>
-                                    SEARCH
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </ScrollView>
-        
+                </View>
+            </ScrollView>
+
         </View>
     );
 }
