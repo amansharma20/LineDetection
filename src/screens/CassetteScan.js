@@ -27,7 +27,7 @@ import { icons, images } from '../Constants/Index';
 import CommonHeader from '../components/CommonHeader';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const RESULT_MAPPING = ['AA', 'AS', 'Invalid', 'SS'];
+const RESULT_MAPPING = ['HbAA', 'HbAS', 'Invalid', 'HbSS'];
 
 // const dataImageGlobal = ""
 

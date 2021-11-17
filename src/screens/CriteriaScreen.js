@@ -1,15 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView, Modal, Animated } from 'react-native';
 import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
-import { SIZES, FONTS } from '../Constants/Theme';
+import { FONTS } from '../Constants/Theme';
 import BouncyCheckboxGroup, {
     ICheckboxButton,
 } from 'react-native-bouncy-checkbox-group';
-import { useMutation } from '@apollo/client';
-import { GQLMutation } from '../persistance/mutation/Mutation';
 
 
 const stylesCheckbox = {
@@ -77,18 +75,16 @@ const NoConsentPopup = ({ visible, children }) => {
 
     </Modal>;
 };
-const screenHeight = Dimensions.get('window').height;
 
 export default function CriteriaScreen(props) {
 
-     const id = props.route.params.details.Id;
+  
+    const Record = props.route.params.Record;
+    
     const navigation = useNavigation();
     const [noTestPopup, setnoTestPopup] = React.useState(false);
     const [noConsentPopup, setnoConsentPopup] = React.useState(false);
     const [disableButton, setDisableButton] = React.useState(false);
-
-
-
 
 
     return (
@@ -113,7 +109,7 @@ export default function CriteriaScreen(props) {
                                     setnoConsentPopup(true)
                                     setDisableButton(true)
                                 } else {
-                                  setDisableButton(false)
+                                    setDisableButton(false)
                                 }
                             }}
 
@@ -132,16 +128,12 @@ export default function CriteriaScreen(props) {
                                     setnoTestPopup(true)
                                     setDisableButton(true)
                                 } else {
-                                  setDisableButton(false)
+                                    setDisableButton(false)
                                 }
                             }}
 
                         />
                     </View>
-
-
-
-
                     <NoTestPopup visible={noTestPopup}>
                         <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
                             <Image source={icons.erroricon} style={{ width: 50, height: 50, marginTop: 30 }} />
@@ -219,11 +211,11 @@ export default function CriteriaScreen(props) {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
-                            submitUserDetails();
-                            navigation.navigate('Instruction',{
+                            navigation.navigate('Instruction', {
                                 testFlags: {
-                                    noTestPopup,
-                                     
+                                   Blood:noTestPopup,
+                                   Consent: noConsentPopup,
+                                   Record : Record
                                 }
                             });
                         }
@@ -269,11 +261,11 @@ const styles = StyleSheet.create({
     inputView: {
         backgroundColor: '#222D81', width: '100%', height: 50, borderRadius: 50, alignItems: 'center',
         justifyContent: 'center', flex: 1, elevation: 5
-      },
-      disabledButton: {
+    },
+    disabledButton: {
         backgroundColor: '#C6C6C6', width: '100%', height: 50, borderRadius: 50, alignItems: 'center',
         justifyContent: 'center', flex: 1, elevation: 5
-      },
+    },
     MainContainer: {
         justifyContent: 'center',
         backgroundColor: 'white',

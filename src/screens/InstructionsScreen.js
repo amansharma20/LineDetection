@@ -8,7 +8,7 @@ import { FONTS } from '../Constants/Theme';
 export default function InstructionsScreen(props) {
 
     const navigation = useNavigation();
-    const Record = props.route.params.Record;
+    const Record = props.route.params.testFlags;
     return (
         <View style={styles.MainContainer}>
 

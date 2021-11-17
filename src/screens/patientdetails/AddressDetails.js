@@ -158,7 +158,21 @@ export default function AddressDetails(props) {
                                     <TouchableOpacity
                                         onPress={() => {
                                             navigation.navigate('Criteria',{
-                                                details: Details
+                                                Record: {
+                                                    "AadharNumber": Details.AadharNumber,
+                                                    "Area": Details.Area,
+                                                    "CareOf": Details.CareOf,
+                                                    "City": Details.City,
+                                                    "Country": Details.Country,
+                                                    "DateOfBirth": Details.DateOfBirth,
+                                                    "FullName": Details.FullName,
+                                                    "Gender": Details.Gender,
+                                                    "Id": Details.Id,
+                                                    "MobileNumber": Details.MobileNumber,
+                                                    "Street": Details.Street,
+                                                    "UniqueID": Details.UniqueID,
+                                                }
+                                                    
                                             });
                                             setVisible(false);
                                         }}

@@ -14,6 +14,16 @@ mutation MyMutation ($FullName:String!,$DateOfBirth:DateTime!,$MobileNumber:Stri
       AddPatientDetail(FullName: $FullName,DateOfBirth: $DateOfBirth,MobileNumber: $MobileNumber,Email: $Email,Gender: $Gender,AadharAvailable: $AadharAvailable,AadharNumber: $AadharNumber,GuardianName: $GuardianName,GuardianRelationship: $GuardianRelationship,GuardianIDAvailable: $GuardianIDAvailable,GuardianIDNumber: $GuardianIDNumber,CareOf: $CareOf,HouseNumber: $HouseNumber,Street: $Street,Area: $Area,PostOffice: $PostOffice,District: $District,State: $State,PinCode: $PinCode,Country: $Country,City: $City){
         Id
         UniqueID
+        AadharNumber
+        Area
+        CareOf
+        City
+        Country
+        DateOfBirth
+        FullName
+        Gender
+        MobileNumber
+        Street
       }
     }
   }
@@ -28,7 +38,6 @@ mutation MyMutation ($FullName:String!,$DateOfBirth:DateTime!,$MobileNumber:Stri
           ConsentFromPerson: $ConsentFromPerson
           ){
             Id
-            
           }
       }
     }

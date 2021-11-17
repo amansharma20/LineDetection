@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, Modal, Animated } from 'react-native';
 import CommonBottomButton from '../CommonBottomButton';
 import CommonHeader from '../components/CommonHeader';
@@ -39,7 +39,7 @@ const screenHeight = Dimensions.get('window').height;
 
 export default function TestSummary(props) {
 
-    const Record = props.route.params.Record;
+    const Record = props.route.params.Record.Record;
     const result = props.route.params.result;
     const [visible, setVisible] = React.useState(false);
     const navigation = useNavigation();
@@ -55,24 +55,26 @@ export default function TestSummary(props) {
     const [addTestMutation, { data: testReportResponse, error: testError, loading }] = useMutation(GQLMutation.ADD_TEST);
 
     const submitUserDetails = () => {
-       console.log("helo")
+        console.log(result)
         addTestMutation({
             variables: {
-                PatientId: Record[0].Id,
+                PatientId: Record.Id,
                 SickleScanTestResult: result,
-                BloodTransfusion: true,
-                ConsentFromPerson: true
+                BloodTransfusion: props.route.params.Record.Blood,
+                ConsentFromPerson: props.route.params.Record.Consent,
             }
         });
 
     }
 
+    useEffect(()=>{
+        if(testReportResponse && testReportResponse.AddSickleScanTestMutation && testReportResponse.AddSickleScanTestMutation.AddTestForPatient != undefined){
+            setVisible(true)
+        }
+    })
+
     console.log(testError)
     console.log(testReportResponse)
-
-    if(testReportResponse){
-        setVisible(true)
-    }
 
     return (
         <View style={styles.mainContainer}>
@@ -88,31 +90,31 @@ export default function TestSummary(props) {
                     </Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Name</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record[0].FullName}</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record.FullName}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Gender</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record[0].Gender}</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record.Gender}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Date of Birth</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{formatedDate(new Date(Record[0].DateOfBirth))}</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{formatedDate(new Date(Record.DateOfBirth))}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>ID(Guardian Aadhaar)</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record[0].UniqueID}</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record.UniqueID}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Mobile Number</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record[0].MobileNumber}</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record.MobileNumber}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Address</Text>
-                        <Text style={{ fontSize: 12, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack, textAlign: 'right' }}>{Record[0].UniqueID}</Text></View>
+                        <Text style={{ fontSize: 12, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack, textAlign: 'right' }}>{Record.UniqueID}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Country</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record[0].Country}</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Record.Country}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Conducted by</Text>
