@@ -5,6 +5,7 @@ import images from '../Constants/Images';
 import { GQLQuery } from '../persistance/query/GQLQuery';
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
+import { useQuery } from '@apollo/client';
 
 const SendPopup = ({ visible, children }) => {
     const [showModal, setShowModal] = React.useState(visible);

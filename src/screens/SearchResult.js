@@ -19,32 +19,33 @@ export default function SearchResult(props) {
         },
     });
 
+
     const Test = data && data.PatientTestReportQuery && data.PatientTestReportQuery.GetTestReportByPatientId;
     useEffect(() => {
-        if (data && data.PatientTestReportQuery && data.PatientTestReportQuery.GetTestReportByPatientId) {
+        if (data && data.PatientTestReportQuery && data.PatientTestReportQuery.GetTestReportByPatientId == null) {
             setIsTestAvailable(true);
         }
-    })
+    }, [Record])
 
 
     return (
         <View style={styles.MainContainer}>
             <CommonHeader />
             <ScrollView showsVerticalScrollIndicator={false}>
-               
+
                 <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 20, fontFamily: FONTS.AvenirBlack }}>
                     Details
                 </Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom: 0 }}>
                     <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>Full Name</Text>
-                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record[0].FullName}</Text></View>
+                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record.FullName}</Text></View>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom: 0 }}>
                     <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>Date of Birth</Text>
-                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record[0].DateOfBirth}</Text></View>
+                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record.DateOfBirth}</Text></View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom: 0 }}>
                     <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>Unique ID</Text>
-                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record[0].UniqueID}</Text></View>
+                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record.UniqueID}</Text></View>
                 <View style={{
                     backgroundColor: 'white', marginHorizontal: 40, marginVertical: 30, elevation: 5, padding: 40, borderBottomColor: '#CF0A2C',
                     borderRightColor: 'transparent',
@@ -54,7 +55,7 @@ export default function SearchResult(props) {
 
                 }}>
                     <TouchableOpacity
-                        onPress={() => isTestAvailable ? alert('Please View Report') : navigation.navigate('Instruction', {
+                        onPress={() => isTestAvailable ? alert('Please View Report') : navigation.navigate('Criteria', {
                             Record: Record
                         })}
                         style={{
