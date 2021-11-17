@@ -6,6 +6,7 @@ import { GQLQuery } from '../persistance/query/GQLQuery';
 import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
 import { useQuery } from '@apollo/client';
+import { format } from 'date-fns';
 
 const SendPopup = ({ visible, children }) => {
     const [showModal, setShowModal] = React.useState(visible);
@@ -33,19 +34,15 @@ const screenHeight = Dimensions.get('window').height;
 
 export default function PatientReport(props) {
 
-    // console.log(props)
-
-    
-    
+    const Report = props.route.params.report;
     const [visible, setVisible] = React.useState(false);
     const navigation = useNavigation();
 
-    const { data, error } = useQuery(GQLQuery.SEARCH_PATIENT_RECORD);
-    const PatientData = data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch;
-    
-console.log(data)
-console.log('data')
-console.log(error)    
+    const formatedDate = (date) => {
+        var formattedDate = format(date, 'd MMM yyyy');
+        return formattedDate;
+    };
+
 
     return (
         <View style={styles.MainContainer}>
@@ -78,13 +75,13 @@ console.log(error)
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Date of Birth</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Report.Patient.DateOfBirth}</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{formatedDate(new Date(Report.Patient.DateOfBirth))}</Text></View>
 
 
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>ID(Guardian Aadhaar)</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>12345662366</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>ID(Unique ID)</Text>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Report.Patient.UniqueID}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Mobile Number</Text>
@@ -92,7 +89,7 @@ console.log(error)
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Address</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Report.Patient.HouseNumber} {Report.Patient.StreetRoadLane} {Report.Patient.City} {Report.Patient.District} {Report.Patient.State}</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }} numberOfLines={2}>{Report.Patient.City} {Report.Patient.District} {Report.Patient.State}</Text></View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Country</Text>
@@ -111,7 +108,7 @@ console.log(error)
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Date of Test</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Report.CreatedDateTimeUtc}</Text></View>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{formatedDate(new Date(Report.CreatedDateTimeUtc))}</Text></View>
 
 
                     <SendPopup visible={visible}>

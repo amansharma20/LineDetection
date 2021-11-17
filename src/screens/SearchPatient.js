@@ -61,8 +61,25 @@ export default function SearchPatient() {
 
     const [getRecords, { loading, error, data }] = useLazyQuery(GQLQuery.SEARCH_PATIENT_RECORD);
     if (loading) {
-        return <Text>Loading</Text>
+        return (<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text>Loading</Text></View>)
     }
+
+    const PatientRecord = data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch;
+
+
+
+    if(error){
+        alert('No Record Found.')
+    }
+
+    if (data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch) {
+        navigation.navigate('SelectDatabase', {
+            PatientRecord: PatientRecord
+        })
+    }
+
+
+
     const submitSearch = (values) => {
         switch (selectedSearch) {
             case 'SelfAadhaarID':
@@ -71,6 +88,10 @@ export default function SearchPatient() {
                         AadharNumber: values.aadhaar,
                     }
                 });
+                if(error){
+                    setVisible(true)
+                }
+            
                 break;
             case 'GaurdianAadhaarID':
                 getRecords({
@@ -78,6 +99,10 @@ export default function SearchPatient() {
                         GaurdianIDNumber: values.aadhaar,
                     }
                 });
+                if(error){
+                    setVisible(true)
+                }
+            
                 break;
             case 'UniqueID':
                 getRecords({
@@ -85,6 +110,10 @@ export default function SearchPatient() {
                         UniqueID: values.aadhaar,
                     }
                 });
+                if(error){
+                    setVisible(true)
+                }
+            
                 break;
             case 'MobileNumber':
                 getRecords({
@@ -92,28 +121,27 @@ export default function SearchPatient() {
                         MobileNumber: values.aadhaar,
                     }
                 });
+                if(error){
+                    setVisible(true)
+                }
+            
                 break;
             default:
             // code block
         }
     }
-    const PatientRecord = data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch;
-    if (data && data.SearchPatientQuery && data.SearchPatientQuery.GetPatientBySearch) {
-        navigation.navigate('SelectDatabase', {
-            PatientRecord: PatientRecord
-        })
-    }
+    
 
     return (
         <View style={styles.MainContainer}>
             <CommonHeader />
             <View>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <TouchableOpacity onPress={() => setVisible(true)}>
+                    
                         <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 30, fontFamily: FONTS.AvenirBlack }}>
                             Search Database
                         </Text>
-                    </TouchableOpacity>
+                   
                     <Formik
                         validationSchema={searchPatientSchema}
                         initialValues={{

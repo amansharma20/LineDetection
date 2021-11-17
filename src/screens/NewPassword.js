@@ -11,33 +11,61 @@ const PasswordPopup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
   const scalevalue = React.useRef(new Animated.Value(0)).current;
   React.useEffect(() => {
-      toggleModal();
+    toggleModal();
   }, [visible]);
   const toggleModal = () => {
-      if (visible) {
-          setShowModal(true)
-          Animated.spring(scalevalue, { toValue: 1, duration: 300, useNativeDriver: true, }).start();
-      } else {
-          setTimeout(() => setShowModal(false), 200);
-          Animated.timing(scalevalue, { toValue: 0, duration: 300, useNativeDriver: true, }).start();
-      }
+    if (visible) {
+      setShowModal(true)
+      Animated.spring(scalevalue, { toValue: 1, duration: 300, useNativeDriver: true, }).start();
+    } else {
+      setTimeout(() => setShowModal(false), 200);
+      Animated.timing(scalevalue, { toValue: 0, duration: 300, useNativeDriver: true, }).start();
+    }
   }
   return <Modal transparent visible={showModal}>
-      <View style={styles.modalBackground}>
-          <Animated.View style={styles.modalContainer, { transform: [{ scale: scalevalue }] }}>{children}</Animated.View>
-      </View>
+    <View style={styles.modalBackground}>
+      <Animated.View style={styles.modalContainer, { transform: [{ scale: scalevalue }] }}>{children}</Animated.View>
+    </View>
 
   </Modal>
 };
 
 const screenHeight = Dimensions.get('window').height;
-export default function NewPassword() {
-  
+export default function NewPassword(props) {
+
   const navigation = useNavigation();
 
   const [visible, setVisible] = React.useState(false);
 
- 
+  console.log(props)
+
+  const details = props.route.params;
+
+  const submitPassword = (values) => {
+    const forgotData = {
+      "Email": details.email,
+      "Code": details.otp,
+      "NewPassword": values.password
+    }
+    dispatch(AuthActions.login('Account/ForgotPasswordComplete', forgotData)).then(((response) => {
+      setVisible(true)
+    }))
+
+
+  }
+
+  const validation = yup.object().shape({
+    password: yup
+      .string()
+      .min(8, ({ min }) => `Password must be at least ${min} characters`)
+      .required('Password is required'),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password')], 'Password does not match')
+      .required('Confirm Password is required'),
+  });
+
+
 
   return (
     <View style={styles.MainContainer}>
@@ -47,7 +75,7 @@ export default function NewPassword() {
         </View>
         <View style={styles.body}>
           <Text style={{ fontSize: 24, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', fontStyle: 'normal', paddingTop: 80, fontFamily: FONTS.AvenirBlack, color: '#474747' }}>New Password</Text>
-          <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', color: '#474747', opacity:0.5, paddingTop: 5, fontWeight: 'bold', fontFamily: FONTS.AvenirRoman }}>Please enter your new password</Text>
+          <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', color: '#474747', opacity: 0.5, paddingTop: 5, fontWeight: 'bold', fontFamily: FONTS.AvenirRoman }}>Please enter your new password</Text>
         </View>
 
         <View style={styles.inputs}>
@@ -55,29 +83,35 @@ export default function NewPassword() {
           <Formik
             // validationSchema={loginValidationSchema}
             initialValues={{
-                Password: '',
-             ConfirmPassword: '',
+              password: '',
+              confirmPassword: '',
             }}
-            onLogin={values => login(values)}>
-            {({ handleLogin, handleBlur, errors, touched, handleChange, values, onFocus, onTextInput, onChange }) => (
+            onSubmit={values => submitPassword(values)}>
+            {({ handleSubmit, handleBlur, errors, touched, handleChange, values, onFocus, onTextInput, onChange }) => (
               <>
                 <View style={styles.inputContainer}>
                   <TextInput
-                    name="Password"
+                    name="password"
                     style={styles.textInput}
-                    onChangeText={handleChange('username')}
-                    onBlur={handleBlur('username')}
-                    // value={values.username}
+                    onChangeText={handleChange('password')}
+                    onBlur={handleBlur('password')}
+                    value={values.password}
                     keyboardType="default"
                     placeholder="........."
                     placeholderTextColor="#B4B4B4"
                     maxLength={10}
                   />
                 </View>
+                {errors.password && touched.password && (
+                  <Text style={styles.error}>{errors.password}</Text>
+                )}
                 <Text style={{ fontSize: 14, paddingVertical: 10, paddingBottom: 0, fontWeight: '400', fontFamily: FONTS.AvenirRoman }}>Confirm Password</Text>
                 <View style={styles.inputContainer}>
                   <TextInput
-                    name="Confirm Password"
+                    name="confirmPassword"
+                    onChangeText={handleChange('confirmPassword')}
+                    onBlur={handleBlur('confirmPassword')}
+                    value={values.confirmPassword}
                     style={styles.textInput}
                     keyboardType="default"
                     placeholder="........."
@@ -85,14 +119,11 @@ export default function NewPassword() {
                     maxLength={10}
                   />
                 </View>
+                {errors.confirmPassword && touched.confirmPassword && (
+                  <Text style={styles.error}>{errors.confirmPassword}</Text>
+                )}
 
-                
-
-                
-               
-
-
-                <TouchableOpacity onPress={() => setVisible(true)}
+                <TouchableOpacity onPress={handleSubmit}
                   style={{
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -117,32 +148,32 @@ export default function NewPassword() {
         </View>
 
         <PasswordPopup visible={visible}>
-                        <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 280 }}>
-                            <Image source={icons.greenicon} style={{ width: 50, height: 50, marginTop: 30 }} />
-                            <Text style={{ fontSize: 16, padding: 30, fontWeight: '400', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman, justifyContent:'center',textAlign:'center' }}>New Password is updated</Text>
+          <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 280 }}>
+            <Image source={icons.greenicon} style={{ width: 50, height: 50, marginTop: 30 }} />
+            <Text style={{ fontSize: 16, padding: 30, fontWeight: '400', textAlign: 'center', color: '#474747', fontFamily: FONTS.AvenirRoman, justifyContent: 'center', textAlign: 'center' }}>New Password is updated</Text>
 
 
-                            <TouchableOpacity
-                               onPress={() => navigation.navigate('Login')}
-                                style={{ flex: 1 }}>
-                                <View style={{
-                                    backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
-                                    justifyContent: 'center', marginTop: 40
-                                }}>
-                                    <Text
-                                        style={{
-                                            color: '#ffffff',
-                                            fontSize: 18,
-                                            fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Login')}
+              style={{ flex: 1 }}>
+              <View style={{
+                backgroundColor: '#222D81', width: 150, height: 50, borderRadius: 100, alignItems: 'center',
+                justifyContent: 'center', marginTop: 40
+              }}>
+                <Text
+                  style={{
+                    color: '#ffffff',
+                    fontSize: 18,
+                    fontWeight: 'bold', fontFamily: FONTS.AvenirBlack
 
-                                        }}>
-                                        LOGIN
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </PasswordPopup>
-       
+                  }}>
+                  LOGIN
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </PasswordPopup>
+
       </ScrollView>
     </View>
   );
@@ -159,13 +190,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-},
-modalContainer: {
+  },
+  modalContainer: {
     width: 20,
     height: 30,
     backgroundColor: 'green',
     elevation: 20,
-},
+  },
   inputView: {
     width: '100%',
     borderRadius: 100,
@@ -207,5 +238,9 @@ modalContainer: {
     justifyContent: 'center',
     padding: 20,
     backgroundColor: 'white',
-  }
+  },
+  error: {
+    padding: 4,
+    color: '#cc0000',
+  },
 });

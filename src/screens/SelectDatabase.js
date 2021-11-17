@@ -7,6 +7,7 @@ import BouncyCheckboxGroup, {
     ICheckboxButton,
 } from 'react-native-bouncy-checkbox-group';
 import _ from 'lodash';
+import { format } from 'date-fns';
 
 const stylesCheckbox = {
     textStyle: { textDecorationLine: 'none', color: '#101E8E', },
@@ -27,6 +28,13 @@ export default function SelectDatabase(props) {
     const navigation = useNavigation();
     const details = props.route.params.PatientRecord;
 
+    const formatedDate = (date) => {
+        var formattedDate = format(date, 'd MMM yyyy');
+        return formattedDate;
+    };
+
+
+
 
     const [bouncyData, setBouncyData] = useState(staticData)
     const [selectedPatent, setSelectedPatient] = useState();
@@ -38,7 +46,7 @@ export default function SelectDatabase(props) {
                 let data = {
                     id: index,
                     fillColor: '#101E8E',
-                    text: `${value.FullName}    ${value.Gender}    ${value.DateOfBirth}`,
+                    text: `${value.FullName}    ${value.Gender}    ${formatedDate(new Date(value.DateOfBirth))}`,
                     textStyle: stylesCheckbox.textStyle,
                     patient: value
                 }

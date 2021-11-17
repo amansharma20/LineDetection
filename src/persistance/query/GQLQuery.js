@@ -46,12 +46,13 @@ export const GQLQuery = {
         }`,
 
   SEARCH_SICKLE_TEST_RECORD: gql`
-  query MyQuery($PatientId: Long) {
+  query MyQuery($PatientId: Long!) {
       PatientTestReportQuery {
         GetTestReportByPatientId(PatientId: $PatientId){
           Patient {
             FullName
             DateOfBirth
+            UniqueID
             MobileNumber
             City
             Country

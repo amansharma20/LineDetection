@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client';
 import { useNavigation } from '@react-navigation/core';
+import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import Toast from 'react-native-toast-message';
 import CommonHeader from '../components/CommonHeader';
-import images from '../Constants/Images';
-import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
 import { GQLQuery } from '../persistance/query/GQLQuery';
 
@@ -12,20 +12,39 @@ export default function SearchResult(props) {
 
     const Record = props.route.params.PatientRecord;
     const navigation = useNavigation();
-    const [isTestAvailable, setIsTestAvailable] = useState(false);
-    const { data } = useQuery(GQLQuery.SEARCH_SICKLE_TEST_RECORD, {
+    const { data, error } = useQuery(GQLQuery.SEARCH_SICKLE_TEST_RECORD, {
         variables: {
             PatientId: Record.Id
         },
     });
 
+    const formatedDate = (date) => {
+        var formattedDate = format(date, 'd MMM yyyy');
+        return formattedDate;
+    };
+
+
+    function showToast(title, message) {
+        Toast.show({
+            type: 'error',
+            position: 'top',
+            text1: title,
+            text2: message,
+            visibilityTime: 4000,
+            autoHide: true,
+            topOffset: 30,
+            bottomOffset: 40,
+        });
+    }
+
+    function isRecordValid() {
+        if (data && data.PatientTestReportQuery && data.PatientTestReportQuery.GetTestReportByPatientId == null) {
+            return false
+        }
+        return true
+    }
 
     const Test = data && data.PatientTestReportQuery && data.PatientTestReportQuery.GetTestReportByPatientId;
-    useEffect(() => {
-        if (data && data.PatientTestReportQuery && data.PatientTestReportQuery.GetTestReportByPatientId == null) {
-            setIsTestAvailable(true);
-        }
-    }, [Record])
 
 
     return (
@@ -42,7 +61,7 @@ export default function SearchResult(props) {
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom: 0 }}>
                     <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>Date of Birth</Text>
-                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record.DateOfBirth}</Text></View>
+                    <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{formatedDate(new Date(Record.DateOfBirth))}</Text></View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 40, paddingTop: 0, paddingBottom: 0 }}>
                     <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#000000', fontFamily: FONTS.AvenirRoman }}>Unique ID</Text>
                     <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirRoman }}>{Record.UniqueID}</Text></View>
@@ -55,7 +74,7 @@ export default function SearchResult(props) {
 
                 }}>
                     <TouchableOpacity
-                        onPress={() => isTestAvailable ? alert('Please View Report') : navigation.navigate('Criteria', {
+                        onPress={() => isRecordValid() ? showToast('Test Report Available', 'View Report') : navigation.navigate('Criteria', {
                             Record: Record
                         })}
                         style={{
@@ -68,7 +87,6 @@ export default function SearchResult(props) {
                                     color: '#101E8E',
                                     fontSize: 20,
                                     fontWeight: '400', fontFamily: FONTS.AvenirBlack
-
                                 }}>
                                 Conduct Test
                             </Text>
@@ -88,10 +106,11 @@ export default function SearchResult(props) {
 
                     <TouchableOpacity
                         onPress={() => {
-                            isTestAvailable ? navigation.navigate('Report', {
-                                report: Test
-                            }) :
-                                alert('Please Conduct test.')
+                            isRecordValid() ?
+                                navigation.navigate('Report', {
+                                    report: Test
+                                }) :
+                                showToast('Test Required', 'Please Conduct Test.')
                         }}
                         style={{
                             alignItems: 'center',
