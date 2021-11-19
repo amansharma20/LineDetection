@@ -5,7 +5,8 @@ import {RequestConstant, ResponseConstant} from '../../utils/constants/CommanCon
 
 export const AuthActions = {
   login,
-  register
+  register,
+  resetPassword
 };
 
 function login(url, data) {
@@ -37,5 +38,23 @@ function register(url, data) {
     return result;
   };
 }
+
+
+function resetPassword(url, data) {
+  return async dispatch => {
+    dispatch(RequestConstant(AuthConstants.RESET_PASSWORD_REQUEST, data));
+    const result = await AuthService.resetPassword(url, data);
+    dispatch(
+      ResponseConstant(
+        AuthConstants.RESET_PASSWORD_SUCCESS,
+        AuthConstants.RESET_PASSWORD_FAILURE,
+        result,
+      ),
+    );
+    return result;
+  };
+}
+
+  
 
   

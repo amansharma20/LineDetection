@@ -8,6 +8,7 @@ import CustomInput from '../components/CustomInput';
 import { SIZES, FONTS } from '../Constants/Index';
 import { Formik, Field } from 'formik';
 import { useDispatch } from 'react-redux';
+import { AuthActions } from '../persistance/actions/AuthActions';
 
 const PasswordPopup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
@@ -50,7 +51,7 @@ export default function NewPassword(props) {
       "Code": details.otp,
       "NewPassword": values.password
     }
-    dispatch(AuthActions.login('Account/ForgotPasswordComplete', forgotData)).then(((response) => {
+    dispatch(AuthActions.resetPassword('Account/ForgotPasswordComplete', forgotData)).then(((response) => {
       setVisible(true)
     }))
 

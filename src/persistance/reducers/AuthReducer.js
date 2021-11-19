@@ -6,7 +6,8 @@ const initialState = {
   data: {
     loggedIn: false,
     user: {},
-    isSignedup: false
+    isSignedup: false,
+    reset: false
   },
   error: {},
 };
@@ -48,6 +49,25 @@ export function AuthReducer(state = initialState, action) {
       return {
         status: AuthConstants.REGISTER_FAILURE,
         data: { loggedIn: false, user: {}, isSignedup: false },
+        error: action.data,
+      };
+
+      case AuthConstants.RESET_PASSWORD_REQUEST:
+      return {
+        status: AuthConstants.RESET_PASSWORD_REQUEST,
+        data: { ...state.data, ...{ reset: action.data } },
+        error: {},
+      };
+    case AuthConstants.RESET_PASSWORD_SUCCESS:
+      return {
+        status: AuthConstants.RESET_PASSWORD_SUCCESS,
+        data: { ...state.data, reset: true, },
+        error: {},
+      };
+    case AuthConstants.RESET_PASSWORD_FAILURE:
+      return {
+        status: AuthConstants.RESET_PASSWORD_FAILURE,
+        data: { loggedIn: false,reset: false },
         error: action.data,
       };
 

@@ -52,21 +52,7 @@ export default function TestSummary(props) {
     const { data, error } = useQuery(GQLQuery.GET_PROFILE);
     const HealthWorkerProfileData = data && data.HealthWorkerUserQuery && data.HealthWorkerUserQuery.GetHealthWorkerUserDetails;
 
-    const [addTestMutation, { data: testReportResponse, error: testError, loading }] = useMutation(GQLMutation.ADD_TEST);
-
-    const submitUserDetails = () => {
-        console.log(result)
-        addTestMutation({
-            variables: {
-                PatientId: Record.Id,
-                SickleScanTestResult: result,
-                BloodTransfusion: props.route.params.Record.Blood,
-                ConsentFromPerson: props.route.params.Record.Consent,
-            }
-        });
-
-    }
-
+     
     useEffect(()=>{
         if(testReportResponse && testReportResponse.AddSickleScanTestMutation && testReportResponse.AddSickleScanTestMutation.AddTestForPatient != undefined){
             setVisible(true)
