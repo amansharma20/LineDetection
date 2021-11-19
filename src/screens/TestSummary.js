@@ -59,7 +59,7 @@ export default function TestSummary(props) {
         }
     })
 
-    console.log(testError)
+    
     console.log(testReportResponse)
 
     return (

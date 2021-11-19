@@ -73,7 +73,9 @@ export default function InstructionsScreen(props) {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('StopWatch')}>
+                       onPress={() => navigation.navigate('StopWatch',{
+                        Record: Record
+                    })}>
                         <Text style={{ fontSize: 18, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingTop: 10 }}>
                             Skip
                         </Text>

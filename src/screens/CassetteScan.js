@@ -113,7 +113,7 @@ export default function CassetteScan(props) {
                 <View
                     style={{ flex: 1 }}
                 >
-                    <Text
+                    {/* <Text
                         style={{
                             fontSize: 16,
                             textAlign: 'right',
@@ -124,7 +124,7 @@ export default function CassetteScan(props) {
                             paddingBottom: 10,
                         }}>
                         06:41
-                    </Text>
+                    </Text> */}
                     <Camera
                         ref={cameraRef}
                         type={Camera.Constants.Type.back}
