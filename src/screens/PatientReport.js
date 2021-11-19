@@ -7,6 +7,7 @@ import { icons } from '../Constants/Index';
 import { FONTS } from '../Constants/Theme';
 import { useQuery } from '@apollo/client';
 import { format } from 'date-fns';
+import CommonBottomButton from '../CommonBottomButton';
 
 const SendPopup = ({ visible, children }) => {
     const [showModal, setShowModal] = React.useState(visible);
@@ -64,7 +65,7 @@ export default function PatientReport(props) {
                     <View></View>
                 </View>
 
-                <View style={{ backgroundColor: 'white', marginHorizontal: 20, elevation: 5, padding: 10, flex: 1, marginTop: 70 }}>
+                <View style={{ borderBottomWidth: 5, borderColor: '#CF0A2C', backgroundColor: 'white', marginHorizontal: 20, elevation: 5, padding: 10, flex: 1, marginTop: 70 }}>
 
                     <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', fontFamily: FONTS.AvenirBlack, paddingBottom: 30 }}>
                         Test Report
@@ -105,7 +106,7 @@ export default function PatientReport(props) {
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Date of Test</Text>
                         <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{formatedDate(new Date(Report.CreatedDateTimeUtc))}</Text></View>
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Test Result</Text>
                         <Text style={{ fontSize: 14, padding: 10, color: '#CF0A2C', fontFamily: FONTS.AvenirBlack }}>{Report.SickleScanTestResult}</Text></View>
 
@@ -141,6 +142,9 @@ export default function PatientReport(props) {
 
 
             </ScrollView >
+            <CommonBottomButton
+                onPress={() => navigation.navigate('Home')}
+                children={'HOME'} />
         </View >
     );
 }

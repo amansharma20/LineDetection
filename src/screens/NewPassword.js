@@ -37,6 +37,8 @@ const screenHeight = Dimensions.get('window').height;
 export default function NewPassword(props) {
 
   const navigation = useNavigation();
+
+  
   const dispatch = useDispatch();
 
   const [visible, setVisible] = React.useState(false);
