@@ -10,7 +10,7 @@ import _ from 'lodash';
 import { format } from 'date-fns';
 
 const stylesCheckbox = {
-    textStyle: { textDecorationLine: 'none', color: '#101E8E', },
+    textStyle: { textDecorationLine: 'none', color: '#101E8E', padding: 20, },
 };
 
 const staticData = [
@@ -46,7 +46,7 @@ export default function SelectDatabase(props) {
                 let data = {
                     id: index,
                     fillColor: '#101E8E',
-                    text: `${value.FullName}    ${value.Gender}  ${formatedDate(new Date(value.DateOfBirth))}`,
+                    text: `${value.FullName}            ${value.Gender}         ${formatedDate(new Date(value.DateOfBirth))}`,
                     textStyle: stylesCheckbox.textStyle,
                     patient: value
                 }
@@ -62,14 +62,14 @@ export default function SelectDatabase(props) {
             <CommonHeader />
 
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 20, elevation: 5, padding: 20, flex: 1, height: 380 }}>
+                <View style={{ backgroundColor: 'white', marginHorizontal: 20, marginVertical: 20, elevation: 5, padding: 20, flex: 1, }}>
                     <Text style={{ fontSize: 20, textAlign: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#101E8E', padding: 30, fontFamily: FONTS.AvenirBlack }}>
                         Select
                     </Text>
-                    <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignSelf: 'auto', }}>
                         <BouncyCheckboxGroup
                             data={bouncyData}
-                            style={{ flexDirection: "column" }}
+                            style={{ flexDirection: "column", justifyContent: 'space-around', alignSelf: 'auto', }}
                             onChange={(selectedItem: ICheckboxButton) => {
                                 console.log('SelectedItem: ', JSON.stringify(selectedItem));
                                 setSelectedPatient(selectedItem.patient);
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
         width: '100%',
         borderRadius: 100,
         height: 55,
-        marginTop: 20,
+        marginTop: 50,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#222D81',

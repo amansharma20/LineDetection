@@ -110,7 +110,7 @@ export default function SearchResult(props) {
                                 navigation.navigate('Report', {
                                     report: Test
                                 }) :
-                                showToast('Test Required', 'Please Conduct Test.')
+                                showToast('Test has not been conducted yet.')
                         }}
                         style={{
                             alignItems: 'center',

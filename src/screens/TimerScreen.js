@@ -135,7 +135,7 @@ export default function TimerScreen(props) {
                     <SkipPopup visible={skipPopup}>
                         <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', elevation: 5, height: 300, width: 250 }}>
                             <Image source={icons.warning} style={{ width: 50, height: 50, marginTop: 40 }} />
-                            <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', paddingTop: 20, fontFamily: FONTS.AvenirRoman }}>"The test should run for the full 5 minute period. Are you sure you want to proceed?"</Text>
+                            <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', paddingTop: 20, fontFamily: FONTS.AvenirRoman }}>The test should run for the full 5 minute period. Are you sure you want to proceed?</Text>
 
 
 

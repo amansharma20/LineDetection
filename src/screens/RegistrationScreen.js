@@ -19,6 +19,22 @@ export default function RegistrationScreen(props) {
 
   const dispatch = useDispatch();
 
+  const [visible, setVisible] = React.useState(false);
+  const [stateValue, setStateValue] = useState(null);
+  const [openState, setOpenState] = useState(null);
+
+  const [selectedState, setSelectedState] = useState();
+
+
+  const [stateType, setStateType] = useState([
+    { label: 'Haryana', value: 'haryana' },
+    { label: 'Punjab', value: 'punjab' },
+    { label: 'Delhi', value: 'delhi' },
+    { label: 'Maharashtra', value: 'maharashtra' },
+    { label: 'Madhya Pradesh', value: 'madhya Pradesh' },
+    { label: 'Sikkim', value: 'sikkim' },
+  ]);
+
   const [countryValue, setCountryValue] = useState(null);
 
   const [openCountry, setOpenCountry] = useState(null);
@@ -44,9 +60,9 @@ export default function RegistrationScreen(props) {
     city: yup
       .string()
       .required('City is required'),
-    state: yup
-      .string()
-      .required('State is required'),
+    // state: yup
+    //   .string()
+    //   .required('State is required'),
     pinCode: yup
       .string()
       .required('PinCode is required'),
@@ -66,7 +82,7 @@ export default function RegistrationScreen(props) {
       "Country": selectedCountry,
       "Address": values.address,
       "City": values.city,
-      "State": values.state,
+      "State": selectedState,
       "Pincode": values.pinCode,
       "PhoneNumber": registerationData.mobile,
       "Email": registerationData.email,
@@ -94,13 +110,13 @@ export default function RegistrationScreen(props) {
           department: '',
           address: '',
           city: '',
-          state: '',
+          // state: '',
           pinCode: '',
         }}
         onSubmit={values => submitSignUpData(values)}>
         {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
           <>
-            <ScrollView style={{padding: 10}} showsVerticalScrollIndicator={false}>
+            <ScrollView style={{ padding: 10 }} showsVerticalScrollIndicator={false}>
               <View style={styles.header}>
                 <Image source={images.logo} style={{ width: 150, height: 90 }} />
               </View>
@@ -142,8 +158,9 @@ export default function RegistrationScreen(props) {
                 {errors.department && touched.department && (
                   <Text style={styles.error}>{errors.department}</Text>
                 )}
-
-                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, color: 'black' }}>Country</Text>
+                <View style={{ flexDirection: 'row', }}>
+                  <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, fontFamily: FONTS.AvenirRoman, color: 'black' }}>Country</Text>
+                  <Text style={styles.textsymbolLabel}>*</Text></View>
                 <DropDownPicker
                   open={openCountry}
                   value={countryValue}
@@ -184,9 +201,11 @@ export default function RegistrationScreen(props) {
                   <Text style={styles.error}>{errors.address}</Text>
                 )}
 
-                
 
-                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>City</Text>
+                <View style={{ flexDirection: 'row', }}>
+                  <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, fontFamily: FONTS.AvenirRoman }}>City</Text>
+                  <Text style={styles.textsymbolLabel}>*</Text>
+                </View>
                 <TextInput
                   name="city"
                   style={styles.textInput}
@@ -201,23 +220,44 @@ export default function RegistrationScreen(props) {
                   <Text style={styles.error}>{errors.city}</Text>
                 )}
 
-                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, color: 'black' }}>State</Text>
-                <TextInput
+                <View style={{ flexDirection: 'row', }}>
+                  <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingRight: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman, color: 'black' }}>State</Text>
+                  <Text style={styles.textsymbolLabel}>*</Text>
+                </View>
+                <DropDownPicker
                   name="state"
-                  style={styles.textInput}
-                  keyboardType='default'
-                  placeholderTextColor='#B4B4B4'
                   onChangeText={handleChange('state')}
                   onBlur={handleBlur('state')}
-                  placeholder=''
-                  value={values.state}
-                  maxLength={20} />
+                  value={stateValue}
+                  open={openState}
+                  items={stateType}
+                  setOpen={setOpenState}
+                  setValue={setStateValue}
+                  setItems={setStateType}
+                  placeholder="Select State"
+                  style={styles.pickerContainer}
+                  onChangeValue={(value) => {
+                    setSelectedState(value)
+                  }}
+                  dropDownDirection="TOP"
+                  listMode="FLATLIST"
+                  dropDownContainerStyle={styles.dropDownContainerStyle}
+                  closeAfterSelecting={true}
+                  textStyle={{
+                    fontFamily: Platform.select({
+                      ios: 'FONTS.AvenirRoman',
+                      android: 'FONTS.AvenirRoman',
+                    }),
+                  }}
+                />
                 {errors.state && touched.state && (
                   <Text style={styles.error}>{errors.state}</Text>
                 )}
 
-
-                <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Pin Code</Text>
+                <View style={{ flexDirection: 'row', }}>
+                  <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingRight: 0, paddingLeft: 0, fontFamily: FONTS.AvenirRoman }}>Pin Code</Text>
+                  <Text style={styles.textsymbolLabel}>*</Text>
+                </View>
                 <TextInput
                   name="pinCode"
                   style={styles.textInput}
@@ -327,6 +367,13 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     paddingLeft: 0,
     // fontFamily: FONTS.AvenirRoman
+  },
+  textsymbolLabel: {
+    color: 'red',
+    textAlign: 'left',
+    padding: 0,
+    paddingTop: 10,
+    paddingRight: 5,
   },
   error: {
     padding: 4,

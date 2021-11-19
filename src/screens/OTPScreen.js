@@ -31,7 +31,7 @@ export default function OTPScreen(props) {
           dispatch(AuthActions.login('Account/ForgotPasswordVerify', forgotData)).then(((response) => {
             navigation.navigate('NewPassword',{
                 email: email,
-                code: code
+                code: otp
             })
           }))
       
@@ -49,21 +49,21 @@ export default function OTPScreen(props) {
                     <Text style={{ fontSize: 16, textAlign: 'center', justifyContent: 'center', color: '#474747', opacity: 0.5, paddingTop: 5, fontWeight: 'bold', fontFamily: FONTS.AvenirRoman, }}>Kindly enter the OTP sent to your{'\n'}Email Id</Text>
                     <OTPInputView
                         style={{
-                            justifyContent: 'center', alignItems: 'center', padding: 30, paddingBottom: 0, paddingTop: 20
+                            justifyContent: 'center', alignItems: 'center',height:80, paddingHorizontal: 30,  paddingVertical: 20,
+
                         }}
-                        pinCount={4}
-                        // autoFocusOnLoad
-                        // codeInputFieldStyle={styles.underlineStyleBase}
-                        // codeInputHighlightStyle={styles.underlineStyleHighLighted}
-                        // onCodeFilled={(code => {
-                        //     setOtp(code)
-                        //     console.log(`Code is ${code}, you are good to go!`)
-                        // })}
+                        pinCount={6}
+                        autoFocusOnLoad
+                        codeInputFieldStyle={styles.underlineStyleBase}
+                        codeInputHighlightStyle={styles.underlineStyleHighLighted}
+                        onCodeFilled={(code => {
+                            setOtp(code)
+                            console.log(`Code is ${code}, you are good to go!`)
+                        })}
                     />
 
                     {/* <OtpInput getOtp={(otp) => console.log(otp)} /> */}
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 30, paddingBottom: 0, paddingTop: 0, }}>
-                        <Text style={{ fontSize: 14, textAlign: 'center', justifyContent: 'center', color: '#474747', opacity: 0.5, fontWeight: 'bold', fontFamily: FONTS.AvenirRoman, paddingRight: 60, paddingLeft: 0 }}>If OTP not recieved</Text>
                         <Text style={{ fontSize: 14, textAlign: 'center', justifyContent: 'center', color: '#101E8E', fontWeight: 'bold', fontFamily: FONTS.AvenirRoman }}>Resend</Text>
                     </View>
 

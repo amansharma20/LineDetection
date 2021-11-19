@@ -10,6 +10,7 @@ import OTPScreen from '../screens/OTPScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import RegistrationScreen from '../screens/RegistrationScreen';
 import ResetPassword from '../screens/ResetPassword';
+import NewPassword from '../screens/NewPassword';
 import WelcomeScreen from '../screens/WelcomeScreen';
 
 const Stack = createStackNavigator();
@@ -28,6 +29,7 @@ export default function AuthNavigator() {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="ResetPassword" component={ResetPassword} />
             <Stack.Screen name="OTPScreen" component={OTPScreen} />
+            <Stack.Screen name="NewPassword" component={NewPassword} />
             <Stack.Screen name="Help" component={HelpScreen} />
         
             

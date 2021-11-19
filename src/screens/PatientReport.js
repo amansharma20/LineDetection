@@ -96,11 +96,6 @@ export default function PatientReport(props) {
                         <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Report.Patient.Country}</Text></View>
 
 
-
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Test Result</Text>
-                        <Text style={{ fontSize: 14, padding: 10, color: '#CF0A2C', fontFamily: FONTS.AvenirBlack }}>{Report.SickleScanTestResult}</Text></View>
-
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Health Worker</Text>
                         <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{Report.HealthWorkerUser.FirstName} {Report.HealthWorkerUser.LastName}</Text>
@@ -109,6 +104,10 @@ export default function PatientReport(props) {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Date of Test</Text>
                         <Text style={{ fontSize: 14, padding: 10, color: '#101E8E', fontFamily: FONTS.AvenirBlack }}>{formatedDate(new Date(Report.CreatedDateTimeUtc))}</Text></View>
+
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text style={{ fontSize: 14, padding: 10, fontWeight: '400', color: '#989898', fontFamily: FONTS.AvenirBlack }}>Test Result</Text>
+                        <Text style={{ fontSize: 14, padding: 10, color: '#CF0A2C', fontFamily: FONTS.AvenirBlack }}>{Report.SickleScanTestResult}</Text></View>
 
 
                     <SendPopup visible={visible}>

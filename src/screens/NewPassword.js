@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import { TextInput, Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView, Modal, Animated } from 'react-native';
 import images from '../Constants/Images';
 import { icons } from '../Constants/Index';
+import * as yup from 'yup';
 import CustomInput from '../components/CustomInput';
 import { SIZES, FONTS } from '../Constants/Index';
 import { Formik, Field } from 'formik';
+import { useDispatch } from 'react-redux';
 
 const PasswordPopup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
@@ -34,6 +36,7 @@ const screenHeight = Dimensions.get('window').height;
 export default function NewPassword(props) {
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const [visible, setVisible] = React.useState(false);
 

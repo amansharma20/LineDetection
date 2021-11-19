@@ -172,6 +172,8 @@ export default function SearchPatient() {
                                             listMode="FLATLIST"
                                             dropDownDirection='BOTTOM'
                                             dropDownContainerStyle={styles.dropDownContainerStyle}
+                                            placeholder="Select an option"
+                                            placeholderTextColor='#B4B4B4'
                                             closeAfterSelecting={true}
                                         />
                                     </View>
@@ -182,6 +184,7 @@ export default function SearchPatient() {
                                         value={values.aadhaar}
                                         style={styles.textInput}
                                         keyboardType='default'
+                                        placeholder="Enter Details"
                                         placeholderTextColor='#B4B4B4'
                                     />
 

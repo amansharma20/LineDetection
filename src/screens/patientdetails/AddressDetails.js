@@ -157,7 +157,7 @@ export default function AddressDetails(props) {
                                     <Text style={{ fontSize: 16, padding: 10, fontWeight: '400', textAlign: 'center', color: '#474747', marginTop: 5, fontFamily: FONTS.AvenirRoman }}>Please note down the ID{'\n'}for future references</Text>
                                     <TouchableOpacity
                                         onPress={() => {
-                                            navigation.navigate('Criteria',{
+                                            navigation.navigate('Criteria', {
                                                 Record: {
                                                     "AadharNumber": Details.AadharNumber,
                                                     "Area": Details.Area,
@@ -172,7 +172,7 @@ export default function AddressDetails(props) {
                                                     "Street": Details.Street,
                                                     "UniqueID": Details.UniqueID,
                                                 }
-                                                    
+
                                             });
                                             setVisible(false);
                                         }}
@@ -206,7 +206,7 @@ export default function AddressDetails(props) {
                                         onBlur={handleBlur('careOf')}
                                         value={values.careOf}
                                         style={styles.textInput}
-                                        placeholder='12/55'
+                                        placeholder=''
                                         maxLength={50} />
                                     {errors.careOf && touched.careOf && (
                                         <Text style={styles.error}>{errors.careOf}</Text>
@@ -306,8 +306,6 @@ export default function AddressDetails(props) {
                                             setOpen={setOpenState}
                                             setValue={setStateValue}
                                             setItems={setStateType}
-                                            zIndex={10000}
-                                            zIndexInverse={1000}
                                             placeholder="Select State"
                                             style={styles.pickerContainer}
                                             dropDownDirection="TOP"
@@ -342,8 +340,7 @@ export default function AddressDetails(props) {
                                             setOpen={setOpenCountry}
                                             setValue={setCountryValue}
                                             setItems={setCountryType}
-                                            zIndex={10000}
-                                            dropDownDirection="BOTTOM"
+                                            dropDownDirection="TOP"
                                             placeholder="Select Country"
                                             style={styles.pickerContainer}
                                             onChangeValue={(value) => {

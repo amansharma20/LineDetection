@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/core';
-import React from 'react';
+import React, { useState, } from 'react';
 import { TextInput, Text, View, TouchableOpacity, Dimensions, Image, StyleSheet, ScrollView } from 'react-native';
 import images from '../Constants/Images';
 import { SIZES, FONTS } from '../Constants/Index';
+import { icons } from '../Constants/Index';
 import { useContext } from 'react';
 import { Formik } from 'formik';
 import CommonLoading from '../components/CommonLoading';
@@ -15,6 +16,9 @@ const screenHeight = Dimensions.get('window').height;
 export default function LoginScreen() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const [password, setPassword] = useState(true)
+
   const { signIn } = useContext(AuthContext);
 
   const login = data => {
@@ -44,7 +48,7 @@ export default function LoginScreen() {
         onSubmit={values => login(values)}>
         {({ handleSubmit, handleBlur, handleChange, values }) => (
           <>
-            <ScrollView style={{padding: 20}} showsVerticalScrollIndicator={false}>
+            <ScrollView style={{ padding: 20 }} showsVerticalScrollIndicator={false}>
               <View style={styles.header}>
                 <Image source={images.logo} style={{ width: 150, height: 90 }} />
               </View>
@@ -54,7 +58,9 @@ export default function LoginScreen() {
               </View>
 
               <View style={styles.inputs}>
+
                 <Text style={{ fontSize: 14, paddingVertical: 50, paddingBottom: 0, fontWeight: '400', fontFamily: FONTS.AvenirRoman }}>Email ID</Text>
+
 
                 <View style={styles.inputContainer}>
                   <TextInput
@@ -73,20 +79,36 @@ export default function LoginScreen() {
 
                 <Text style={{ fontSize: 14, paddingTop: 10, paddingBottom: 0, fontWeight: '400', fontFamily: FONTS.AvenirRoman }}>Password</Text>
                 <View style={styles.inputContainer}>
-                  <View style={{ flexDirection: 'row' }}>
-                    <TextInput
-                      name="Password"
-                      style={styles.textInput}
-                      onChangeText={handleChange('Password')}
-                      onBlur={handleBlur('Password')}
-                      value={values.Password}
-                      keyboardType="default"
-                      placeholder="Password"
-                      placeholderTextColor="#B4B4B4"
-                      maxLength={10}
-                    />
+                  
+                    <View style={{ flexDirection: 'row' }}>
 
-                  </View>
+                      <TextInput
+                        name="Password"
+                        style={styles.textInput}
+                        keyboardType='default'
+                        onChangeText={handleChange('Password')}
+                        onBlur={handleBlur('Password')}
+                        placeholderTextColor='#B4B4B4'
+                        value={values.Password}
+                        secureTextEntry={password}
+                        placeholder='Please create your Password'
+                        maxLength={20} />
+                      {
+                        password ?
+                          <View style={{ alignSelf: 'center', marginLeft: -40 }}>
+                            <TouchableOpacity onPress={() => setPassword(false)}>
+                              <Image source={icons.coloreye} style={{ height: 15, width: 15, }} />
+                            </TouchableOpacity>
+                          </View> :
+                          <View style={{ alignSelf: 'center', marginLeft: -40 }}>
+                            <TouchableOpacity onPress={() => setPassword(true)}>
+                              <Image source={icons.eye} style={{ height: 20, width: 20 }} />
+                            </TouchableOpacity>
+                          </View>
+                      }
+                    </View>
+
+                  
                 </View>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('ResetPassword')}>
@@ -183,6 +205,13 @@ const styles = StyleSheet.create({
   },
   inputs: {
     padding: 20
+  },
+  textsymbolLabel: {
+    color: 'red',
+    textAlign: 'left',
+    padding: 0,
+    paddingTop: 10,
+    paddingRight: 5,
   },
   body: {
     flex: 1,

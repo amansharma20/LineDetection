@@ -105,10 +105,11 @@ export default function RegisterScreen() {
   });
 
   const { register } = useContext(AuthContext);
-  const emailRegExp= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+  const emailRegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
 
   const [phoneNumber, setphoneNumber] = useState('');
   const [password, setPassword] = useState(true)
+  const [confirmPassword, setConfirmPassword] = useState(true)
   const phoneInput = useRef(null);
   const buttonPress = () => {
     Alert.alert(phoneNumber);
@@ -238,17 +239,20 @@ export default function RegisterScreen() {
                     defaultCode="IN"
                     layout="first"
                     autoFocus
-                   containerStyle={styles.phoneContainer}
-                      value={values.mobile}
-                     textContainerStyle={styles.phonetextInput}
-                     onChangeText={handleChange('mobile')}
-                     onBlur={handleBlur('mobile')}
-                     placeholderTextColor='#B4B4B4'
-                     keyboardType="numeric"
+                    containerStyle={styles.phoneContainer}
+                    value={values.mobile}
+                    textContainerStyle={styles.phonetextInput}
+                    onChangeText={handleChange('mobile')}
+                    onBlur={handleBlur('mobile')}
+                    placeholderTextColor='#B4B4B4'
+                    keyboardType="numeric"
                     onChangeFormattedText={text => {
                       setphoneNumber(text);
                     }}
+                    textInputProps={{ maxLength: 10 }}
+                    flagButtonStyle={{ borderRightWidth: 1, borderRightColor: '#989898' }}
                   />
+
                   {/* <TextInput
                     name="mobile"
                     style={styles.textInput}
@@ -267,52 +271,72 @@ export default function RegisterScreen() {
 
                   <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.textFieldLabel}>Password</Text>
-                    <Text style={styles.textsymbolLabel}>*</Text></View>
-                    
+                    <Text style={styles.textsymbolLabel}>*</Text>
+                  </View>
+                  <View style={{ flexDirection: 'row' }}>
 
+                    <TextInput
+                      name="password"
+                      style={styles.textInput}
+                      keyboardType='default'
+                      onChangeText={handleChange('password')}
+                      onBlur={handleBlur('password')}
+                      placeholderTextColor='#B4B4B4'
+                      value={values.password}
+                      secureTextEntry={password}
+                      placeholder='Please create your Password'
+                      maxLength={20} />
                     {
-    password?<View>
-        <TouchableOpacity onPress={() => setPassword(false)}>
-<Image source={icons.eye} style={{height:20, width:20}}/>
-</TouchableOpacity>
-    </View>:
-     <View>
-         <TouchableOpacity onPress={() => setPassword(true)}>
-<Image source={icons.eye} style={{height:20, width:20 ,}}/>
-</TouchableOpacity>
-     </View>
-}
-                  <TextInput
-                    name="password"
-                    style={styles.textInput}
-                    keyboardType='default'
-                    onChangeText={handleChange('password')}
-                    onBlur={handleBlur('password')}
-                    placeholderTextColor='#B4B4B4'
-                    value={values.password}
-                    secureTextEntry={password}
-                    placeholder='Please create your Password'
-                    maxLength={20} />
-                  
+                      password ?
+                        <View style={{ alignSelf: 'center', marginLeft: -40 }}>
+                          <TouchableOpacity onPress={() => setPassword(false)}>
+                            <Image source={icons.coloreye} style={{ height: 15, width: 15, }} />
+                          </TouchableOpacity>
+                        </View> :
+                        <View style={{ alignSelf: 'center', marginLeft: -40 }}>
+                          <TouchableOpacity onPress={() => setPassword(true)}>
+                            <Image source={icons.eye} style={{ height: 20, width: 20 }} />
+                          </TouchableOpacity>
+                        </View>
+                    }
+                  </View>
+
+
                   {errors.password && touched.password && (
                     <Text style={styles.error}>{errors.password}</Text>
                   )}
-                  <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ fontSize: 14, padding: 10, paddingBottom: 0, paddingLeft: 0, paddingRight: 0, fontFamily: FONTS.AvenirRoman }}>Confirm Password</Text>
-                    <Text style={styles.textsymbolLabel}>*</Text></View>
 
-                    
-                  <TextInput
-                    name='confirmPassword'
-                    style={styles.textInput}
-                    keyboardType='default'
-                    onChangeText={handleChange('confirmPassword')}
-                    onBlur={handleBlur('confirmPassword')}
-                    placeholderTextColor='#B4B4B4'
-                    placeholder='Please confirm your Password'
-                    value={values.confirmPassword}
-                    secureTextEntry
-                    maxLength={20} />
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text style={styles.textFieldLabel}>Confirm Password</Text>
+                    <Text style={styles.textsymbolLabel}>*</Text>
+                  </View>
+                  <View style={{ flexDirection: 'row' }}>
+
+                    <TextInput
+                      name="confirmPassword"
+                      style={styles.textInput}
+                      keyboardType='default'
+                      onChangeText={handleChange('confirmPassword')}
+                      onBlur={handleBlur('confirmPassword')}
+                      placeholderTextColor='#B4B4B4'
+                      value={values.confirmPassword}
+                      secureTextEntry={confirmPassword}
+                      placeholder='Please create your Password' />
+                    {
+                      confirmPassword ?
+                        <View style={{ alignSelf: 'center', marginLeft: -40 }}>
+                          <TouchableOpacity onPress={() => setConfirmPassword(false)}>
+                            <Image source={icons.coloreye} style={{ height: 15, width: 15, }} />
+                          </TouchableOpacity>
+                        </View> :
+                        <View style={{ alignSelf: 'center', marginLeft: -40 }}>
+                          <TouchableOpacity onPress={() => setConfirmPassword(true)}>
+                            <Image source={icons.eye} style={{ height: 20, width: 20 }} />
+                          </TouchableOpacity>
+                        </View>
+                    }
+                  </View>
+
                   {errors.confirmPassword && touched.confirmPassword && (
                     <Text style={styles.error}>{errors.confirmPassword}</Text>
                   )}
@@ -426,6 +450,8 @@ const styles = StyleSheet.create({
   },
   phoneContainer: {
     backgroundColor: '#FBF9F9',
+    borderWidth: 1,
+    borderColor: '#989898',
   },
   textInput: {
     backgroundColor: '#FBF9F9',
@@ -435,12 +461,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 40,
     paddingLeft: 10,
-    marginTop: 2
+    marginTop: 2,
   },
   phonetextInput: {
-     backgroundColor: '#FBF9F9',
+    backgroundColor: '#FBF9F9',
+    color: '#101E8E',
     // borderWidth: 1,
     // borderColor: '#989898',
+
 
   },
   inputs: {

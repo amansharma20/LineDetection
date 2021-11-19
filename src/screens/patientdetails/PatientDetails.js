@@ -272,7 +272,7 @@ export default function PatientDetails() {
                                                         onBlur={handleBlur('aadhaar')}
                                                         value={values.aadhaar}
                                                         style={styles.textInput}
-                                                        keyboardType='default'
+                                                        keyboardType="numeric"
                                                         placeholderTextColor='#B4B4B4'
                                                         placeholder='Enter aadhaar number'
                                                         maxLength={12} />
